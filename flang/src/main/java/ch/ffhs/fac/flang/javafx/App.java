@@ -12,7 +12,7 @@ public class App extends Application {
 	final String mainWindowFXML = "/simple-ide.fxml";
 	private Stage mainWindow;
 
-	public static void main(final String[] args) {
+	public static void launchJavaFX(final String[] args) {
 		launch(args);
 	}
 
