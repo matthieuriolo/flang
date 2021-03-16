@@ -21,10 +21,17 @@
 			<artifactId>javafx-controls</artifactId>
 			<version>17-ea+2</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-fxml</artifactId>
 			<version>17-ea+2</version>
+		</dependency>
+
+		<dependency>
+			<groupId>de.jflex</groupId>
+			<artifactId>cup_runtime</artifactId>
+			<version>11b-20160615</version>
 		</dependency>
 	</dependencies>
 
@@ -61,6 +68,20 @@
 												<execute />
 											</action>
 										</pluginExecution>
+										
+										<!-- <pluginExecution>
+											<pluginExecutionFilter>
+												<groupId>de.jflex</groupId>
+												<artifactId>cup-maven-plugin</artifactId>
+												<versionRange>1.2</versionRange>
+												<goals>
+													<goal>generate</goal>
+												</goals>
+											</pluginExecutionFilter>
+											<action>
+												<execute />
+											</action>
+										</pluginExecution> -->
 									</pluginExecutions>
 								</lifecycleMappingMetadata>
 							</configuration>
@@ -84,7 +105,7 @@
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>src/main/java/ch.ffhs.fac.flang.parser</outputDirectory>
+							<outputDirectory>src/main/java/ch/ffhs/fac/flang/parser</outputDirectory>
 							<lexDefinitions>
 								<lexDefinition>src/main/resources/flang.jflex</lexDefinition>
 							</lexDefinitions>
@@ -92,6 +113,20 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!-- 
+			<plugin>
+				<groupId>de.jflex</groupId>
+				<artifactId>cup-maven-plugin</artifactId>
+				<version>1.2</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin> -->
 		</plugins>
 	</build>
 </project>
