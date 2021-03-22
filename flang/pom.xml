@@ -105,7 +105,7 @@
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>src/main/java/ch/ffhs/fac/flang/parser</outputDirectory>
+							<outputDirectory>src/main/java/</outputDirectory>
 							<lexDefinitions>
 								<lexDefinition>src/main/resources/flang.jflex</lexDefinition>
 							</lexDefinitions>

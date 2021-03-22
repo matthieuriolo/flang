@@ -44,8 +44,8 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.stage.Stage?>
-
 
 <Stage minHeight="200.0" minWidth="300.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <scene>
@@ -74,8 +74,12 @@
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
-                                    <TextArea fx:id="textareaInput" layoutY="7.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                    <Button fx:id="buttonCompile" layoutX="6.0" layoutY="154.0" mnemonicParsing="false" text="Compile (CTRL-Enter)" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="6.0" />
+                                    <TextArea fx:id="textareaInput" layoutY="7.0" prefHeight="200.0" prefWidth="200.0" text="# demonstration lexer&#10;a = 10&#10;b = :(txt) {&#10;&#9;print(txt)&#10;}&#10;&#10;for i from 0 to a by 2 {&#10;&#9;if i == 4 {&#10;&#9;&#9;b(&quot;Hello World!&quot;)&#10;&#9;}&#10;}" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    	<font>
+                                            <Font name="Liberation Mono" size="12.0" />
+                                         </font>
+                                    </TextArea>
+                                    <Button layoutX="6.0" layoutY="154.0" mnemonicParsing="false" onAction="#clickCompile" text="Compile (CTRL-Enter)" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="6.0" />
                                  </children>
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
@@ -86,7 +90,10 @@
                                           <content>
                                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                    <children>
-                                                      <TextArea fx:id="textareaOutput" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                      <TextArea fx:id="textareaOutput" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                         <font>
+                                                            <Font name="Liberation Mono" size="12.0" />
+                                                         </font></TextArea>
                                                    </children>
                                                 </AnchorPane>
                                           </content>
