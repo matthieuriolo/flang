@@ -48,6 +48,8 @@ COMMENT                        = #[^\n]*\n?
 IDENTIFIER                     = [:jletter:](\w|\d)*
 INTEGER                        = ([1-9][\d_]*\d)|\d
 
+/* different states */
+
 %state STRING
 
 %%
@@ -70,11 +72,15 @@ INTEGER                        = ([1-9][\d_]*\d)|\d
 	"and"              { return symbol(sym.AND); }
 	"or"               { return symbol(sym.OR); }
 	
-	/* arithmetic */
+	/* brackets */
 	"("               { return symbol(sym.ROUND_OPEN); }
 	")"               { return symbol(sym.ROUND_CLOSED); }
 	"{"               { return symbol(sym.CURLY_OPEN); }
 	"}"               { return symbol(sym.CURLY_CLOSED); }
+	"["               { return symbol(sym.SQUARE_OPEN); }
+	"]"               { return symbol(sym.SQUARE_CLOSED); }
+	
+	/* arithmetic */
 	"="               { return symbol(sym.ASSIGN); }
 	":"               { return symbol(sym.COLON); }
 	","               { return symbol(sym.COMMA); }
