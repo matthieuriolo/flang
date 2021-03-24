@@ -68,8 +68,8 @@
 												<execute />
 											</action>
 										</pluginExecution>
-										
-										<!-- <pluginExecution>
+
+										<pluginExecution>
 											<pluginExecutionFilter>
 												<groupId>de.jflex</groupId>
 												<artifactId>cup-maven-plugin</artifactId>
@@ -81,7 +81,7 @@
 											<action>
 												<execute />
 											</action>
-										</pluginExecution> -->
+										</pluginExecution>
 									</pluginExecutions>
 								</lifecycleMappingMetadata>
 							</configuration>
@@ -113,7 +113,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!-- 
+
 			<plugin>
 				<groupId>de.jflex</groupId>
 				<artifactId>cup-maven-plugin</artifactId>
@@ -124,9 +124,16 @@
 						<goals>
 							<goal>generate</goal>
 						</goals>
+						<configuration>
+							<!-- <cupDefinition>src/main/resources/flang.cup</cupDefinition> -->
+							<cupSourceDirectory>src/main/resources/</cupSourceDirectory>
+							<generatedSourcesDirectory>src/main/java/ch/ffhs/fac/flang/parser</generatedSourcesDirectory>
+							<className>Parser</className>
+							<symbolsName>Symbols</symbolsName>
+						</configuration>
 					</execution>
 				</executions>
-			</plugin> -->
+			</plugin>
 		</plugins>
 	</build>
 </project>
