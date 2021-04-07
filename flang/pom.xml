@@ -127,7 +127,7 @@
 						<configuration>
 							<!-- <cupDefinition>src/main/resources/flang.cup</cupDefinition> -->
 							<cupSourceDirectory>src/main/resources/</cupSourceDirectory>
-							<generatedSourcesDirectory>src/main/java/ch/ffhs/fac/flang/parser</generatedSourcesDirectory>
+							<generatedSourcesDirectory>src/main/java/</generatedSourcesDirectory>
 							<className>Parser</className>
 							<symbolsName>Symbols</symbolsName>
 						</configuration>

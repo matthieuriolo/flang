@@ -1,0 +1,44 @@
+package ch.ffhs.fac.flang.parser;
+
+import java_cup.runtime.*;
+import java.util.*;
+import java.io.*;
+
+parser code {:
+   
+:};
+
+
+/** Terminals */
+
+// keywords
+
+terminal     TRUE, FALSE, UNDEFINED;
+terminal     AND, OR;
+terminal     FOR, FROM, TO, BY;
+terminal     WHILE;
+terminal     IF, ELSE;
+terminal     END, RETURN;
+	
+// brackets
+terminal     ROUND_OPEN, ROUND_CLOSED, CURLY_OPEN, CURLY_CLOSED, SQUARE_OPEN, SQUARE_CLOSED;
+
+// arithmetic
+terminal     ASSIGN, COLON, COMMA, PLUS, MINUS, ASTERISK, SLASH;
+terminal     EQUAL, NOT_EQUAL, LESS, LESS_EQUAL, GREATER, GREATER_EQUAL;
+
+
+
+
+// literals
+terminal     IDENTIFIER, STRING_LITERAL, INTEGER;
+
+
+/** Non-Terminals */
+non terminal program;
+
+start with program;
+
+/** ============= GRAMMAR ============= */
+
+program ::= ;
