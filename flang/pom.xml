@@ -128,7 +128,7 @@
 							<!-- <cupDefinition>src/main/resources/flang.cup</cupDefinition> -->
 							<cupSourceDirectory>src/main/resources/</cupSourceDirectory>
 							<generatedSourcesDirectory>src/main/java/</generatedSourcesDirectory>
-							<className>Parser</className>
+							<parserName>Parser</parserName>
 							<symbolsName>Symbols</symbolsName>
 						</configuration>
 					</execution>
