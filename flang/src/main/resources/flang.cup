@@ -1,5 +1,6 @@
 package ch.ffhs.fac.flang.parser;
 
+import ch.ffhs.fac.flang.runtime.*;
 import java_cup.runtime.*;
 import java.util.*;
 import java.io.*;
@@ -26,8 +27,7 @@ terminal     ROUND_OPEN, ROUND_CLOSED, CURLY_OPEN, CURLY_CLOSED, SQUARE_OPEN, SQ
 // arithmetic
 terminal     ASSIGN, COLON, COMMA, PLUS, MINUS, ASTERISK, SLASH;
 terminal     EQUAL, NOT_EQUAL, LESS, LESS_EQUAL, GREATER, GREATER_EQUAL;
-
-
+terminal     UMINUS;
 
 
 // literals
@@ -35,47 +35,60 @@ terminal     IDENTIFIER, STRING_LITERAL, INTEGER;
 
 
 /** Non-Terminals */
-non terminal document;
-non terminal instructions;
-non terminal instruction;
+non terminal Document document;
+non terminal Closure instructions;
+non terminal Instruction instruction;
 
-non terminal if;
-non terminal for;
-non terminal while;
-non terminal assignment;
-non terminal functionCall;
-non terminal functionArguments;
-non terminal functionDeclaration;
-
-non terminal expression;
-non terminal expressionPriority1;
-non terminal expressionPriority2;
-non terminal expressionPriority3;
-non terminal expressionPriority4;
-non terminal expressionPriority5;
-non terminal expressionPriority6;
-non terminal expressionPriority7;
-non terminal expressionPriority8;
+non terminal Instruction if;
+non terminal Instruction for;
+non terminal Instruction while;
+non terminal Instruction assignment;
+non terminal Expression functionCall;
+non terminal LinkedList<Identifier> functionArguments;
+non terminal Expression functionDeclaration;
+non terminal LinkedList<Expression> expressions;
+non terminal Expression expression;
+/*
+We keep this for now
+non terminal Expression expressionPriority1;
+non terminal Expression expressionPriority2;
+non terminal Expression expressionPriority3;
+non terminal Expression expressionPriority4;
+non terminal Expression expressionPriority5;
+non terminal Expression expressionPriority6;
+non terminal Expression expressionPriority7;
+non terminal Expression expressionPriority8;
+*/
 
 non terminal literal;
 
 /** Precedences */
+precedence left OR;
+precedence left AND;
+
+precedence left EQUAL, NOT_EQUAL;
+precedence left LESS, LESS_EQUAL, GREATER, GREATER_EQUAL;
+precedence left PLUS, MINUS;
+precedence left ASTERISK, SLASH;
+precedence left UMINUS;
 
 
 /** ============= GRAMMAR ============= */
 
 start with document;
 
-document       ::= instructions:i                 {: :};
-instructions   ::= instructions:l instruction:i   {: l.add(i); :}
-                 | instruction:i                  {: RESULT = new InstructionList(); RESULT.add(i); :}
+document             ::= instructions:i                 {: RESULT = new Document(); :};
+instructions         ::= instructions:l instruction:i   {: l.addInstruction(i); :}
+                       | instruction:i                  {: RESULT = new Closure(); RESULT.addInstruction(i); :}
 ;
 
-instruction    ::= assignment                     {: :}
-                 | if                             {: :}
-                 | while                          {: :}
-                 | for                            {: :}
-                 | functionCall                   {: :}
+instruction          ::= assignment                     {: :}
+                       | END                            {: :}
+                       | RETURN expression              {: :}
+                       | if                             {: :}
+                       | while                          {: :}
+                       | for                            {: :}
+                       | functionCall                   {: :}
 ;
 
 /* instructions */
@@ -84,58 +97,91 @@ functionCall         ::= IDENTIFIER functionArguments   {: :};
 functionArguments    ::= ROUND_OPEN expression COMMA ROUND_CLOSED         {: :};
 
 
-if ::= IF expression CURLY_OPEN instructions CURLY_CLOSED {: :}
- | IF expression CURLY_OPEN instructions CURLY_CLOSED ELSE CURLY_OPEN instructions CURLY_CLOSED {: :}
+if                   ::= IF expression CURLY_OPEN instructions CURLY_CLOSED {: :}
+                       | IF expression CURLY_OPEN instructions CURLY_CLOSED ELSE CURLY_OPEN instructions CURLY_CLOSED {: :}
 ;
-while ::= WHILE expression CURLY_OPEN instructions CURLY_CLOSED {: :};
-for ::= FOR IDENTIFIER TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
- | FOR IDENTIFIER BY expression TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
- | FOR IDENTIFIER FROM expression TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
- | FOR IDENTIFIER FROM expression BY expression TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
+while                ::= WHILE expression CURLY_OPEN instructions CURLY_CLOSED {: :};
+for                  ::= FOR IDENTIFIER TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
+                       | FOR IDENTIFIER BY expression TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
+                       | FOR IDENTIFIER FROM expression TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
+                       | FOR IDENTIFIER FROM expression BY expression TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
 ;
 
 
 /* expressions */
-expression ::= expressionPriority1;
-expressionPriority1 ::= expressionPriority1 OR expressionPriority2
- | expressionPriority2
+expressions          ::= expressions:l COMMA expression:i {: l.add(i); :}
+                       | expression:i                     {: RESULT = new LinkedList<Expression>(); RESULT.add(i); :}
 ;
-expressionPriority2 ::= expressionPriority2 AND expressionPriority3
- | expressionPriority3
+
+
+expression           ::= expression OR expression
+                       | expression AND expression
+                       | expression EQUAL expression
+                       | expression NOT_EQUAL expression
+                       | expression LESS expression
+                       | expression LESS_EQUAL expression
+                       | expression GREATER expression
+                       | expression GREATER_EQUAL expression
+                       | expression PLUS expression
+                       | expression MINUS expression
+                       | expression ASTERISK expression
+                       | expression SLASH expression
+                       | MINUS expression %prec UMINUS
+                       | ROUND_OPEN expression ROUND_CLOSED
+                       | literal
 ;
-expressionPriority3 ::= expressionPriority3 EQUAL expressionPriority4
- | expressionPriority3 NOT_EQUAL expressionPriority4
- | expressionPriority4
+
+/*
+ Older versions of CUP forced the user to write unambiguous grammars, but now there is a construct allowing the
+ user to specify precedences and associativities for terminals.
+expression           ::= expressionPriority1;
+expressionPriority1  ::= expressionPriority1 OR expressionPriority2
+                       | expressionPriority2
 ;
-expressionPriority4 ::= expressionPriority4 LESS expressionPriority5
- | expressionPriority4 LESS_EQUAL expressionPriority5
- | expressionPriority4 GREATER expressionPriority5
- | expressionPriority4 GREATER_EQUAL expressionPriority5
- | expressionPriority5
+expressionPriority2  ::= expressionPriority2 AND expressionPriority3
+                       | expressionPriority3
 ;
-expressionPriority5 ::= expressionPriority5 PLUS expressionPriority6
- | expressionPriority5 MINUS expressionPriority6
- | expressionPriority6
+expressionPriority3  ::= expressionPriority3 EQUAL expressionPriority4
+                       | expressionPriority3 NOT_EQUAL expressionPriority4
+                       | expressionPriority4
 ;
-expressionPriority6 ::= expressionPriority6 ASTERISK expressionPriority7
- | expressionPriority6 SLASH expressionPriority7
- | expressionPriority7
+expressionPriority4  ::= expressionPriority4 LESS expressionPriority5
+                       | expressionPriority4 LESS_EQUAL expressionPriority5
+                       | expressionPriority4 GREATER expressionPriority5
+                       | expressionPriority4 GREATER_EQUAL expressionPriority5
+                       | expressionPriority5
 ;
-expressionPriority7 ::= MINUS expressionPriority8
- | expressionPriority8
+expressionPriority5  ::= expressionPriority5 PLUS expressionPriority6
+                       | expressionPriority5 MINUS expressionPriority6
+                       | expressionPriority6
 ;
-expressionPriority8 ::= ROUND_OPEN expression ROUND_CLOSED
- | literal
+expressionPriority6  ::= expressionPriority6 ASTERISK expressionPriority7
+                       | expressionPriority6 SLASH expressionPriority7
+                       | expressionPriority7
 ;
+expressionPriority7  ::= MINUS expressionPriority8
+                       | expressionPriority8
+;
+expressionPriority8  ::= ROUND_OPEN expression ROUND_CLOSED
+                       | literal
+;
+*/
 
 /* operators */
 
 
 /* literals */
-literal ::= IDENTIFIER
- | INTEGER
- | TRUE
- | FALSE
- | UNDEFINED
- | functionDeclaration
+literal              ::= IDENTIFIER
+                       | INTEGER
+                       | TRUE
+                       | FALSE
+                       | UNDEFINED
+                       | functionDeclaration
+                       | STRING_LITERAL
+                       | SQUARE_OPEN expressions SQUARE_CLOSED
+;
+
+functionDeclaration  ::= COLON ROUND_OPEN functionArguments ROUND_CLOSED CURLY_OPEN instructions CURLY_CLOSED;
+functionArguments    ::= functionArguments:l COMMA IDENTIFIER:i {: l.add(i); :}
+                       | IDENTIFIER:i {: RESULT = new LinkedList<Identifier>(); RESULT.add(i); :}
 ;
