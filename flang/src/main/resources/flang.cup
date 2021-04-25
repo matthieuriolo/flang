@@ -1,6 +1,9 @@
 package ch.ffhs.fac.flang.parser;
 
 import ch.ffhs.fac.flang.runtime.*;
+import ch.ffhs.fac.flang.runtime.operations.*;
+import ch.ffhs.fac.flang.runtime.instructions.*;
+
 import java_cup.runtime.*;
 import java.util.*;
 import java.io.*;
@@ -31,7 +34,9 @@ terminal     UMINUS;
 
 
 // literals
-terminal     IDENTIFIER, STRING, INTEGER;
+terminal String IDENTIFIER;
+terminal String STRING;
+terminal Integer INTEGER;
 
 
 /** Non-Terminals */
@@ -44,12 +49,12 @@ non terminal Instruction for;
 non terminal Instruction while;
 non terminal Instruction assignment;
 non terminal Expression functionCall;
-non terminal LinkedList<Identifier> functionArguments;
+non terminal LinkedList<ch.ffhs.fac.flang.runtime.literals.Identifier> functionArguments;
 non terminal Expression functionDeclaration;
 non terminal LinkedList<Expression> expressions;
 non terminal Expression expression;
 /*
-We keep this for now
+We keep this for now - it has been replaced by "%prec" and "precedence left"
 non terminal Expression expressionPriority1;
 non terminal Expression expressionPriority2;
 non terminal Expression expressionPriority3;
@@ -61,7 +66,7 @@ non terminal Expression expressionPriority8;
 */
 
 non terminal Literal literal;
-
+non terminal ch.ffhs.fac.flang.runtime.literals.Identifier identifier;
 /** Precedences */
 precedence left OR;
 precedence left AND;
@@ -92,19 +97,20 @@ instruction          ::= assignment                     {: :}
 ;
 
 /* instructions */
-assignment           ::= IDENTIFIER ASSIGN expression   {: :};
-functionCall         ::= IDENTIFIER functionArguments   {: :};
-functionArguments    ::= ROUND_OPEN expression COMMA ROUND_CLOSED         {: :};
+assignment           ::= identifier:i ASSIGN expression:e                   {: :};
+functionCall         ::= identifier:i ROUND_OPEN expressions:e ROUND_CLOSED {: :}
+                       | functionCall ROUND_OPEN expressions:e ROUND_CLOSED {: :}
+;
 
 
 if                   ::= IF expression CURLY_OPEN instructions CURLY_CLOSED {: :}
                        | IF expression CURLY_OPEN instructions CURLY_CLOSED ELSE CURLY_OPEN instructions CURLY_CLOSED {: :}
 ;
 while                ::= WHILE expression CURLY_OPEN instructions CURLY_CLOSED {: :};
-for                  ::= FOR IDENTIFIER TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
-                       | FOR IDENTIFIER BY expression TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
-                       | FOR IDENTIFIER FROM expression TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
-                       | FOR IDENTIFIER FROM expression BY expression TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
+for                  ::= FOR identifier TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
+                       | FOR identifier BY expression TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
+                       | FOR identifier FROM expression TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
+                       | FOR identifier FROM expression BY expression TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
 ;
 
 
@@ -126,7 +132,7 @@ expression           ::= expression:l OR expression:r              {: RESULT = n
                        | expression:l MINUS expression:r           {: RESULT = new BiOperand(l, BiOperand.Type.MINUS, r); :}
                        | expression:l ASTERISK expression:r        {: RESULT = new BiOperand(l, BiOperand.Type.ASTERISK, r); :}
                        | expression:l SLASH expression:r           {: RESULT = new BiOperand(l, BiOperand.Type.SLASH, r); :}
-                       | MINUS expression                          {: RESULT = new UnaryOperand(i, UnaryOperand.Type.Minus); :} %prec UMINUS
+                       | MINUS expression:i                        {: RESULT = new UnaryOperand(i, UnaryOperand.Type.MINUS); :} %prec UMINUS
                        | ROUND_OPEN expression:i ROUND_CLOSED
                        | literal
 ;
@@ -171,17 +177,19 @@ expressionPriority8  ::= ROUND_OPEN expression ROUND_CLOSED
 
 
 /* literals */
-literal              ::= IDENTIFIER
-                       | INTEGER:i             {: RESULT = new Integer(i); :}
-                       | TRUE                  {: RESULT = Boolean.TRUE; :}
-                       | FALSE                 {: RESULT = Boolean.FALSE; :}
-                       | UNDEFINED             {: RESULT = Undefined.UNDEFINED; :}
+literal              ::= identifier
+                       | INTEGER:i             {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Integer(i); :}
+                       | TRUE                  {: RESULT = ch.ffhs.fac.flang.runtime.literals.Boolean.TRUE; :}
+                       | FALSE                 {: RESULT = ch.ffhs.fac.flang.runtime.literals.Boolean.FALSE; :}
+                       | UNDEFINED             {: RESULT = ch.ffhs.fac.flang.runtime.literals.Undefined.UNDEFINED; :}
                        | functionDeclaration
-                       | STRING:i              {: RESULT = new String(i); :}
-                       | SQUARE_OPEN expressions SQUARE_CLOSED
+                       | STRING:i              {: RESULT = new ch.ffhs.fac.flang.runtime.literals.String(i); :}
+                       | SQUARE_OPEN expressions:i SQUARE_CLOSED
 ;
 
+identifier           ::= IDENTIFIER:i          {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Identifier(i); :};
+
 functionDeclaration  ::= COLON ROUND_OPEN functionArguments ROUND_CLOSED CURLY_OPEN instructions CURLY_CLOSED;
-functionArguments    ::= functionArguments:l COMMA IDENTIFIER:i {: l.add(i); :}
-                       | IDENTIFIER:i {: RESULT = new LinkedList<Identifier>(); RESULT.add(i); :}
+functionArguments    ::= functionArguments:l COMMA identifier:i {: l.add(i); :}
+                       | identifier:i {: RESULT = new LinkedList<ch.ffhs.fac.flang.runtime.literals.Identifier>(); RESULT.add(i); :}
 ;
