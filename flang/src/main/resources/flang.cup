@@ -35,10 +35,107 @@ terminal     IDENTIFIER, STRING_LITERAL, INTEGER;
 
 
 /** Non-Terminals */
-non terminal program;
+non terminal document;
+non terminal instructions;
+non terminal instruction;
 
-start with program;
+non terminal if;
+non terminal for;
+non terminal while;
+non terminal assignment;
+non terminal functionCall;
+non terminal functionArguments;
+non terminal functionDeclaration;
+
+non terminal expression;
+non terminal expressionPriority1;
+non terminal expressionPriority2;
+non terminal expressionPriority3;
+non terminal expressionPriority4;
+non terminal expressionPriority5;
+non terminal expressionPriority6;
+non terminal expressionPriority7;
+non terminal expressionPriority8;
+
+non terminal literal;
+
+/** Precedences */
+
 
 /** ============= GRAMMAR ============= */
 
-program ::= ;
+start with document;
+
+document       ::= instructions:i                 {: :};
+instructions   ::= instructions:l instruction:i   {: l.add(i); :}
+                 | instruction:i                  {: RESULT = new InstructionList(); RESULT.add(i); :}
+;
+
+instruction    ::= assignment                     {: :}
+                 | if                             {: :}
+                 | while                          {: :}
+                 | for                            {: :}
+                 | functionCall                   {: :}
+;
+
+/* instructions */
+assignment           ::= IDENTIFIER ASSIGN expression   {: :};
+functionCall         ::= IDENTIFIER functionArguments   {: :};
+functionArguments    ::= ROUND_OPEN expression COMMA ROUND_CLOSED         {: :};
+
+
+if ::= IF expression CURLY_OPEN instructions CURLY_CLOSED {: :}
+ | IF expression CURLY_OPEN instructions CURLY_CLOSED ELSE CURLY_OPEN instructions CURLY_CLOSED {: :}
+;
+while ::= WHILE expression CURLY_OPEN instructions CURLY_CLOSED {: :};
+for ::= FOR IDENTIFIER TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
+ | FOR IDENTIFIER BY expression TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
+ | FOR IDENTIFIER FROM expression TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
+ | FOR IDENTIFIER FROM expression BY expression TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
+;
+
+
+/* expressions */
+expression ::= expressionPriority1;
+expressionPriority1 ::= expressionPriority1 OR expressionPriority2
+ | expressionPriority2
+;
+expressionPriority2 ::= expressionPriority2 AND expressionPriority3
+ | expressionPriority3
+;
+expressionPriority3 ::= expressionPriority3 EQUAL expressionPriority4
+ | expressionPriority3 NOT_EQUAL expressionPriority4
+ | expressionPriority4
+;
+expressionPriority4 ::= expressionPriority4 LESS expressionPriority5
+ | expressionPriority4 LESS_EQUAL expressionPriority5
+ | expressionPriority4 GREATER expressionPriority5
+ | expressionPriority4 GREATER_EQUAL expressionPriority5
+ | expressionPriority5
+;
+expressionPriority5 ::= expressionPriority5 PLUS expressionPriority6
+ | expressionPriority5 MINUS expressionPriority6
+ | expressionPriority6
+;
+expressionPriority6 ::= expressionPriority6 ASTERISK expressionPriority7
+ | expressionPriority6 SLASH expressionPriority7
+ | expressionPriority7
+;
+expressionPriority7 ::= MINUS expressionPriority8
+ | expressionPriority8
+;
+expressionPriority8 ::= ROUND_OPEN expression ROUND_CLOSED
+ | literal
+;
+
+/* operators */
+
+
+/* literals */
+literal ::= IDENTIFIER
+ | INTEGER
+ | TRUE
+ | FALSE
+ | UNDEFINED
+ | functionDeclaration
+;
