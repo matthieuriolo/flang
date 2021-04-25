@@ -1014,8 +1014,15 @@ public final class Scanner implements java_cup.runtime.Scanner {
       if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
         zzAtEOF = true;
             zzDoEOF();
-          { 	new java_cup.runtime.Symbol(Symbols.EOF);
+            switch (zzLexicalState) {
+            case YYINITIAL: {
+              return symbol(Symbols.EOF);
+            }  // fall though
+            case 90: break;
+            default:
+          { 	new Symbol(Symbols.EOF);
  }
+        }
       }
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {

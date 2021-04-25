@@ -39,8 +39,9 @@ import ch.ffhs.fac.flang.parser.exceptions.IllegalSymbol;
 %}
 
 %eofval{
-	new java_cup.runtime.Symbol(Symbols.EOF);
+	new Symbol(Symbols.EOF);
 %eofval}
+%eofclose
 
 /* macros */
 LINE                           = \r|\r\n|\n
@@ -106,6 +107,7 @@ INTEGER                        = ([1-9][\d_]*\d)|\d
 	/* comments & whitespaces */
 	{COMMENT}         { /* ignore */ }
 	{WHITESPACE}      { /* ignore */ }
+	<<EOF>>           { return symbol(Symbols.EOF); }
 }
 
 
