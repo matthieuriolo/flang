@@ -31,7 +31,7 @@ terminal     UMINUS;
 
 
 // literals
-terminal     IDENTIFIER, STRING_LITERAL, INTEGER;
+terminal     IDENTIFIER, STRING, INTEGER;
 
 
 /** Non-Terminals */
@@ -177,7 +177,7 @@ literal              ::= IDENTIFIER
                        | FALSE
                        | UNDEFINED
                        | functionDeclaration
-                       | STRING_LITERAL
+                       | STRING
                        | SQUARE_OPEN expressions SQUARE_CLOSED
 ;
 

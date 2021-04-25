@@ -112,7 +112,7 @@ INTEGER                        = ([1-9][\d_]*\d)|\d
 <STRING> {
  	\"                {
  	                      yybegin(YYINITIAL);
-                          return symbol(Symbols.STRING_LITERAL, string.toString());
+                          return symbol(Symbols.STRING, string.toString());
                       }
  	[^\n\r\"\\]+      { string.append(yytext()); }
  	\\t               { string.append('\t'); }
