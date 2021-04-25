@@ -66,7 +66,7 @@ public class App extends Application {
 		final var sourceCode = textareaInput.getText();
 		final var reader = new StringReader(sourceCode);
 		final var lexer = new Scanner(reader);
-		final var parser = new Parser(lexer, new ComplexSymbolFactory());
+		final var parser = new Parser(lexer);
 		
 		try {
 			final var a = parser.parse();
