@@ -108,9 +108,9 @@ if                   ::= IF expression CURLY_OPEN instructions CURLY_CLOSED {: :
 ;
 while                ::= WHILE expression CURLY_OPEN instructions CURLY_CLOSED {: :};
 for                  ::= FOR identifier TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
-                       | FOR identifier BY expression TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
+                       | FOR identifier TO expression BY expression CURLY_OPEN instructions CURLY_CLOSED {: :}
                        | FOR identifier FROM expression TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
-                       | FOR identifier FROM expression BY expression TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
+                       | FOR identifier FROM expression TO expression BY expression CURLY_OPEN instructions CURLY_CLOSED {: :}
 ;
 
 
