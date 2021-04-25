@@ -10,7 +10,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
-import ch.ffhs.fac.flang.parser.Lexer;
+import ch.ffhs.fac.flang.parser.Parser;
+import ch.ffhs.fac.flang.parser.Scanner;
+import java_cup.runtime.ComplexSymbolFactory;
 
 public class App extends Application {
 	final String mainWindowFXML = "/simple-ide.fxml";
@@ -63,7 +65,18 @@ public class App extends Application {
 		
 		final var sourceCode = textareaInput.getText();
 		final var reader = new StringReader(sourceCode);
-		final var lexer = new Lexer(reader);
+		final var lexer = new Scanner(reader);
+		final var parser = new Parser(lexer, new ComplexSymbolFactory());
+		
+		try {
+			final var a = parser.parse();
+			textareaOutput.setText("successfully parsed");
+		} catch (Exception e) {
+			textareaOutput.setText(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		/* Old code which prints out the tokens
 		try {
 			while(!lexer.yyatEOF()) {
 				final var sym = lexer.next_token();
@@ -81,6 +94,6 @@ public class App extends Application {
 		} catch (Exception e) {
 			textareaOutput.setText(e.getMessage());
 			e.printStackTrace();
-		}
+		}*/
 	}
 }
