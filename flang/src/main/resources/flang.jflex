@@ -1,7 +1,7 @@
 package ch.ffhs.fac.flang.parser;
 
 /*
- FLang Lexer
+ FLang Scanner
 */
 
 import java_cup.runtime.*;
@@ -14,7 +14,7 @@ import ch.ffhs.fac.flang.parser.exceptions.IllegalSymbol;
 
 %%
 
-%class Lexer
+%class Scanner
 %public
 %final
 
