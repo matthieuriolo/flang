@@ -9,11 +9,11 @@ package ch.ffhs.fac.flang.parser;
 public class Symbols {
   /* terminals */
   public static final int SQUARE_OPEN = 20;
-  public static final int STRING_LITERAL = 36;
   public static final int ASTERISK = 27;
   public static final int SLASH = 28;
+  public static final int UMINUS = 35;
   public static final int NOT_EQUAL = 30;
-  public static final int INTEGER = 37;
+  public static final int INTEGER = 38;
   public static final int CURLY_CLOSED = 19;
   public static final int GREATER = 33;
   public static final int LESS = 31;
@@ -44,8 +44,9 @@ public class Symbols {
   public static final int TO = 9;
   public static final int WHILE = 11;
   public static final int END = 14;
+  public static final int STRING = 37;
   public static final int FALSE = 3;
-  public static final int IDENTIFIER = 35;
+  public static final int IDENTIFIER = 36;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -82,8 +83,9 @@ public class Symbols {
   "LESS_EQUAL",
   "GREATER",
   "GREATER_EQUAL",
+  "UMINUS",
   "IDENTIFIER",
-  "STRING_LITERAL",
+  "STRING",
   "INTEGER"
   };
 }

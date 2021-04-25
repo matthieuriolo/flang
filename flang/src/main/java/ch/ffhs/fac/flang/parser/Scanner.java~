@@ -1126,7 +1126,7 @@ public final class Scanner implements java_cup.runtime.Scanner {
           case 66: break;
           case 22:
             { yybegin(YYINITIAL);
-                          return symbol(Symbols.STRING, string.toString());
+                          return symbol(Symbols.STRING_LITERAL, string.toString());
             }
             // fall through
           case 67: break;
