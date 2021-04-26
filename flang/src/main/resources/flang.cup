@@ -1,6 +1,7 @@
 package ch.ffhs.fac.flang.parser;
 
 import ch.ffhs.fac.flang.runtime.*;
+import ch.ffhs.fac.flang.runtime.expressions.*;
 import ch.ffhs.fac.flang.runtime.expressions.operations.*;
 import ch.ffhs.fac.flang.runtime.instructions.*;
 
@@ -41,7 +42,7 @@ terminal Integer INTEGER;
 
 /** Non-Terminals */
 non terminal Document document;
-non terminal Closure instructions;
+non terminal List<Instruction> instructions;
 non terminal Instruction instruction;
 
 non terminal Instruction if;
@@ -82,12 +83,12 @@ precedence left UMINUS;
 
 start with document;
 
-document             ::= instructions:i                 {: RESULT = new Document(); :};
-instructions         ::= instructions:l instruction:i   {: l.addInstruction(i); :}
-                       | instruction:i                  {: RESULT = new Closure(); RESULT.addInstruction(i); :}
+document             ::= instructions:i                 {: RESULT = new Document(i); :};
+instructions         ::= instructions:l instruction:i   {: l.add(i); :}
+                       | instruction:i                  {: RESULT = new LinkedList<Instruction>(); RESULT.add(i); :}
 ;
 
-instruction          ::= assignment                     {: :}
+instruction          ::= assignment:i                   {: RESULT = i; :}
                        | END                            {: :}
                        | RETURN expression              {: :}
                        | if                             {: :}
@@ -97,7 +98,7 @@ instruction          ::= assignment                     {: :}
 ;
 
 /* instructions */
-assignment           ::= identifier:i ASSIGN expression:e                   {: :};
+assignment           ::= identifier:i ASSIGN expression:e                   {: RESULT = new Assignment(i, e); :};
 functionCall         ::= identifier:i ROUND_OPEN expressions:e ROUND_CLOSED {: :}
                        | functionCall ROUND_OPEN expressions:e ROUND_CLOSED {: :}
 ;
@@ -133,8 +134,8 @@ expression           ::= expression:l OR expression:r              {: RESULT = n
                        | expression:l ASTERISK expression:r        {: RESULT = new BiOperand(l, BiOperand.Type.ASTERISK, r); :}
                        | expression:l SLASH expression:r           {: RESULT = new BiOperand(l, BiOperand.Type.SLASH, r); :}
                        | MINUS expression:i                        {: RESULT = new UnaryOperand(i, UnaryOperand.Type.MINUS); :} %prec UMINUS
-                       | ROUND_OPEN expression:i ROUND_CLOSED
-                       | literal
+                       | ROUND_OPEN expression:i ROUND_CLOSED      {: RESULT = i; :}
+                       | literal:i                                 {: RESULT = new LiteralWrapper(i); :}
 ;
 
 /*
@@ -168,7 +169,7 @@ expressionPriority6  ::= expressionPriority6 ASTERISK expressionPriority7
 expressionPriority7  ::= MINUS expressionPriority8
                        | expressionPriority8
 ;
-expressionPriority8  ::= ROUND_OPEN expression ROUND_CLOSED
+expressionPriority8  ::= ROUND_OPEN expression:i ROUND_CLOSED
                        | literal
 ;
 */
@@ -177,7 +178,7 @@ expressionPriority8  ::= ROUND_OPEN expression ROUND_CLOSED
 
 
 /* literals */
-literal              ::= identifier
+literal              ::= identifier:i          {: RESULT = i; :}
                        | INTEGER:i             {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Integer(i); :}
                        | TRUE                  {: RESULT = ch.ffhs.fac.flang.runtime.literals.Boolean.TRUE; :}
                        | FALSE                 {: RESULT = ch.ffhs.fac.flang.runtime.literals.Boolean.FALSE; :}
