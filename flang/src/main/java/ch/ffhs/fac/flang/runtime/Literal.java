@@ -1,5 +1,7 @@
 package ch.ffhs.fac.flang.runtime;
 
+import java.util.List;
+
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
 public interface Literal {
@@ -52,6 +54,10 @@ public interface Literal {
 	}
 	
 	public default Literal operationUnaryMinus() {
+		return Undefined.UNDEFINED;
+	}
+	
+	public default Literal functionalCall(final Closure closure, final List<Literal> arguments) {
 		return Undefined.UNDEFINED;
 	}
 }
