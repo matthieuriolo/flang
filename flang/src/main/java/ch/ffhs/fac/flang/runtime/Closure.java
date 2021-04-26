@@ -32,7 +32,8 @@ public class Closure {
 	}
 	
 	public Closure() {
-		this(null);
+		this.parent = null;
+		this.instructions = new LinkedList<Instruction>();
 	}
 	
 	public Closure(final Closure parent) {
@@ -45,6 +46,12 @@ public class Closure {
 		this.instructions = instructions;
 	}
 	
+	public Closure(final List<Instruction> instructions) {
+		this.parent = null;
+		this.instructions = instructions;
+	}
+	
+	@Deprecated
 	public void addInstruction(final Instruction instr) {
 		instructions.add(instr);
 	}
