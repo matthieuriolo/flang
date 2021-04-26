@@ -11,6 +11,10 @@ public class Boolean implements Literal {
 		this.name = string;
 	}
 	
+	static Boolean of(boolean value) {
+		return value ? Boolean.TRUE : Boolean.FALSE;
+	}
+	
 	@Override
 	public java.lang.String toString() {
 		return name;

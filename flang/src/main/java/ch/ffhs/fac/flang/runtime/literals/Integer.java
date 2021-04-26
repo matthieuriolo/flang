@@ -8,6 +8,10 @@ public class Integer extends Number {
 	public Integer(final java.lang.Integer integer) {
 		this.integer = integer;
 	}
+	
+	public java.lang.Integer getValue() {
+		return integer;
+	}
 
 	@Override
 	public Literal operationPlus(final Literal right) {
@@ -49,7 +53,7 @@ public class Integer extends Number {
 	@Override
 	public Literal operationEqual(final Literal right) {
 		if (right instanceof Integer) {
-			return integer == ((Integer) right).integer ? Boolean.TRUE : Boolean.FALSE;
+			return Boolean.of(integer == ((Integer) right).integer);
 		}
 
 		return super.operationEqual(right);
@@ -58,7 +62,7 @@ public class Integer extends Number {
 	@Override
 	public Literal operationNotEqual(final Literal right) {
 		if (right instanceof Integer) {
-			return integer != ((Integer) right).integer ? Boolean.TRUE : Boolean.FALSE;
+			return Boolean.of(integer != ((Integer) right).integer);
 		}
 
 		return super.operationNotEqual(right);
@@ -67,7 +71,7 @@ public class Integer extends Number {
 	@Override
 	public Literal operationLess(final Literal right) {
 		if (right instanceof Integer) {
-			return integer < ((Integer) right).integer ? Boolean.TRUE : Boolean.FALSE;
+			return Boolean.of(integer < ((Integer) right).integer);
 		}
 
 		return super.operationLess(right);
@@ -76,7 +80,7 @@ public class Integer extends Number {
 	@Override
 	public Literal operationLessEqual(final Literal right) {
 		if (right instanceof Integer) {
-			return integer <= ((Integer) right).integer ? Boolean.TRUE : Boolean.FALSE;
+			return Boolean.of(integer <= ((Integer) right).integer);
 		}
 
 		return super.operationLessEqual(right);
@@ -85,7 +89,7 @@ public class Integer extends Number {
 	@Override
 	public Literal operationGreater(final Literal right) {
 		if (right instanceof Integer) {
-			return integer > ((Integer) right).integer ? Boolean.TRUE : Boolean.FALSE;
+			return Boolean.of(integer > ((Integer) right).integer);
 		}
 
 		return super.operationGreater(right);
@@ -94,7 +98,7 @@ public class Integer extends Number {
 	@Override
 	public Literal operationGreaterEqual(final Literal right) {
 		if (right instanceof Integer) {
-			return integer >= ((Integer) right).integer ? Boolean.TRUE : Boolean.FALSE;
+			return Boolean.of(integer >= ((Integer) right).integer);
 		}
 
 		return super.operationGreater(right);
