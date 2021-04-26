@@ -1,9 +1,9 @@
-package ch.ffhs.fac.flang.runtime.operations;
+package ch.ffhs.fac.flang.runtime.expressions.operations;
 
-import ch.ffhs.fac.flang.runtime.Context;
+import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Literal;
-import ch.ffhs.fac.flang.runtime.Operation;
+import ch.ffhs.fac.flang.runtime.expressions.Operation;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
 public class BiOperand implements Operation {
@@ -34,9 +34,9 @@ public class BiOperand implements Operation {
 	}
 
 	@Override
-	public Literal compute(Context ctx) {
-		final var l = left.compute(ctx);
-		final var r = right.compute(ctx);
+	public Literal compute(final Closure closure) {
+		final var l = left.compute(closure);
+		final var r = right.compute(closure);
 		switch (type) {
 		case OR:
 			return l.operationOr(r);
