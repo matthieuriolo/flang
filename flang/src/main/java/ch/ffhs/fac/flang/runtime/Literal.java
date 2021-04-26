@@ -57,7 +57,7 @@ public interface Literal {
 		return Undefined.UNDEFINED;
 	}
 	
-	public default Literal functionalCall(final Closure closure, final List<Literal> arguments) {
+	public default Literal functionalCall(final Closure closure, final List<Literal> arguments) throws Throwable {
 		return Undefined.UNDEFINED;
 	}
 }

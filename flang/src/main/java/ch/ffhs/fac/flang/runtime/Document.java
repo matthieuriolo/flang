@@ -1,6 +1,5 @@
 package ch.ffhs.fac.flang.runtime;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class Document extends Closure {
@@ -8,7 +7,7 @@ public class Document extends Closure {
 		super(instructions);
 	}
 	
-	public Literal execute() {
+	public Literal execute() throws Throwable {
 		return this.execute(this);
 	}
 }

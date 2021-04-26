@@ -100,8 +100,8 @@ INTEGER                        = ([1-9][\d_]*\d)|\d
 	">="              { return symbol(Symbols.GREATER_EQUAL); }
 	
 	/* literals */
-	{IDENTIFIER}      { return symbol(Symbols.IDENTIFIER); }
-	{INTEGER}         { return symbol(Symbols.INTEGER); }
+	{IDENTIFIER}      { return symbol(Symbols.IDENTIFIER, new String(yytext())); }
+	{INTEGER}         { return symbol(Symbols.INTEGER, Integer.valueOf(yytext())); }
 	\"                { string.setLength(0); yybegin(STRING); }
 	
 	/* comments & whitespaces */

@@ -4,21 +4,22 @@ import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Instruction;
 import ch.ffhs.fac.flang.runtime.Literal;
-import ch.ffhs.fac.flang.runtime.literals.Identifier;
+import ch.ffhs.fac.flang.runtime.expressions.LiteralWrapper;
+import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
-public class Assignment implements Instruction {
-	private final Identifier identifier;
+public class Return implements Instruction {
 	private final Expression expression;
 	
-	public Assignment(final Identifier identifier, final Expression expression) {
-		this.identifier = identifier;
+	public Return() {
+		this.expression = new LiteralWrapper(Undefined.UNDEFINED);
+	}
+	
+	public Return(final Expression expression) {
 		this.expression = expression;
 	}
 	
 	@Override
 	public Literal execute(Closure closure) throws Throwable {
-		final var value = expression.compute(closure);
-		closure.setValue(identifier, value);
-		return value;
+		return expression.compute(closure);
 	}
 }

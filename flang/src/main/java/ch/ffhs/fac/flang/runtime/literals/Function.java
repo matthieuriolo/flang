@@ -17,7 +17,7 @@ public class Function implements Literal {
 		this.instructions = instructions;
 	}
 
-	public Literal functionalCall(final Closure closure, final List<Literal> arguments) {
+	public Literal functionalCall(final Closure closure, final List<Literal> arguments) throws Throwable {
 		final var body = new Closure(closure, instructions);
 		final var values = arguments.iterator();
 		for (final var param : parameters) {

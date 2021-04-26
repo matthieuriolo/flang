@@ -1,5 +1,5 @@
 package ch.ffhs.fac.flang.runtime;
 
 public interface Instruction {
-	public Literal execute(final Closure closure);
+	public Literal execute(final Closure closure) throws Throwable;
 }

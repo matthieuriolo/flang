@@ -16,7 +16,7 @@ public class Closure {
 	
 	@FunctionalInterface
 	public interface FunctionInterface {
-		Literal execute(final Closure closure, final List<Literal> parameters);
+		Literal execute(final Closure closure, final List<Literal> parameters) throws Throwable;
 	}
 	
 	private class FunctionBody implements Literal {
@@ -26,7 +26,7 @@ public class Closure {
 			this.body = body;
 		}
 		
-		public Literal functionalCall(final Closure closure, final List<Literal> arguments) {
+		public Literal functionalCall(final Closure closure, final List<Literal> arguments) throws Throwable {
 			return body.execute(closure, arguments);
 		}
 	}
@@ -60,7 +60,7 @@ public class Closure {
 		return parent;
 	}
 	
-	public Literal execute(final Closure closure) {
+	public Literal execute(final Closure closure) throws Throwable {
 		for(final var instr : instructions) {
 			final var returnValue = instr.execute(closure);
 			if(returnValue != null) {

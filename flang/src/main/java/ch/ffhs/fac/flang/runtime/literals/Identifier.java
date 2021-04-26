@@ -1,5 +1,8 @@
 package ch.ffhs.fac.flang.runtime.literals;
 
+import java.util.List;
+
+import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Literal;
 
 public class Identifier implements Literal {
@@ -11,6 +14,11 @@ public class Identifier implements Literal {
 	
 	public java.lang.String getName() {
 		return name;
+	}
+	
+	public Literal functionalCall(final Closure closure, final List<Literal> arguments) throws Throwable {
+		final var resolvedSubject = closure.getValue(getName());
+		return resolvedSubject.functionalCall(closure, arguments);
 	}
 	
 	@Override

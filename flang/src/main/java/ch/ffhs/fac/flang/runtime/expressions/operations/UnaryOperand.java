@@ -20,7 +20,7 @@ public class UnaryOperand implements Operation {
 	}
 	
 	@Override
-	public Literal compute(final Closure closure) {
+	public Literal compute(final Closure closure) throws Throwable {
 		final var l = operand.compute(closure);
 		switch(type) {
 		case MINUS:

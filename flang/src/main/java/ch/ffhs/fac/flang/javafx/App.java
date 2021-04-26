@@ -2,19 +2,18 @@ package ch.ffhs.fac.flang.javafx;
 
 import java.io.IOException;
 import java.io.StringReader;
+import java.io.Writer;
 
+import ch.ffhs.fac.flang.parser.Parser;
+import ch.ffhs.fac.flang.parser.Scanner;
+import ch.ffhs.fac.flang.runtime.Document;
+import ch.ffhs.fac.flang.runtime.std.PrintFunction;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-
-import ch.ffhs.fac.flang.parser.Parser;
-import ch.ffhs.fac.flang.parser.Scanner;
-import ch.ffhs.fac.flang.runtime.Document;
-import ch.ffhs.fac.flang.runtime.std.PrintFunction;
-import java_cup.runtime.ComplexSymbolFactory;
 
 public class App extends Application {
 	final String mainWindowFXML = "/simple-ide.fxml";
@@ -72,13 +71,23 @@ public class App extends Application {
 		
 		try {
 			final var symbol = parser.parse();
-			textareaOutput.setText("successfully parsed");
+			textareaOutput.appendText("successfully parsed\n");
 			
 			final var document = (Document)symbol.value;
-			document.declareFunction(PrintFunction.NAME, new PrintFunction());
+			document.declareFunction(PrintFunction.NAME, new PrintFunction(new Writer() {
+				@Override
+				public void write(char[] cbuf, int off, int len) throws IOException {
+					textareaOutput.appendText(new String(cbuf, off, len));
+				}
+				
+				@Override
+				public void flush() throws IOException {}
+				@Override
+				public void close() throws IOException {}
+			}));
 			final var returnValue = document.execute();
-			System.out.println("Programm finished with return value: " + returnValue);
-		} catch (Exception e) {
+			textareaOutput.appendText("Programm finished with return value: " + returnValue + "\n");
+		} catch (Throwable e) {
 			textareaOutput.setText(e.getMessage());
 			e.printStackTrace();
 		}

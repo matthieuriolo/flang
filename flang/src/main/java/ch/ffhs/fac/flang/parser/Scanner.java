@@ -1042,7 +1042,7 @@ public final class Scanner implements java_cup.runtime.Scanner {
             // fall through
           case 48: break;
           case 4:
-            { return symbol(Symbols.IDENTIFIER);
+            { return symbol(Symbols.IDENTIFIER, new String(yytext()));
             }
             // fall through
           case 49: break;
@@ -1082,7 +1082,7 @@ public final class Scanner implements java_cup.runtime.Scanner {
             // fall through
           case 56: break;
           case 12:
-            { return symbol(Symbols.INTEGER);
+            { return symbol(Symbols.INTEGER, Integer.valueOf(yytext()));
             }
             // fall through
           case 57: break;

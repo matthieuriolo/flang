@@ -34,7 +34,7 @@ public class BiOperand implements Operation {
 	}
 
 	@Override
-	public Literal compute(final Closure closure) {
+	public Literal compute(final Closure closure) throws Throwable {
 		final var l = left.compute(closure);
 		final var r = right.compute(closure);
 		switch (type) {

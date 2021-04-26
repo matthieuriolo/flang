@@ -50,6 +50,7 @@ non terminal Instruction for;
 non terminal Instruction while;
 non terminal Instruction assignment;
 non terminal Expression functionCall;
+non terminal Instruction functionProcedure;
 non terminal LinkedList<ch.ffhs.fac.flang.runtime.literals.Identifier> functionArguments;
 non terminal Expression functionDeclaration;
 non terminal LinkedList<Expression> expressions;
@@ -89,18 +90,18 @@ instructions         ::= instructions:l instruction:i   {: l.add(i); :}
 ;
 
 instruction          ::= assignment:i                   {: RESULT = i; :}
-                       | END                            {: :}
-                       | RETURN expression              {: :}
-                       | if                             {: :}
-                       | while                          {: :}
-                       | for                            {: :}
-                       | functionCall                   {: :}
+                       | END                            {: RESULT = new Return(); :}
+                       | RETURN expression:i            {: RESULT = new Return(i); :}
+                       | if:i                           {: RESULT = i; :}
+                       | while:i                        {: RESULT = i; :}
+                       | for:i                          {: RESULT = i; :}
+                       | functionProcedure:i            {: RESULT = i; :}
 ;
 
 /* instructions */
 assignment           ::= identifier:i ASSIGN expression:e                   {: RESULT = new Assignment(i, e); :};
-functionCall         ::= identifier:i ROUND_OPEN expressions:e ROUND_CLOSED {: :}
-                       | functionCall ROUND_OPEN expressions:e ROUND_CLOSED {: :}
+functionProcedure    ::= identifier:i ROUND_OPEN expressions:e ROUND_CLOSED {: RESULT = new FunctionProcedure(i, e); :}
+           /*            | functionCall ROUND_OPEN expressions:e ROUND_CLOSED {: :}*/
 ;
 
 
