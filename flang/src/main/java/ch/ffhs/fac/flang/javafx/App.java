@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 
 import ch.ffhs.fac.flang.parser.Parser;
 import ch.ffhs.fac.flang.parser.Scanner;
+import ch.ffhs.fac.flang.runtime.Document;
 import java_cup.runtime.ComplexSymbolFactory;
 
 public class App extends Application {
@@ -69,8 +70,11 @@ public class App extends Application {
 		final var parser = new Parser(lexer);
 		
 		try {
-			final var a = parser.parse();
+			final var symbol = parser.parse();
 			textareaOutput.setText("successfully parsed");
+			
+			final var document = (Document)symbol.value;
+			document.execute();
 		} catch (Exception e) {
 			textareaOutput.setText(e.getMessage());
 			e.printStackTrace();
