@@ -108,11 +108,11 @@ functionProcedure    ::= identifier:i ROUND_OPEN expressions:e ROUND_CLOSED {: R
 if                   ::= IF expression:e CURLY_OPEN instructions:i CURLY_CLOSED                                             {: RESULT = new If(e, i); :}
                        | IF expression:e CURLY_OPEN instructions:i CURLY_CLOSED ELSE CURLY_OPEN instructions:o CURLY_CLOSED {: RESULT = new If(e, i, o); :}
 ;
-while                ::= WHILE expression CURLY_OPEN instructions CURLY_CLOSED {: :};
-for                  ::= FOR identifier TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
-                       | FOR identifier TO expression BY expression CURLY_OPEN instructions CURLY_CLOSED {: :}
-                       | FOR identifier FROM expression TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}
-                       | FOR identifier FROM expression TO expression BY expression CURLY_OPEN instructions CURLY_CLOSED {: :}
+while                ::= WHILE expression:e CURLY_OPEN instructions:i CURLY_CLOSED                                                    {: RESULT = new While(e, i); :};
+for                  ::= FOR identifier:i TO expression:t CURLY_OPEN instructions:s CURLY_CLOSED                                      {: RESULT = new For(i, 0, t, 1, s); :}
+                       | FOR identifier:i TO expression:t BY expression:b CURLY_OPEN instructions:s CURLY_CLOSED                      {: RESULT = new For(i, 0, t, b, s); :}
+                       | FOR identifier:i FROM expression:f TO expression:t CURLY_OPEN instructions:s CURLY_CLOSED                    {: RESULT = new For(i, f, t, 1, s); :}
+                       | FOR identifier:i FROM expression:f TO expression:t BY expression:b CURLY_OPEN instructions:s CURLY_CLOSED    {: RESULT = new For(i, f, t, b, s); :}
 ;
 
 

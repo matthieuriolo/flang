@@ -6,8 +6,4 @@ public class Document extends Closure {
 	public Document(final List<Instruction> instructions) {
 		super(instructions);
 	}
-	
-	public Literal execute() throws Throwable {
-		return this.execute(this);
-	}
 }

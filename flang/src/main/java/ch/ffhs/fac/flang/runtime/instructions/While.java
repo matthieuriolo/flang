@@ -8,26 +8,25 @@ import ch.ffhs.fac.flang.runtime.Instruction;
 import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
-public class If implements Instruction {
+public class While implements Instruction {
 	private final Expression condition;
 	private final List<Instruction> instructions;
-	private final List<Instruction> elseInstructions;
 	
-	public If(final Expression condition, final List<Instruction> instructions) {
-		this(condition, instructions, List.of());
-	}
-	
-	public If(final Expression condition, final List<Instruction> instructions, final List<Instruction> elseInstructions) {
+	public While(final Expression condition, final List<Instruction> instructions) {
 		this.condition = condition;
 		this.instructions = instructions;
-		this.elseInstructions = elseInstructions;
 	}
 	
 	@Override
 	public Literal execute(Closure closure) throws Throwable {
 		final var cond = condition.compute(closure);
-		final var instrs = cond.toBoolean(closure) ? instructions : elseInstructions;
-		final var block = new Closure(closure, instrs);
-		return block.execute(closure);
+		Literal last = Undefined.UNDEFINED;
+		
+		while(cond.toBoolean(closure)) {
+			final var block = new Closure(closure, instructions);
+			last = block.execute();
+		}
+		
+		return last;
 	}
 }

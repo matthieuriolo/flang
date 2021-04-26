@@ -65,15 +65,20 @@ public class Closure {
 		return parent;
 	}
 	
-	public Literal execute(final Closure closure) throws Throwable {
+	public Literal execute() throws Throwable {
 		for(final var instr : instructions) {
-			final var returnValue = instr.execute(closure);
+			final var returnValue = instr.execute(this);
 			if(returnValue != null) {
 				return returnValue;
 			}
 		}
 		
 		return Undefined.UNDEFINED;
+	}
+	
+	@Deprecated
+	public Literal execute(final Closure closure) throws Throwable {
+		return execute();
 	}
 	
 	private Closure findClosureWithVariable(final String name) {
