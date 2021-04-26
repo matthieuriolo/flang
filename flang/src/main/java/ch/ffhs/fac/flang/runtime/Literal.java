@@ -60,4 +60,6 @@ public interface Literal {
 	public default Literal functionalCall(final Closure closure, final List<Literal> arguments) throws Throwable {
 		return Undefined.UNDEFINED;
 	}
+	
+	public boolean toBoolean(final Closure closure);
 }

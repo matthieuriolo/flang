@@ -29,6 +29,11 @@ public class Closure {
 		public Literal functionalCall(final Closure closure, final List<Literal> arguments) throws Throwable {
 			return body.execute(closure, arguments);
 		}
+
+		@Override
+		public boolean toBoolean(Closure closure) {
+			return true;
+		}
 	}
 	
 	public Closure() {

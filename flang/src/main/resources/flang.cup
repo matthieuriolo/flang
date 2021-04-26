@@ -105,8 +105,8 @@ functionProcedure    ::= identifier:i ROUND_OPEN expressions:e ROUND_CLOSED {: R
 ;
 
 
-if                   ::= IF expression CURLY_OPEN instructions CURLY_CLOSED {: :}
-                       | IF expression CURLY_OPEN instructions CURLY_CLOSED ELSE CURLY_OPEN instructions CURLY_CLOSED {: :}
+if                   ::= IF expression:e CURLY_OPEN instructions:i CURLY_CLOSED                                             {: RESULT = new If(e, i); :}
+                       | IF expression:e CURLY_OPEN instructions:i CURLY_CLOSED ELSE CURLY_OPEN instructions:o CURLY_CLOSED {: RESULT = new If(e, i, o); :}
 ;
 while                ::= WHILE expression CURLY_OPEN instructions CURLY_CLOSED {: :};
 for                  ::= FOR identifier TO expression CURLY_OPEN instructions CURLY_CLOSED {: :}

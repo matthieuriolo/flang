@@ -46,4 +46,9 @@ public class Function implements Literal {
 
 		return buf.toString();
 	}
+	
+	@Override
+	public boolean toBoolean(final Closure closure) {
+		return true;
+	}
 }

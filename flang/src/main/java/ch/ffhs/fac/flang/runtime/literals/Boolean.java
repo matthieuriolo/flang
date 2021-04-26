@@ -1,5 +1,6 @@
 package ch.ffhs.fac.flang.runtime.literals;
 
+import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Literal;
 
 public class Boolean implements Literal {
@@ -18,5 +19,10 @@ public class Boolean implements Literal {
 	@Override
 	public java.lang.String toString() {
 		return name;
+	}
+
+	@Override
+	public boolean toBoolean(Closure closure) {
+		return this == Boolean.TRUE;
 	}
 }

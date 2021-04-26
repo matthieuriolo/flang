@@ -1,5 +1,6 @@
 package ch.ffhs.fac.flang.runtime.literals;
 
+import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Literal;
 
 public class Integer extends Number {
@@ -112,5 +113,10 @@ public class Integer extends Number {
 	@Override
 	public java.lang.String toString() {
 		return java.lang.String.valueOf(integer);
+	}
+	
+	@Override
+	public boolean toBoolean(final Closure closure) {
+		return integer != 0;
 	}
 }

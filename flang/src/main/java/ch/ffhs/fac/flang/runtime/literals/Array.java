@@ -3,6 +3,7 @@ package ch.ffhs.fac.flang.runtime.literals;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Literal;
 
 public class Array implements Literal {
@@ -17,5 +18,10 @@ public class Array implements Literal {
 		return values.stream()
 				.map(literal -> literal.toString())
 				.collect(Collectors.joining(", ", "[", "]"));
+	}
+
+	@Override
+	public boolean toBoolean(Closure closure) {
+		return !values.isEmpty();
 	}
 }

@@ -1,5 +1,6 @@
 package ch.ffhs.fac.flang.runtime.literals;
 
+import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Literal;
 
 public class Undefined implements Literal {
@@ -8,5 +9,10 @@ public class Undefined implements Literal {
 	@Override
 	public java.lang.String toString() {
 		return "Undefined";
+	}
+
+	@Override
+	public boolean toBoolean(final Closure closure) {
+		return false;
 	}
 }
