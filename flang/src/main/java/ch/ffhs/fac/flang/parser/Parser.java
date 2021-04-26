@@ -6,7 +6,7 @@
 package ch.ffhs.fac.flang.parser;
 
 import ch.ffhs.fac.flang.runtime.*;
-import ch.ffhs.fac.flang.runtime.operations.*;
+import ch.ffhs.fac.flang.runtime.expressions.operations.*;
 import ch.ffhs.fac.flang.runtime.instructions.*;
 import java_cup.runtime.*;
 import java.util.*;
