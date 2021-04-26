@@ -5,4 +5,9 @@ public class Integer extends Number {
 	public Integer(final java.lang.Integer integer) {
 		this.integer = integer;
 	}
+	
+	@Override
+	public java.lang.String toString() {
+		return java.lang.String.valueOf(integer);
+	}
 }

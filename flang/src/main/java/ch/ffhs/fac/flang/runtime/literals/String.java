@@ -11,4 +11,9 @@ public class String implements Literal {
 	public String(final java.lang.String string) {
 		this.string = string;
 	}
+	
+	@Override
+	public java.lang.String toString() {
+		return string;
+	}
 }

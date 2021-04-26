@@ -12,4 +12,9 @@ public class Identifier implements Literal {
 	public java.lang.String getName() {
 		return name;
 	}
+	
+	@Override
+	public java.lang.String toString() {
+		return "<identifier: " + getName() + "";
+	}
 }

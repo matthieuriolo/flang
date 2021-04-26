@@ -10,4 +10,9 @@ public class Boolean implements Literal {
 	private Boolean(final java.lang.String string) {
 		this.name = string;
 	}
+	
+	@Override
+	public java.lang.String toString() {
+		return name;
+	}
 }

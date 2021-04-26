@@ -20,16 +20,30 @@ public class Function implements Literal {
 	public Literal functionalCall(final Closure closure, final List<Literal> arguments) {
 		final var body = new Closure(closure, instructions);
 		final var values = arguments.iterator();
-		for (final var identifier : parameters) {
+		for (final var param : parameters) {
 			Literal value = Undefined.UNDEFINED;
 			if (values.hasNext()) {
 				value = values.next();
 			}
-			body.setValue(identifier, value);
+			body.setValue(param, value);
 		}
 		
 		// magic variable containing all the arguments
 		body.setValue(MAGIC_ARGUMENTS, new Array(arguments));
 		return body.execute(closure);
+	}
+	
+	@Override
+	public java.lang.String toString() {
+		final var buf = new StringBuffer();
+		buf.append("<user defined function:");
+		for (final var param : parameters) {
+			buf.append(param.getName());
+			buf.append(" ");
+		}
+
+		buf.append(">");
+
+		return buf.toString();
 	}
 }
