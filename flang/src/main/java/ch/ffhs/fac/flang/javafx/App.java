@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import ch.ffhs.fac.flang.parser.Parser;
 import ch.ffhs.fac.flang.parser.Scanner;
 import ch.ffhs.fac.flang.runtime.Document;
+import ch.ffhs.fac.flang.runtime.std.PrintFunction;
 import java_cup.runtime.ComplexSymbolFactory;
 
 public class App extends Application {
@@ -74,7 +75,9 @@ public class App extends Application {
 			textareaOutput.setText("successfully parsed");
 			
 			final var document = (Document)symbol.value;
-			document.execute();
+			document.declareFunction(PrintFunction.NAME, new PrintFunction());
+			final var returnValue = document.execute();
+			System.out.println("Programm finished with return value: " + returnValue);
 		} catch (Exception e) {
 			textareaOutput.setText(e.getMessage());
 			e.printStackTrace();
