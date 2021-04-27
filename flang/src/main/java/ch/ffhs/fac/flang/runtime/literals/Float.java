@@ -8,4 +8,10 @@ public class Float extends Number {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	@Override
+	public java.lang.String toString(Closure closure) {
+		// TODO Auto-generated method stub
+		return "<float>";
+	}
 }

@@ -62,4 +62,5 @@ public interface Literal {
 	}
 	
 	public boolean toBoolean(final Closure closure);
+	public String toString(final Closure closure);
 }

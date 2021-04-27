@@ -34,6 +34,11 @@ public class Closure {
 		public boolean toBoolean(Closure closure) {
 			return true;
 		}
+		
+		@Override
+		public String toString(final Closure closure) {
+			return "<developer defined function:" + getClass().getCanonicalName() + ">";
+		}
 	}
 	
 	public Closure() {

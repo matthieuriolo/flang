@@ -86,7 +86,7 @@ public class App extends Application {
 				public void close() throws IOException {}
 			}));
 			final var returnValue = document.execute();
-			textareaOutput.appendText("Programm finished with return value: " + returnValue + "\n");
+			textareaOutput.appendText("Programm finished with return value: " + returnValue.toString(document) + "\n");
 		} catch (Throwable e) {
 			textareaOutput.setText(e.getMessage());
 			e.printStackTrace();

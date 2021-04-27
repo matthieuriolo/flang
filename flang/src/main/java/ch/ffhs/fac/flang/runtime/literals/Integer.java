@@ -111,7 +111,7 @@ public class Integer extends Number {
 	}
 
 	@Override
-	public java.lang.String toString() {
+	public java.lang.String toString(final Closure closure) {
 		return java.lang.String.valueOf(integer);
 	}
 	

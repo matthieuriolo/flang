@@ -34,7 +34,7 @@ public class Function implements Literal {
 	}
 	
 	@Override
-	public java.lang.String toString() {
+	public java.lang.String toString(final Closure closure) {
 		final var buf = new StringBuffer();
 		buf.append("<user defined function:");
 		for (final var param : parameters) {

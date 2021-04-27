@@ -19,7 +19,7 @@ public class PrintFunction implements FunctionInterface {
 	@Override
 	public Literal execute(Closure closure, List<Literal> parameters) throws Throwable {
 		for (final var param : parameters) {
-			writer.write(param.toString());
+			writer.write(param.toString(closure));
 		}
 		writer.write("\n");
 		return Undefined.UNDEFINED;

@@ -17,7 +17,7 @@ public class Boolean implements Literal {
 	}
 	
 	@Override
-	public java.lang.String toString() {
+	public java.lang.String toString(final Closure closure) {
 		return name;
 	}
 

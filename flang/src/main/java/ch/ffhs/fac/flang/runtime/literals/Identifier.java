@@ -22,8 +22,8 @@ public class Identifier implements Literal {
 	}
 	
 	@Override
-	public java.lang.String toString() {
-		return "<identifier: " + getName() + "";
+	public java.lang.String toString(final Closure closure) {
+		return closure.getValue(getName()).toString(closure);
 	}
 	
 	@Override
