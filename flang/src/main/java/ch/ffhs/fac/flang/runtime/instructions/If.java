@@ -28,6 +28,6 @@ public class If implements Instruction {
 		final var cond = condition.compute(closure);
 		final var instrs = cond.toBoolean(closure) ? instructions : elseInstructions;
 		final var block = new Closure(closure, instrs);
-		return block.execute(closure);
+		return block.execute();
 	}
 }

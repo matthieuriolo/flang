@@ -30,7 +30,7 @@ public class Function implements Literal {
 		
 		// magic variable containing all the arguments
 		body.setValue(MAGIC_ARGUMENTS, new Array(arguments));
-		return body.execute(closure);
+		return body.execute();
 	}
 	
 	@Override

@@ -76,11 +76,6 @@ public class Closure {
 		return Undefined.UNDEFINED;
 	}
 	
-	@Deprecated
-	public Literal execute(final Closure closure) throws Throwable {
-		return execute();
-	}
-	
 	private Closure findClosureWithVariable(final String name) {
 		if(variables.containsKey(name)) {
 			return this;
