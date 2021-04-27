@@ -72,15 +72,15 @@ public class For implements Instruction {
 			throw new Exception("'For' cannot be executed");
 		}
 
-		Literal last = Undefined.UNDEFINED;
-		var i = f;
-		while(i.compareTo(t) != 0) {
+		for (var i = f; i.compareTo(t) != 0; i = i.add(b)) {
 			final var block = new Closure(closure, instructions);
 			block.setValue(identifier, new Decimal(i));
-			last = block.execute();
-			i = i.add(b);
+			final var returnLiteral = block.execute();
+			if (returnLiteral != null) {
+				return returnLiteral;
+			}
 		}
 
-		return last;
+		return null;
 	}
 }

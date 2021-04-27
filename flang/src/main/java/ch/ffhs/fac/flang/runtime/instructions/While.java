@@ -20,13 +20,14 @@ public class While implements Instruction {
 	@Override
 	public Literal execute(Closure closure) throws Throwable {
 		final var cond = condition.compute(closure);
-		Literal last = Undefined.UNDEFINED;
 		
 		while(cond.toBoolean(closure)) {
-			final var block = new Closure(closure, instructions);
-			last = block.execute();
+			final var returnLiteral = new Closure(closure, instructions).execute();
+			if(returnLiteral != null) {
+				return returnLiteral;
+			}
 		}
 		
-		return last;
+		return null;
 	}
 }

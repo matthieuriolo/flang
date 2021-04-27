@@ -468,7 +468,7 @@ class CUP$Parser$actions {
 		int ileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Instruction i = (Instruction)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 l.add(i); 
+		 l.add(i); RESULT = l; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("instructions",1, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

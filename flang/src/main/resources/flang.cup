@@ -86,7 +86,7 @@ precedence left UMINUS;
 start with document;
 
 document             ::= instructions:i                 {: RESULT = new Document(i); :};
-instructions         ::= instructions:l instruction:i   {: l.add(i); :}
+instructions         ::= instructions:l instruction:i   {: l.add(i); RESULT = l; :}
                        | instruction:i                  {: RESULT = new LinkedList<Instruction>(); RESULT.add(i); :}
 ;
 

@@ -19,6 +19,6 @@ public class Assignment implements Instruction {
 	public Literal execute(Closure closure) throws Throwable {
 		final var value = expression.compute(closure);
 		closure.setValue(identifier, value);
-		return value;
+		return null;
 	}
 }

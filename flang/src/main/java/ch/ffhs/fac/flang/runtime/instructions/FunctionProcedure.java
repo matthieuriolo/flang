@@ -20,6 +20,7 @@ public class FunctionProcedure extends Routine implements Instruction {
 	
 	@Override
 	public Literal execute(Closure closure) throws Throwable {
-		return perform(closure);
+		perform(closure);
+		return null;
 	}
 }
