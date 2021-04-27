@@ -22,6 +22,11 @@ public class Identifier implements Literal {
 	}
 	
 	@Override
+	public Literal compute(Closure closure) throws Throwable {
+		return closure.getValue(getName());
+	}
+	
+	@Override
 	public java.lang.String toString(final Closure closure) {
 		return closure.getValue(getName()).toString(closure);
 	}

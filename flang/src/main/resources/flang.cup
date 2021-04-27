@@ -138,7 +138,7 @@ expression           ::= expression:l OR expression:r              {: RESULT = n
                        | MINUS expression:i                        {: RESULT = new UnaryOperand(i, UnaryOperand.Type.MINUS); :} %prec UMINUS
                        | ROUND_OPEN expression:i ROUND_CLOSED      {: RESULT = i; :}
                        | functionCall:i                            {: RESULT = i; :}
-                       | literal:i                                 {: RESULT = new LiteralWrapper(i); :}
+                       | literal:i                                 {: RESULT = i; :}
 ;
 
 /*

@@ -4,7 +4,7 @@ import java.util.List;
 
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
-public interface Literal {
+public interface Literal extends Expression {
 	public default Literal operationOr(final Literal right) {
 		return Undefined.UNDEFINED;
 	}
@@ -63,4 +63,9 @@ public interface Literal {
 	
 	public boolean toBoolean(final Closure closure);
 	public String toString(final Closure closure);
+	
+	@Override
+	public default Literal compute(Closure closure) throws Throwable {
+		return this;
+	}
 }
