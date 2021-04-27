@@ -7,7 +7,7 @@ import java.io.Writer;
 import ch.ffhs.fac.flang.parser.Parser;
 import ch.ffhs.fac.flang.parser.Scanner;
 import ch.ffhs.fac.flang.runtime.Document;
-import ch.ffhs.fac.flang.runtime.std.PrintFunction;
+import ch.ffhs.fac.flang.runtime.std.Print;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -74,7 +74,7 @@ public class App extends Application {
 			textareaOutput.appendText("successfully parsed\n");
 			
 			final var document = (Document)symbol.value;
-			document.declareFunction(PrintFunction.NAME, new PrintFunction(new Writer() {
+			document.declareFunction(Print.NAME, new Print(new Writer() {
 				@Override
 				public void write(char[] cbuf, int off, int len) throws IOException {
 					textareaOutput.appendText(new String(cbuf, off, len));

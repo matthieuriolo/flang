@@ -8,11 +8,11 @@ import ch.ffhs.fac.flang.runtime.Closure.FunctionInterface;
 import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
-public class PrintFunction implements FunctionInterface {
+public class Print implements FunctionInterface {
 	public static final String NAME = "print";
 	private final Writer writer;
 
-	public PrintFunction(final Writer writer) {
+	public Print(final Writer writer) {
 		this.writer = writer;
 	}
 
