@@ -8,7 +8,7 @@ public class Undefined implements Literal {
 	
 	@Override
 	public java.lang.String toString(final Closure closure) {
-		return "Undefined";
+		return "UNDEFINED";
 	}
 
 	@Override

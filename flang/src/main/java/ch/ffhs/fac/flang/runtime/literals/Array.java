@@ -45,7 +45,7 @@ public class Array implements Literal {
 	@Override
 	public java.lang.String toString(final Closure closure) {
 		return values.stream()
-				.map(literal -> literal.toString())
+				.map(literal -> literal.toString(closure))
 				.collect(Collectors.joining(", ", "[", "]"));
 	}
 

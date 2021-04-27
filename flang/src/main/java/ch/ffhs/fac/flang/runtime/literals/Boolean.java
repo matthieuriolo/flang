@@ -4,8 +4,8 @@ import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Literal;
 
 public class Boolean implements Literal {
-	public static final Boolean TRUE = new Boolean("true");
-	public static final Boolean FALSE = new Boolean("false");
+	public static final Boolean TRUE = new Boolean("TRUE");
+	public static final Boolean FALSE = new Boolean("FALSE");
 	
 	private final java.lang.String name;
 	private Boolean(final java.lang.String string) {
