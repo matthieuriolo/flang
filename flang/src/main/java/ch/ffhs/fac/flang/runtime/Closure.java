@@ -73,7 +73,7 @@ public class Closure {
 			}
 		}
 		
-		return Undefined.UNDEFINED;
+		return null;
 	}
 	
 	private Closure findClosureWithVariable(final String name) {
