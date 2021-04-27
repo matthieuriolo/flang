@@ -1,5 +1,7 @@
 package ch.ffhs.fac.flang.runtime.instructions;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.List;
 
 import ch.ffhs.fac.flang.runtime.Closure;
@@ -9,7 +11,7 @@ import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.expressions.LiteralWrapper;
 import ch.ffhs.fac.flang.runtime.literals.Identifier;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
-import ch.ffhs.fac.flang.runtime.literals.Integer;
+import ch.ffhs.fac.flang.runtime.literals.Decimal;
 
 public class For implements Instruction {
 	private final Identifier identifier;
@@ -18,36 +20,37 @@ public class For implements Instruction {
 	private final Expression by;
 	private final List<Instruction> instructions;
 
-	public For(final Identifier identifier, final int from, final Expression to, final Expression by,
+	public For(final Identifier identifier, final BigDecimal from, final Expression to, final Expression by,
 			final List<Instruction> instructions) {
-		this(identifier, new LiteralWrapper(new Integer(from)), to, by, instructions);
+		this(identifier, new LiteralWrapper(new Decimal(from)), to, by, instructions);
 	}
-	
-	public For(final Identifier identifier, final int from, final int to, final Expression by,
+
+	public For(final Identifier identifier, final BigDecimal from, final BigDecimal to, final Expression by,
 			final List<Instruction> instructions) {
-		this(identifier, new LiteralWrapper(new Integer(from)), new LiteralWrapper(new Integer(to)), by, instructions);
+		this(identifier, new LiteralWrapper(new Decimal(from)), new LiteralWrapper(new Decimal(to)), by, instructions);
 	}
-	
-	public For(final Identifier identifier, final int from, final int to, final int by,
+
+	public For(final Identifier identifier, final BigDecimal from, final BigDecimal to, final BigDecimal by,
 			final List<Instruction> instructions) {
-		this(identifier, new LiteralWrapper(new Integer(from)), new LiteralWrapper(new Integer(to)), new LiteralWrapper(new Integer(by)), instructions);
+		this(identifier, new LiteralWrapper(new Decimal(from)), new LiteralWrapper(new Decimal(to)),
+				new LiteralWrapper(new Decimal(by)), instructions);
 	}
-	
-	public For(final Identifier identifier, final Expression from, final int to, final int by,
+
+	public For(final Identifier identifier, final Expression from, final BigDecimal to, final BigDecimal by,
 			final List<Instruction> instructions) {
-		this(identifier, from, new LiteralWrapper(new Integer(to)), new LiteralWrapper(new Integer(by)), instructions);
+		this(identifier, from, new LiteralWrapper(new Decimal(to)), new LiteralWrapper(new Decimal(by)), instructions);
 	}
-	
-	public For(final Identifier identifier, final Expression from, final Expression to, final int by,
+
+	public For(final Identifier identifier, final Expression from, final Expression to, final BigDecimal by,
 			final List<Instruction> instructions) {
-		this(identifier, from, to, new LiteralWrapper(new Integer(by)), instructions);
+		this(identifier, from, to, new LiteralWrapper(new Decimal(by)), instructions);
 	}
-	
-	public For(final Identifier identifier, final int from, final Expression to, final int by,
+
+	public For(final Identifier identifier, final BigDecimal from, final Expression to, final BigDecimal by,
 			final List<Instruction> instructions) {
-		this(identifier, new LiteralWrapper(new Integer(from)), to, new LiteralWrapper(new Integer(by)), instructions);
+		this(identifier, new LiteralWrapper(new Decimal(from)), to, new LiteralWrapper(new Decimal(by)), instructions);
 	}
-	
+
 	public For(final Identifier identifier, final Expression from, final Expression to, final Expression by,
 			final List<Instruction> instructions) {
 		this.identifier = identifier;
@@ -59,20 +62,23 @@ public class For implements Instruction {
 
 	@Override
 	public Literal execute(Closure closure) throws Throwable {
-		final var f = ((Integer) from.compute(closure)).getValue();
-		final var t = ((Integer) to.compute(closure)).getValue();
-		final var b = ((Integer) by.compute(closure)).getValue();
+		final var f = ((Decimal) from.compute(closure)).getValue();
+		final var t = ((Decimal) to.compute(closure)).getValue();
+		final var b = ((Decimal) by.compute(closure)).getValue();
 
 		// some minimalistic guards
-		if (b == 0 || f < t && b < 0 || f > t && b > 0) {
+		if (b.compareTo(BigDecimal.ZERO) == 0 || f.compareTo(t) > 0 && b.compareTo(BigDecimal.ZERO) < 0
+				|| f.compareTo(t) < 0 && b.compareTo(BigDecimal.ZERO) > 0) {
 			throw new Exception("'For' cannot be executed");
 		}
 
 		Literal last = Undefined.UNDEFINED;
-		for (int i = f; f < t && i < t || i > t; i += b) {
+		var i = f;
+		while(i.compareTo(t) != 0) {
 			final var block = new Closure(closure, instructions);
-			block.setValue(identifier, new Integer(i));
+			block.setValue(identifier, new Decimal(i));
 			last = block.execute();
+			i = i.add(b);
 		}
 
 		return last;

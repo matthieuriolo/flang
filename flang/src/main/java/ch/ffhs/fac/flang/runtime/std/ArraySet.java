@@ -5,7 +5,7 @@ import java.util.List;
 import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Closure.FunctionInterface;
 import ch.ffhs.fac.flang.runtime.literals.Array;
-import ch.ffhs.fac.flang.runtime.literals.Integer;
+import ch.ffhs.fac.flang.runtime.literals.Decimal;
 import ch.ffhs.fac.flang.runtime.Literal;
 
 public class ArraySet implements FunctionInterface {
@@ -25,11 +25,11 @@ public class ArraySet implements FunctionInterface {
 			throw new Exception("First argument must be an array");
 		}
 		
-		if(!(index instanceof Integer)) {
+		if(!(index instanceof Decimal)) {
 			throw new Exception("Second argument must be an integer");
 		}
 		
-		return ((Array)array).set(((Integer)index).getValue(), value);
+		return ((Array)array).set(((Decimal)index).getValue().intValueExact(), value);
 	}
 	
 }

@@ -12,7 +12,6 @@ public class Symbols {
   public static final int SLASH = 26;
   public static final int UMINUS = 33;
   public static final int NOT_EQUAL = 28;
-  public static final int INTEGER = 36;
   public static final int CURLY_CLOSED = 19;
   public static final int GREATER = 31;
   public static final int LESS = 29;
@@ -27,6 +26,7 @@ public class Symbols {
   public static final int IF = 12;
   public static final int ROUND_OPEN = 16;
   public static final int ROUND_CLOSED = 17;
+  public static final int DECIMAL = 36;
   public static final int EOF = 0;
   public static final int CURLY_OPEN = 18;
   public static final int RETURN = 15;
@@ -82,7 +82,7 @@ public class Symbols {
   "UMINUS",
   "IDENTIFIER",
   "STRING",
-  "INTEGER"
+  "DECIMAL"
   };
 }
 

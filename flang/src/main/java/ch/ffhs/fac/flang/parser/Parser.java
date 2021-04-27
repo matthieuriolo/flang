@@ -12,6 +12,7 @@ import ch.ffhs.fac.flang.runtime.instructions.*;
 import java_cup.runtime.*;
 import java.util.*;
 import java.io.*;
+import java.math.BigDecimal;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -656,7 +657,7 @@ class CUP$Parser$actions {
 		int sleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		List<Instruction> s = (List<Instruction>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT = new For(i, 0, t, 1, s); 
+		 RESULT = new For(i, BigDecimal.ZERO, t, BigDecimal.ONE, s); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("for",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -677,7 +678,7 @@ class CUP$Parser$actions {
 		int sleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		List<Instruction> s = (List<Instruction>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT = new For(i, 0, t, b, s); 
+		 RESULT = new For(i, BigDecimal.ZERO, t, b, s); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("for",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -698,7 +699,7 @@ class CUP$Parser$actions {
 		int sleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		List<Instruction> s = (List<Instruction>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT = new For(i, f, t, 1, s); 
+		 RESULT = new For(i, f, t, BigDecimal.ONE, s); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("for",4, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -983,13 +984,13 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 38: // literal ::= INTEGER 
+          case 38: // literal ::= DECIMAL 
             {
               Literal RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
-		Integer i = (Integer)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new ch.ffhs.fac.flang.runtime.literals.Integer(i); 
+		BigDecimal i = (BigDecimal)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = new ch.ffhs.fac.flang.runtime.literals.Decimal(i); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("literal",13, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

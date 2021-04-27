@@ -24,10 +24,10 @@ public class String implements Literal {
 	
 	@Override
 	public Literal operationAsterisk(final Literal right) {
-		if (right instanceof Integer) {
-			return new String(string.repeat(((Integer) right).getValue()));
+		if (right instanceof Decimal) {
+			return new String(string.repeat(((Decimal) right).getValue().intValueExact()));
 		}
-
+		
 		return Literal.super.operationAsterisk(right);
 	}
 	
