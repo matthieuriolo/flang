@@ -7,6 +7,11 @@ import java.io.Writer;
 import ch.ffhs.fac.flang.parser.Parser;
 import ch.ffhs.fac.flang.parser.Scanner;
 import ch.ffhs.fac.flang.runtime.Document;
+import ch.ffhs.fac.flang.runtime.std.ArrayCreate;
+import ch.ffhs.fac.flang.runtime.std.ArrayFilter;
+import ch.ffhs.fac.flang.runtime.std.ArrayGet;
+import ch.ffhs.fac.flang.runtime.std.ArrayMap;
+import ch.ffhs.fac.flang.runtime.std.ArraySet;
 import ch.ffhs.fac.flang.runtime.std.Print;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -74,6 +79,11 @@ public class App extends Application {
 			textareaOutput.appendText("successfully parsed\n");
 			
 			final var document = (Document)symbol.value;
+			document.declareFunction(ArrayCreate.NAME, new ArrayCreate());
+			document.declareFunction(ArrayGet.NAME, new ArrayGet());
+			document.declareFunction(ArraySet.NAME, new ArraySet());
+			document.declareFunction(ArrayMap.NAME, new ArrayMap());
+			document.declareFunction(ArrayFilter.NAME, new ArrayFilter());
 			document.declareFunction(Print.NAME, new Print(new Writer() {
 				@Override
 				public void write(char[] cbuf, int off, int len) throws IOException {
