@@ -61,11 +61,6 @@ public class Closure {
 		this.instructions = instructions;
 	}
 	
-	@Deprecated
-	public void addInstruction(final Instruction instr) {
-		instructions.add(instr);
-	}
-	
 	public Closure getParentClosure() {
 		return parent;
 	}

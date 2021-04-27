@@ -7,14 +7,6 @@ import ch.ffhs.fac.flang.runtime.Literal;
 
 public class Decimal implements Literal {
 	private BigDecimal value;
-	@Deprecated
-	public Decimal(final long value) {
-		this.value = BigDecimal.valueOf(value);
-	}
-	@Deprecated
-	public Decimal(final double value) {
-		this.value = BigDecimal.valueOf(value);
-	}
 	
 	public Decimal(final BigDecimal value) {
 		this.value = value;
