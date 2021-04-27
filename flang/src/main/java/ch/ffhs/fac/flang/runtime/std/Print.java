@@ -21,7 +21,7 @@ public class Print implements FunctionInterface {
 		for (final var param : parameters) {
 			writer.write(param.toString(closure));
 		}
-		writer.write("\n");
+		writer.flush();
 		return Undefined.UNDEFINED;
 	}
 

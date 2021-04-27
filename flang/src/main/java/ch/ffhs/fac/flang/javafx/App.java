@@ -85,13 +85,24 @@ public class App extends Application {
 			document.declareFunction(ArrayMap.NAME, new ArrayMap());
 			document.declareFunction(ArrayFilter.NAME, new ArrayFilter());
 			document.declareFunction(Print.NAME, new Print(new Writer() {
+				private boolean flushed = true;
 				@Override
 				public void write(char[] cbuf, int off, int len) throws IOException {
+					if(flushed) {
+						flushed = false;
+					}else {
+						textareaOutput.appendText(" ");
+					}
+					
 					textareaOutput.appendText(new String(cbuf, off, len));
 				}
 				
 				@Override
-				public void flush() throws IOException {}
+				public void flush() throws IOException {
+					flushed = true;
+					textareaOutput.appendText("\n");
+				}
+				
 				@Override
 				public void close() throws IOException {}
 			}));
