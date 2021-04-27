@@ -10,8 +10,8 @@ import ch.ffhs.fac.flang.runtime.Routine;
 import ch.ffhs.fac.flang.runtime.literals.Identifier;
 
 public class FunctionProcedure extends Routine implements Instruction {
-	public FunctionProcedure(final Identifier identifier, final List<Expression> arguments) {
-		super(identifier, arguments);
+	public FunctionProcedure(final Expression subject) {
+		super(subject, List.of());
 	}
 	
 	public FunctionProcedure(final Expression subject, final List<Expression> arguments) {

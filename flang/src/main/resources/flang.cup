@@ -100,9 +100,11 @@ instruction          ::= assignment:i                   {: RESULT = i; :}
 ;
 
 /* instructions */
-assignment           ::= identifier:i ASSIGN expression:e                   {: RESULT = new Assignment(i, e); :};
-functionProcedure    ::= identifier:i ROUND_OPEN expressions:e ROUND_CLOSED {: RESULT = new FunctionProcedure(i, e); :}
-           /*            | functionCall ROUND_OPEN expressions:e ROUND_CLOSED {: :}*/
+assignment           ::= identifier:i ASSIGN expression:e                          {: RESULT = new Assignment(i, e); :};
+functionProcedure    ::= identifier:i ROUND_OPEN ROUND_CLOSED                      {: RESULT = new FunctionProcedure(i); :}
+                       | identifier:i ROUND_OPEN expressions:e ROUND_CLOSED        {: RESULT = new FunctionProcedure(i, e); :}
+                       | functionCall:c ROUND_OPEN ROUND_CLOSED                    {: RESULT = new FunctionProcedure(c); :}
+                       | functionCall:c ROUND_OPEN expressions:e ROUND_CLOSED      {: RESULT = new FunctionProcedure(c, e); :}
 ;
 
 
@@ -192,8 +194,13 @@ literal              ::= identifier:i          {: RESULT = i; :}
 
 identifier           ::= IDENTIFIER:i          {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Identifier(i); :};
 
-functionDeclaration  ::= COLON ROUND_OPEN functionArguments:a ROUND_CLOSED CURLY_OPEN instructions:i CURLY_CLOSED   {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Function(a, i); :};
+functionDeclaration  ::= COLON ROUND_OPEN ROUND_CLOSED CURLY_OPEN instructions:i CURLY_CLOSED   {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Function(i); :}
+                       | COLON ROUND_OPEN functionArguments:a ROUND_CLOSED CURLY_OPEN instructions:i CURLY_CLOSED   {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Function(a, i); :};
 functionArguments    ::= functionArguments:l COMMA identifier:i {: RESULT = l;  l.add(i); :}
                        | identifier:i {: RESULT = new LinkedList<ch.ffhs.fac.flang.runtime.literals.Identifier>(); RESULT.add(i); :}
 ;
-functionCall         ::= identifier:i ROUND_OPEN expressions:e ROUND_CLOSED              {: RESULT = new FunctionCall(i, e); :};
+functionCall         ::= identifier:i ROUND_OPEN ROUND_CLOSED                            {: RESULT = new FunctionCall(i); :}
+                       | identifier:i ROUND_OPEN expressions:e ROUND_CLOSED              {: RESULT = new FunctionCall(i, e); :}
+                       | functionCall:c ROUND_OPEN ROUND_CLOSED                          {: RESULT = new FunctionCall(c); :}
+                       | functionCall:c ROUND_OPEN expressions:e ROUND_CLOSED            {: RESULT = new FunctionCall(c, e); :}
+;

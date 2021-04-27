@@ -11,7 +11,11 @@ public class Function implements Literal {
 	
 	private final List<Identifier> parameters;
 	private final List<Instruction> instructions;
-
+	
+	public Function(final List<Instruction> instructions) {
+		this(List.of(), instructions);
+	}
+	
 	public Function(final List<Identifier> parameters, final List<Instruction> instructions) {
 		this.parameters = parameters;
 		this.instructions = instructions;
