@@ -53,7 +53,7 @@ non terminal Instruction assignment;
 non terminal Expression functionCall;
 non terminal Instruction functionProcedure;
 non terminal LinkedList<ch.ffhs.fac.flang.runtime.literals.Identifier> functionArguments;
-non terminal Expression functionDeclaration;
+non terminal Literal functionDeclaration;
 non terminal LinkedList<Expression> expressions;
 non terminal Expression expression;
 /*
@@ -86,7 +86,7 @@ precedence left UMINUS;
 start with document;
 
 document             ::= instructions:i                 {: RESULT = new Document(i); :};
-instructions         ::= instructions:l instruction:i   {: l.add(i); RESULT = l; :}
+instructions         ::= instructions:l instruction:i   {: RESULT = l; l.add(i); :}
                        | instruction:i                  {: RESULT = new LinkedList<Instruction>(); RESULT.add(i); :}
 ;
 
@@ -118,7 +118,7 @@ for                  ::= FOR identifier:i TO expression:t CURLY_OPEN instruction
 
 
 /* expressions */
-expressions          ::= expressions:l COMMA expression:i {: l.add(i); :}
+expressions          ::= expressions:l COMMA expression:i {: RESULT = l; l.add(i); :}
                        | expression:i                     {: RESULT = new LinkedList<Expression>(); RESULT.add(i); :}
 ;
 
@@ -137,6 +137,7 @@ expression           ::= expression:l OR expression:r              {: RESULT = n
                        | expression:l SLASH expression:r           {: RESULT = new BiOperand(l, BiOperand.Type.SLASH, r); :}
                        | MINUS expression:i                        {: RESULT = new UnaryOperand(i, UnaryOperand.Type.MINUS); :} %prec UMINUS
                        | ROUND_OPEN expression:i ROUND_CLOSED      {: RESULT = i; :}
+                       | functionCall:i                            {: RESULT = i; :}
                        | literal:i                                 {: RESULT = new LiteralWrapper(i); :}
 ;
 
@@ -185,13 +186,14 @@ literal              ::= identifier:i          {: RESULT = i; :}
                        | TRUE                  {: RESULT = ch.ffhs.fac.flang.runtime.literals.Boolean.TRUE; :}
                        | FALSE                 {: RESULT = ch.ffhs.fac.flang.runtime.literals.Boolean.FALSE; :}
                        | UNDEFINED             {: RESULT = ch.ffhs.fac.flang.runtime.literals.Undefined.UNDEFINED; :}
-                       | functionDeclaration
+                       | functionDeclaration:i {: RESULT = i; :}
                        | STRING:i              {: RESULT = new ch.ffhs.fac.flang.runtime.literals.String(i); :}
 ;
 
 identifier           ::= IDENTIFIER:i          {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Identifier(i); :};
 
-functionDeclaration  ::= COLON ROUND_OPEN functionArguments ROUND_CLOSED CURLY_OPEN instructions CURLY_CLOSED;
-functionArguments    ::= functionArguments:l COMMA identifier:i {: l.add(i); :}
+functionDeclaration  ::= COLON ROUND_OPEN functionArguments:a ROUND_CLOSED CURLY_OPEN instructions:i CURLY_CLOSED   {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Function(a, i); :};
+functionArguments    ::= functionArguments:l COMMA identifier:i {: RESULT = l;  l.add(i); :}
                        | identifier:i {: RESULT = new LinkedList<ch.ffhs.fac.flang.runtime.literals.Identifier>(); RESULT.add(i); :}
 ;
+functionCall         ::= identifier:i ROUND_OPEN expressions:e ROUND_CLOSED              {: RESULT = new FunctionCall(i, e); :};
