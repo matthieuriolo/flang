@@ -13,6 +13,7 @@ import ch.ffhs.fac.flang.runtime.std.ArrayFilter;
 import ch.ffhs.fac.flang.runtime.std.ArrayGet;
 import ch.ffhs.fac.flang.runtime.std.ArrayMap;
 import ch.ffhs.fac.flang.runtime.std.ArraySet;
+import ch.ffhs.fac.flang.runtime.std.CastString;
 import ch.ffhs.fac.flang.runtime.std.Print;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -103,6 +104,7 @@ public class App extends Application {
 			textareaOutput.appendText("successfully parsed\n");
 
 			final var document = (Document) symbol.value;
+			document.declareFunction(CastString.NAME, new CastString());
 			document.declareFunction(ArrayCreate.NAME, new ArrayCreate());
 			document.declareFunction(ArrayGet.NAME, new ArrayGet());
 			document.declareFunction(ArraySet.NAME, new ArraySet());
