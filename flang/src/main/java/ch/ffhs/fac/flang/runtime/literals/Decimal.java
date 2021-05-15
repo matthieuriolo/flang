@@ -12,6 +12,10 @@ public class Decimal implements Literal {
 		this.value = value;
 	}
 	
+	public Decimal(final java.lang.String value) {
+		this(new BigDecimal(value));
+	}
+	
 	public BigDecimal getValue() {
 		return value;
 	}
