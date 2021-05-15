@@ -13,6 +13,7 @@ import ch.ffhs.fac.flang.runtime.std.ArrayFilter;
 import ch.ffhs.fac.flang.runtime.std.ArrayGet;
 import ch.ffhs.fac.flang.runtime.std.ArrayMap;
 import ch.ffhs.fac.flang.runtime.std.ArraySet;
+import ch.ffhs.fac.flang.runtime.std.CastDecimal;
 import ch.ffhs.fac.flang.runtime.std.CastString;
 import ch.ffhs.fac.flang.runtime.std.Print;
 import javafx.application.Application;
@@ -105,6 +106,7 @@ public class App extends Application {
 
 			final var document = (Document) symbol.value;
 			document.declareFunction(CastString.NAME, new CastString());
+			document.declareFunction(CastDecimal.NAME, new CastDecimal());
 			document.declareFunction(ArrayCreate.NAME, new ArrayCreate());
 			document.declareFunction(ArrayGet.NAME, new ArrayGet());
 			document.declareFunction(ArraySet.NAME, new ArraySet());
@@ -135,7 +137,8 @@ public class App extends Application {
 				}
 			}));
 			final var returnValue = document.execute();
-			textareaOutput.appendText("Programm finished with return value: " + returnValue.toString(document) + "\n");
+			textareaOutput.appendText(
+					"Programm finished with return value: " + returnValue.toString(document) + "\n");
 		} catch (Throwable e) {
 			textareaOutput.setText(e.getMessage());
 			e.printStackTrace();
