@@ -18,10 +18,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.TextArea;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class App extends Application {
-	final String mainWindowFXML = "/simple-ide.fxml";
+	private static final String mainWindowFXML = "/simple-ide.fxml";
+	private static final String aboutWindowFXML = "/simple-ide-about.fxml";
 	private Stage mainWindow;
 	
 	@FXML
@@ -57,12 +59,22 @@ public class App extends Application {
 	
 	@FXML
 	private void exit(ActionEvent event) {
-
+		System.exit(0);
 	}
 	
 	@FXML
 	private void showAbout(ActionEvent event) {
-
+		final var cl = getClass();
+		final var location = cl.getResource(aboutWindowFXML);
+		final var loader = new FXMLLoader(location);
+		try {
+			final Stage aboutWindow = loader.load();
+			aboutWindow.initModality(Modality.WINDOW_MODAL);
+			aboutWindow.initOwner(mainWindow);
+			aboutWindow.show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@FXML
