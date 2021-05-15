@@ -1,0 +1,11 @@
+# demonstration lexer
+a = 10
+b = :(txt) {
+	print(txt)
+}
+
+for i from 0 to a by 2 {
+	if i == 4 {
+		b("Hello World!")
+	}
+}
