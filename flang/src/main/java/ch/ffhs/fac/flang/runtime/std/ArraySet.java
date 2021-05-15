@@ -12,7 +12,7 @@ public class ArraySet implements FunctionInterface {
 	public static final String NAME = "array_set";
 	
 	@Override
-	public Literal execute(Closure closure, List<Literal> parameters) throws Throwable {
+	public Literal execute(final Closure closure, final List<Literal> parameters) throws Throwable {
 		if(parameters.size() != 3) {
 			throw new Exception("Three arguments required");
 		}

@@ -11,7 +11,7 @@ public class ArrayCreate implements FunctionInterface {
 	public static final String NAME = "array_create";
 
 	@Override
-	public Literal execute(Closure closure, List<Literal> parameters) throws Throwable {
+	public Literal execute(final Closure closure, final List<Literal> parameters) throws Throwable {
 		return new Array(parameters);
 	}
 }

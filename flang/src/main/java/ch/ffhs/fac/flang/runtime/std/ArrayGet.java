@@ -12,7 +12,7 @@ public class ArrayGet implements FunctionInterface {
 	public static final String NAME = "array_get";
 
 	@Override
-	public Literal execute(Closure closure, List<Literal> parameters) throws Throwable {
+	public Literal execute(final Closure closure, final List<Literal> parameters) throws Throwable {
 		if (parameters.size() != 2) {
 			throw new Exception("Two arguments required");
 		}

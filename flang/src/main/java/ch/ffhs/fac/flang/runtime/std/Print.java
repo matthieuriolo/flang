@@ -17,7 +17,7 @@ public class Print implements FunctionInterface {
 	}
 
 	@Override
-	public Literal execute(Closure closure, List<Literal> parameters) throws Throwable {
+	public Literal execute(final Closure closure, final List<Literal> parameters) throws Throwable {
 		for (final var param : parameters) {
 			writer.write(param.toString(closure));
 		}
