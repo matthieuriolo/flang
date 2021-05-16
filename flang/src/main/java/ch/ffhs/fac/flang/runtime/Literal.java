@@ -2,6 +2,7 @@ package ch.ffhs.fac.flang.runtime;
 
 import java.util.List;
 
+import ch.ffhs.fac.flang.runtime.literals.Decimal;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
 public interface Literal extends Expression {
@@ -63,6 +64,9 @@ public interface Literal extends Expression {
 	
 	public boolean toBoolean(final Closure closure);
 	public String toString(final Closure closure);
+	public default String toHumanReadableString(final Closure closure) {
+		return toString(closure);
+	}
 	
 	@Override
 	public default Literal compute(Closure closure) throws Throwable {

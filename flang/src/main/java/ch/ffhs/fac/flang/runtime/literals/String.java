@@ -51,6 +51,11 @@ public class String implements Literal {
 	
 	@Override
 	public java.lang.String toString(final Closure closure) {
+		return string;
+	}
+	
+	@Override
+	public java.lang.String toHumanReadableString(final Closure closure) {
 		return "\"" + string + "\"";
 	}
 	
