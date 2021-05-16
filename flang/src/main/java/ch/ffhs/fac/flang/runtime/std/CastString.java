@@ -1,7 +1,6 @@
 package ch.ffhs.fac.flang.runtime.std;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Closure.FunctionInterface;
@@ -14,7 +13,7 @@ public class CastString implements FunctionInterface {
 	@Override
 	public Literal execute(final Closure closure, final List<Literal> parameters) throws Throwable {
 		if(!parameters.isEmpty()) {
-			return new ch.ffhs.fac.flang.runtime.literals.String(parameters.get(0).toString(closure));
+			return new ch.ffhs.fac.flang.runtime.literals.String(parameters.get(0).toString());
 		}
 
 		return Undefined.UNDEFINED;

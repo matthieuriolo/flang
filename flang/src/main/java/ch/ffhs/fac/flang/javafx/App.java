@@ -192,7 +192,7 @@ public class App extends Application {
 					try {
 						final var returnValue = document.execute();
 						textareaOutput.appendText(
-								"Programm finished with return value: " + returnValue.toString(document) + "\n");
+								"Programm finished with return value: " + returnValue.toString() + "\n");
 					} catch (Throwable e) {
 						textareaOutput.setText(e.getMessage());
 						e.printStackTrace();

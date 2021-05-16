@@ -7,11 +7,11 @@ import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
 public interface Literal extends Expression {
 	public default Literal operationOr(final Literal right) {
-		return Undefined.UNDEFINED;
+		return ch.ffhs.fac.flang.runtime.literals.Boolean.of(toBoolean() || right.toBoolean());
 	}
 	
 	public default Literal operationAnd(final Literal right) {
-		return Undefined.UNDEFINED;
+		return ch.ffhs.fac.flang.runtime.literals.Boolean.of(toBoolean() && right.toBoolean());
 	}
 	
 	public default Literal operationPlus(final Literal right) {
@@ -62,13 +62,14 @@ public interface Literal extends Expression {
 		return Undefined.UNDEFINED;
 	}
 	
-	public boolean toBoolean(final Closure closure);
-	public String toString(final Closure closure);
-	public default String toHumanReadableString(final Closure closure) {
-		return toString(closure);
+	public boolean toBoolean();
+	public String toString();
+	public default String toHumanReadableString() {
+		return toString();
 	}
+	
 	public default Literal toDecimal(final Closure closure) {
-		return new Decimal(toBoolean(closure));
+		return new Decimal(toBoolean());
 	}
 	
 	@Override

@@ -140,6 +140,7 @@ expression           ::= expression:l OR expression:r              {: RESULT = n
                        | ROUND_OPEN expression:i ROUND_CLOSED      {: RESULT = i; :}
                        | functionCall:i                            {: RESULT = i; :}
                        | literal:i                                 {: RESULT = i; :}
+                       | identifier:i                              {: RESULT = i; :}
 ;
 
 /*
@@ -182,8 +183,7 @@ expressionPriority8  ::= ROUND_OPEN expression:i ROUND_CLOSED
 
 
 /* literals */
-literal              ::= identifier:i          {: RESULT = i; :}
-                       | DECIMAL:i             {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Decimal(i); :}
+literal              ::= DECIMAL:i             {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Decimal(i); :}
                        | TRUE                  {: RESULT = ch.ffhs.fac.flang.runtime.literals.Boolean.TRUE; :}
                        | FALSE                 {: RESULT = ch.ffhs.fac.flang.runtime.literals.Boolean.FALSE; :}
                        | UNDEFINED             {: RESULT = ch.ffhs.fac.flang.runtime.literals.Undefined.UNDEFINED; :}

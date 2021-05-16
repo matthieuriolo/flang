@@ -35,7 +35,7 @@ public class Array implements Literal {
 		final var list = new LinkedList<Literal>();
 		for (final var val : values) {
 			final var ret = func.functionalCall(closure, List.of(val));
-			if (ret.toBoolean(closure)) {
+			if (ret.toBoolean()) {
 				list.add(val);
 			}
 		}
@@ -43,14 +43,14 @@ public class Array implements Literal {
 	}
 
 	@Override
-	public java.lang.String toString(final Closure closure) {
+	public java.lang.String toString() {
 		return values.stream()
-				.map(literal -> literal.toHumanReadableString(closure))
+				.map(literal -> literal.toHumanReadableString())
 				.collect(Collectors.joining(", ", "[", "]"));
 	}
 
 	@Override
-	public boolean toBoolean(Closure closure) {
+	public boolean toBoolean() {
 		return !values.isEmpty();
 	}
 }

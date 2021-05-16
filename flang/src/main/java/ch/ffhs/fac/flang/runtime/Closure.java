@@ -31,12 +31,12 @@ public class Closure {
 		}
 
 		@Override
-		public boolean toBoolean(Closure closure) {
+		public boolean toBoolean() {
 			return true;
 		}
 		
 		@Override
-		public String toString(final Closure closure) {
+		public String toString() {
 			return "<developer defined function:" + getClass().getCanonicalName() + ">";
 		}
 		

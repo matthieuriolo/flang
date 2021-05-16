@@ -5,23 +5,15 @@
 
 package ch.ffhs.fac.flang.parser;
 
+import ch.ffhs.fac.flang.runtime.*;
+import ch.ffhs.fac.flang.runtime.expressions.*;
+import ch.ffhs.fac.flang.runtime.expressions.operations.*;
+import ch.ffhs.fac.flang.runtime.instructions.*;
+import java_cup.runtime.*;
+import java.util.*;
+import java.io.*;
 import java.math.BigDecimal;
-import java.util.LinkedList;
-import java.util.List;
-
-import ch.ffhs.fac.flang.runtime.Document;
-import ch.ffhs.fac.flang.runtime.Expression;
-import ch.ffhs.fac.flang.runtime.Instruction;
-import ch.ffhs.fac.flang.runtime.Literal;
-import ch.ffhs.fac.flang.runtime.expressions.FunctionCall;
-import ch.ffhs.fac.flang.runtime.expressions.operations.BiOperand;
-import ch.ffhs.fac.flang.runtime.expressions.operations.UnaryOperand;
-import ch.ffhs.fac.flang.runtime.instructions.Assignment;
-import ch.ffhs.fac.flang.runtime.instructions.For;
-import ch.ffhs.fac.flang.runtime.instructions.FunctionProcedure;
-import ch.ffhs.fac.flang.runtime.instructions.If;
-import ch.ffhs.fac.flang.runtime.instructions.Return;
-import ch.ffhs.fac.flang.runtime.instructions.While;
+import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
   */
@@ -58,7 +50,7 @@ public class Parser extends java_cup.runtime.lr_parser {
     "\005\000\002\016\005\000\002\016\005\000\002\016\005" +
     "\000\002\016\005\000\002\016\005\000\002\016\005\000" +
     "\002\016\005\000\002\016\004\000\002\016\005\000\002" +
-    "\016\003\000\002\016\003\000\002\017\003\000\002\017" +
+    "\016\003\000\002\016\003\000\002\016\003\000\002\017" +
     "\003\000\002\017\003\000\002\017\003\000\002\017\003" +
     "\000\002\017\003\000\002\017\003\000\002\020\003\000" +
     "\002\014\010\000\002\014\011\000\002\013\005\000\002" +
@@ -1050,14 +1042,14 @@ class CUP$Parser$actions {
           return CUP$Parser$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 40: // literal ::= identifier 
+          case 40: // expression ::= identifier 
             {
-              Literal RESULT =null;
+              Expression RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		ch.ffhs.fac.flang.runtime.literals.Identifier i = (ch.ffhs.fac.flang.runtime.literals.Identifier)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		 RESULT = i; 
-              CUP$Parser$result = parser.getSymbolFactory().newSymbol("literal",13, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
+              CUP$Parser$result = parser.getSymbolFactory().newSymbol("expression",12, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
 

@@ -52,17 +52,17 @@ public class String implements Literal {
 	}
 	
 	@Override
-	public java.lang.String toString(final Closure closure) {
+	public java.lang.String toString() {
 		return string;
 	}
 	
 	@Override
-	public java.lang.String toHumanReadableString(final Closure closure) {
+	public java.lang.String toHumanReadableString() {
 		return "\"" + string + "\"";
 	}
 	
 	@Override
-	public boolean toBoolean(final Closure closure) {
+	public boolean toBoolean() {
 		return !string.isBlank();
 	}
 	

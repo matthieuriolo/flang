@@ -121,12 +121,12 @@ public class Decimal implements Literal {
 	}
 
 	@Override
-	public java.lang.String toString(final Closure closure) {
+	public java.lang.String toString() {
 		return value.toString();
 	}
 	
 	@Override
-	public boolean toBoolean(final Closure closure) {
+	public boolean toBoolean() {
 		return value.compareTo(BigDecimal.ZERO) != 0;
 	}
 	

@@ -1,7 +1,6 @@
 package ch.ffhs.fac.flang.runtime.std;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Closure.FunctionInterface;

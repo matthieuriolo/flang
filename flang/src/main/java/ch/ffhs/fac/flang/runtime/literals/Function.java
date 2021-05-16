@@ -38,7 +38,7 @@ public class Function implements Literal {
 	}
 	
 	@Override
-	public java.lang.String toString(final Closure closure) {
+	public java.lang.String toString() {
 		final var buf = new StringBuffer();
 		buf.append("<user defined function:");
 		for (final var param : parameters) {
@@ -52,7 +52,7 @@ public class Function implements Literal {
 	}
 	
 	@Override
-	public boolean toBoolean(final Closure closure) {
+	public boolean toBoolean() {
 		return true;
 	}
 	

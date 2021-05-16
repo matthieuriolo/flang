@@ -25,7 +25,7 @@ public class If implements Instruction {
 	@Override
 	public Literal execute(Closure closure) throws Throwable {
 		final var cond = condition.compute(closure);
-		final var instrs = cond.toBoolean(closure) ? instructions : elseInstructions;
+		final var instrs = cond.toBoolean() ? instructions : elseInstructions;
 		final var block = new Closure(closure, instrs);
 		return block.execute();
 	}
