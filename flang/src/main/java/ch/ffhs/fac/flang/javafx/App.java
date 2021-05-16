@@ -1,7 +1,13 @@
 package ch.ffhs.fac.flang.javafx;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PipedReader;
+import java.io.PipedWriter;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.file.Files;
 
@@ -16,11 +22,20 @@ import ch.ffhs.fac.flang.runtime.std.ArraySet;
 import ch.ffhs.fac.flang.runtime.std.CastDecimal;
 import ch.ffhs.fac.flang.runtime.std.CastString;
 import ch.ffhs.fac.flang.runtime.std.Print;
+import ch.ffhs.fac.flang.runtime.std.Read;
+import java_cup.runtime.Symbol;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -31,10 +46,22 @@ public class App extends Application {
 	private Stage mainWindow;
 
 	@FXML
-	private TextArea textareaInput;
+	private TextArea textareaCode;
 
 	@FXML
 	private TextArea textareaOutput;
+
+	@FXML
+	private TextArea textareaToken;
+
+	@FXML
+	private TextArea textareaAST;
+
+	@FXML
+	private TextField textfieldInput;
+
+	@FXML
+	private Button buttonInput;
 
 	public static void launchJavaFX(final String[] args) {
 		launch(args);
@@ -63,8 +90,8 @@ public class App extends Application {
 			fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("FLang Files", "*.flang"));
 			final var file = fileChooser.showOpenDialog(mainWindow);
 			if (file != null) {
-				textareaInput.clear();
-				textareaInput.setText(Files.readString(file.toPath()));
+				textareaCode.clear();
+				textareaCode.setText(Files.readString(file.toPath()));
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -73,7 +100,7 @@ public class App extends Application {
 
 	@FXML
 	private void exit(ActionEvent event) {
-		System.exit(0);
+		Platform.exit();
 	}
 
 	@FXML
@@ -95,14 +122,26 @@ public class App extends Application {
 	private void clickCompile(ActionEvent event) {
 		textareaOutput.clear();
 
-		final var sourceCode = textareaInput.getText();
+		final var sourceCode = textareaCode.getText();
 		final var reader = new StringReader(sourceCode);
 		final var lexer = new Scanner(reader);
-		final var parser = new Parser(lexer);
+		final var parser = new Parser(lexer) {
+			@Override
+			public Symbol scan() throws Exception {
+				final var sym = super.scan();
+				textareaToken.appendText("State:      " + lexer.yystate() + "\n");
+				textareaToken.appendText("Match:      " + lexer.yytext() + "\n");
+				textareaToken.appendText("Nummeric:   " + sym + "\n");
+				textareaToken.appendText("Value:      " + sym.value + "\n");
+				textareaToken.appendText("Line:       " + sym.left + "\n");
+				textareaToken.appendText("Column:     " + sym.right + "\n");
+				textareaToken.appendText("\n");
+				return sym;
+			}
+		};
 
 		try {
 			final var symbol = parser.parse();
-			textareaOutput.appendText("successfully parsed\n");
 
 			final var document = (Document) symbol.value;
 			document.declareFunction(CastString.NAME, new CastString());
@@ -136,34 +175,38 @@ public class App extends Application {
 				public void close() throws IOException {
 				}
 			}));
-			final var returnValue = document.execute();
-			textareaOutput.appendText(
-					"Programm finished with return value: " + returnValue.toString(document) + "\n");
+
+			PipedReader in = new PipedReader();
+			PipedWriter out = new PipedWriter(in);
+			buttonInput.setOnMouseClicked(new EventHandler<Event>() {
+				@Override
+				public void handle(Event event) {
+					try {
+						out.write(textfieldInput.getText() + "\n");
+					} catch (Throwable e) {
+						e.printStackTrace();
+					}
+				}
+			});
+
+			document.declareFunction(Read.NAME, new Read(new BufferedReader(in)));
+
+			new Thread() {
+				@Override
+				public void run() {
+					try {
+						final var returnValue = document.execute();
+						textareaOutput.appendText(
+								"Programm finished with return value: " + returnValue.toString(document) + "\n");
+					} catch (Throwable e) {
+						textareaOutput.setText(e.getMessage());
+						e.printStackTrace();
+					}
+				};
+			}.start();
 		} catch (Throwable e) {
 			textareaOutput.setText(e.getMessage());
 			e.printStackTrace();
 		}
-
-		/*
-		 * Old code which prints out the tokens
-		 * try {
-		 * while(!lexer.yyatEOF()) {
-		 * final var sym = lexer.next_token();
-		 * 
-		 * textareaOutput.appendText("State:      " + lexer.yystate() + "\n");
-		 * textareaOutput.appendText("Match:      " + lexer.yytext() + "\n");
-		 * textareaOutput.appendText("Nummeric:   " + sym + "\n");
-		 * textareaOutput.appendText("Value:      " + sym.value + "\n");
-		 * textareaOutput.appendText("Line:       " + sym.left + "\n");
-		 * textareaOutput.appendText("Column:     " + sym.right + "\n");
-		 * textareaOutput.appendText("\n");
-		 * }
-		 * 
-		 * lexer.yyclose();
-		 * } catch (Exception e) {
-		 * textareaOutput.setText(e.getMessage());
-		 * e.printStackTrace();
-		 * }
-		 */
 	}
 }

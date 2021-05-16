@@ -99,7 +99,7 @@
 															<Font name="Liberation Mono" size="12.0" />
 														 </font>
 													  </TextField>
-                                                      <Button layoutX="560.0" layoutY="116.0" mnemonicParsing="false" text="Execute" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+                                                      <Button fx:id="buttonInput" layoutX="560.0" layoutY="116.0" mnemonicParsing="false" text="Execute" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="5.0" />
                                                    </children>
                                                 </AnchorPane>
                                           </content>
