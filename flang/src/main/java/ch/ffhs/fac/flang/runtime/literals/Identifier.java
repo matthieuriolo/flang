@@ -35,4 +35,9 @@ public class Identifier implements Literal {
 	public boolean toBoolean(final Closure closure) {
 		return closure.getValue(name).toBoolean(closure);
 	}
+	
+	@Override
+	public Literal toDecimal(final Closure closure) {
+		return closure.getValue(name).toDecimal(closure);
+	}
 }

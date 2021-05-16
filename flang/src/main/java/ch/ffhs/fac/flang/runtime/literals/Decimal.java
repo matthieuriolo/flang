@@ -16,6 +16,10 @@ public class Decimal implements Literal {
 		this(new BigDecimal(value));
 	}
 	
+	public Decimal(final boolean value) {
+		this(value ? BigDecimal.ONE : BigDecimal.ZERO);
+	}
+	
 	public BigDecimal getValue() {
 		return value;
 	}
@@ -124,5 +128,10 @@ public class Decimal implements Literal {
 	@Override
 	public boolean toBoolean(final Closure closure) {
 		return value.compareTo(BigDecimal.ZERO) != 0;
+	}
+	
+	@Override
+	public Literal toDecimal(final Closure closure) {
+		return this;
 	}
 }

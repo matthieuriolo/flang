@@ -15,4 +15,9 @@ public class Undefined implements Literal {
 	public boolean toBoolean(final Closure closure) {
 		return false;
 	}
+	
+	@Override
+	public Literal toDecimal(final Closure closure) {
+		return this;
+	}
 }

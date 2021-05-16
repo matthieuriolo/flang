@@ -55,4 +55,9 @@ public class Function implements Literal {
 	public boolean toBoolean(final Closure closure) {
 		return true;
 	}
+	
+	@Override
+	public Literal toDecimal(Closure closure) {
+		return Undefined.UNDEFINED;
+	}
 }

@@ -39,6 +39,11 @@ public class Closure {
 		public String toString(final Closure closure) {
 			return "<developer defined function:" + getClass().getCanonicalName() + ">";
 		}
+		
+		@Override
+		public Literal toDecimal(Closure closure) {
+			return Undefined.UNDEFINED;
+		}
 	}
 	
 	public Closure() {

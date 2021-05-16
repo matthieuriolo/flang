@@ -67,6 +67,9 @@ public interface Literal extends Expression {
 	public default String toHumanReadableString(final Closure closure) {
 		return toString(closure);
 	}
+	public default Literal toDecimal(final Closure closure) {
+		return new Decimal(toBoolean(closure));
+	}
 	
 	@Override
 	public default Literal compute(Closure closure) throws Throwable {

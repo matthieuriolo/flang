@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Closure.FunctionInterface;
+import ch.ffhs.fac.flang.runtime.literals.Undefined;
 import ch.ffhs.fac.flang.runtime.Literal;
 
 public class CastDecimal implements FunctionInterface {
@@ -12,9 +13,10 @@ public class CastDecimal implements FunctionInterface {
 
 	@Override
 	public Literal execute(final Closure closure, final List<Literal> parameters) throws Throwable {
-		final var str = parameters.stream()
-				.map(literal -> literal.toString(closure))
-				.collect(Collectors.joining());
-		return new ch.ffhs.fac.flang.runtime.literals.Decimal(str);
+		if(!parameters.isEmpty()) {
+			return parameters.get(0).toDecimal(closure);
+		}
+
+		return Undefined.UNDEFINED;
 	}
 }

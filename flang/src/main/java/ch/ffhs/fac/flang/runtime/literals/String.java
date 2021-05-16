@@ -1,5 +1,7 @@
 package ch.ffhs.fac.flang.runtime.literals;
 
+import java.math.BigDecimal;
+
 import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Literal;
 
@@ -62,5 +64,15 @@ public class String implements Literal {
 	@Override
 	public boolean toBoolean(final Closure closure) {
 		return !string.isBlank();
+	}
+	
+	@Override
+	public Literal toDecimal(Closure closure) {
+		try {
+			return new Decimal(string);
+		}catch(Throwable e) {
+			e.printStackTrace();
+		}
+		return Undefined.UNDEFINED;
 	}
 }
