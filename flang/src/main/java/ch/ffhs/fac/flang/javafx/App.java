@@ -4,13 +4,18 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PipedReader;
 import java.io.PipedWriter;
+import java.io.PrintWriter;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.file.Files;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import ch.ffhs.fac.flang.parser.Parser;
 import ch.ffhs.fac.flang.parser.Scanner;
 import ch.ffhs.fac.flang.runtime.Document;
+import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.std.ArrayCreate;
 import ch.ffhs.fac.flang.runtime.std.ArrayFilter;
 import ch.ffhs.fac.flang.runtime.std.ArrayGet;
@@ -23,6 +28,7 @@ import ch.ffhs.fac.flang.runtime.std.Read;
 import java_cup.runtime.Symbol;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -39,6 +45,7 @@ public class App extends Application {
 	private static final String mainWindowFXML = "/simple-ide.fxml";
 	private static final String aboutWindowFXML = "/simple-ide-about.fxml";
 	private Stage mainWindow;
+	private Task<Literal> documentTask;
 
 	@FXML
 	private TextArea textareaCode;
@@ -64,17 +71,16 @@ public class App extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		var cl = getClass();
-		var location = cl.getResource(mainWindowFXML);
-		FXMLLoader loader = new FXMLLoader(location);
-		loader.setController(this);
 		try {
+			var cl = getClass();
+			var location = cl.getResource(mainWindowFXML);
+			FXMLLoader loader = new FXMLLoader(location);
+			loader.setController(this);
 			mainWindow = loader.load();
+			mainWindow.show();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-		mainWindow.show();
 	}
 
 	@FXML
@@ -115,93 +121,104 @@ public class App extends Application {
 
 	@FXML
 	private void clickCompile(ActionEvent event) {
+		if (documentTask != null && !documentTask.isDone()) {
+			documentTask.cancel(true);
+		}
 		textareaOutput.clear();
+		textareaToken.clear();
 
-		final var sourceCode = textareaCode.getText();
-		final var reader = new StringReader(sourceCode);
-		final var lexer = new Scanner(reader);
-		final var parser = new Parser(lexer) {
+		documentTask = new Task<Literal>() {
 			@Override
-			public Symbol scan() throws Exception {
-				final var sym = super.scan();
-				textareaToken.appendText("State:      " + lexer.yystate() + "\n");
-				textareaToken.appendText("Match:      " + lexer.yytext() + "\n");
-				textareaToken.appendText("Nummeric:   " + sym + "\n");
-				textareaToken.appendText("Value:      " + sym.value + "\n");
-				textareaToken.appendText("Line:       " + sym.left + "\n");
-				textareaToken.appendText("Column:     " + sym.right + "\n");
-				textareaToken.appendText("\n");
-				return sym;
+			protected Literal call() throws Exception {
+				final var sourceCode = textareaCode.getText();
+				final var reader = new StringReader(sourceCode);
+				final var lexer = new Scanner(reader);
+				@SuppressWarnings("deprecation")
+				final var parser = new Parser(lexer) {
+					@Override
+					public Symbol scan() throws Exception {
+						final var sym = super.scan();
+						Platform.runLater(() -> {
+							textareaToken.appendText("State:      " + lexer.yystate() + "\n");
+							textareaToken.appendText("Match:      " + lexer.yytext() + "\n");
+							textareaToken.appendText("Nummeric:   " + sym + "\n");
+							textareaToken.appendText("Value:      " + sym.value + "\n");
+							textareaToken.appendText("Line:       " + sym.left + "\n");
+							textareaToken.appendText("Column:     " + sym.right + "\n");
+							textareaToken.appendText("\n");
+						});
+						return sym;
+					}
+				};
+
+				final var symbol = parser.parse();
+				final var document = (Document) symbol.value;
+				document.declareFunction(CastString.NAME, new CastString());
+				document.declareFunction(CastDecimal.NAME, new CastDecimal());
+				document.declareFunction(ArrayCreate.NAME, new ArrayCreate());
+				document.declareFunction(ArrayGet.NAME, new ArrayGet());
+				document.declareFunction(ArraySet.NAME, new ArraySet());
+				document.declareFunction(ArrayMap.NAME, new ArrayMap());
+				document.declareFunction(ArrayFilter.NAME, new ArrayFilter());
+				document.declareFunction(Print.NAME, new Print(new Writer() {
+					private StringBuffer buffer = new StringBuffer();
+
+					@Override
+					public void write(char[] cbuf, int off, int len) throws IOException {
+						if (buffer.length() > 0) {
+							buffer.append(" ");
+						}
+
+						buffer.append(new String(cbuf, off, len));
+					}
+
+					@Override
+					public void flush() throws IOException {
+						buffer.append("\n");
+						final var str = buffer.toString();
+						buffer = new StringBuffer();
+						Platform.runLater(() -> textareaOutput.appendText(str));
+					}
+
+					@Override
+					public void close() throws IOException {
+					}
+				}));
+
+				try (PipedReader userReader = new PipedReader();
+						PipedWriter userWriter = new PipedWriter(userReader)) {
+					buttonInput.setOnMouseClicked(new EventHandler<Event>() {
+						@Override
+						public void handle(Event event) {
+							try {
+								userWriter.write(textfieldInput.getText() + "\n");
+							} catch (IOException e) {
+								throw new RuntimeException(e);
+							}
+						}
+					});
+					document.declareFunction(Read.NAME, new Read(new BufferedReader(userReader)));
+					return document.execute();
+				} catch (Throwable e) {
+					throw new Exception(e);
+				}
 			}
 		};
 
-		try {
-			final var symbol = parser.parse();
+		documentTask.setOnFailed((evt) -> {
+			textareaOutput.appendText("There has been an error\n");
+			StringWriter traceWriter = new StringWriter();
+			documentTask.getException().printStackTrace(new PrintWriter(traceWriter));
+			textareaOutput.appendText(documentTask.getException().toString() + "\n" + traceWriter.toString());
+		});
 
-			final var document = (Document) symbol.value;
-			document.declareFunction(CastString.NAME, new CastString());
-			document.declareFunction(CastDecimal.NAME, new CastDecimal());
-			document.declareFunction(ArrayCreate.NAME, new ArrayCreate());
-			document.declareFunction(ArrayGet.NAME, new ArrayGet());
-			document.declareFunction(ArraySet.NAME, new ArraySet());
-			document.declareFunction(ArrayMap.NAME, new ArrayMap());
-			document.declareFunction(ArrayFilter.NAME, new ArrayFilter());
-			document.declareFunction(Print.NAME, new Print(new Writer() {
-				private boolean flushed = true;
+		documentTask.setOnSucceeded((evt) -> {
+			textareaOutput
+					.appendText("Programm finished with return value: " + documentTask.getValue().toString() + "\n");
+		});
 
-				@Override
-				public void write(char[] cbuf, int off, int len) throws IOException {
-					if (flushed) {
-						flushed = false;
-					} else {
-						textareaOutput.appendText(" ");
-					}
-
-					textareaOutput.appendText(new String(cbuf, off, len));
-				}
-
-				@Override
-				public void flush() throws IOException {
-					flushed = true;
-					textareaOutput.appendText("\n");
-				}
-
-				@Override
-				public void close() throws IOException {
-				}
-			}));
-
-			PipedReader in = new PipedReader();
-			PipedWriter out = new PipedWriter(in);
-			buttonInput.setOnMouseClicked(new EventHandler<Event>() {
-				@Override
-				public void handle(Event event) {
-					try {
-						out.write(textfieldInput.getText() + "\n");
-					} catch (Throwable e) {
-						e.printStackTrace();
-					}
-				}
-			});
-
-			document.declareFunction(Read.NAME, new Read(new BufferedReader(in)));
-
-			new Thread() {
-				@Override
-				public void run() {
-					try {
-						final var returnValue = document.execute();
-						textareaOutput.appendText(
-								"Programm finished with return value: " + returnValue.toString() + "\n");
-					} catch (Throwable e) {
-						textareaOutput.setText(e.getMessage());
-						e.printStackTrace();
-					}
-				};
-			}.start();
-		} catch (Throwable e) {
-			textareaOutput.setText(e.getMessage());
-			e.printStackTrace();
-		}
+		final var executor = Executors.newSingleThreadExecutor();
+		executor.execute(documentTask);
+		executor.shutdown();
 	}
 }
