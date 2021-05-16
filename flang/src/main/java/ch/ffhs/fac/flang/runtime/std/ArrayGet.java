@@ -7,6 +7,7 @@ import ch.ffhs.fac.flang.runtime.Closure.FunctionInterface;
 import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.literals.Array;
 import ch.ffhs.fac.flang.runtime.literals.Decimal;
+import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
 public class ArrayGet implements FunctionInterface {
 	public static final String NAME = "array_get";
@@ -21,11 +22,11 @@ public class ArrayGet implements FunctionInterface {
 		final var index = parameters.get(1);
 
 		if (!(array instanceof Array)) {
-			throw new Exception("First argument must be an array");
+			return Undefined.UNDEFINED;
 		}
 
 		if (!(index instanceof Decimal)) {
-			throw new Exception("Second argument must be an integer");
+			return Undefined.UNDEFINED;
 		}
 
 		return ((Array) array).get(((Decimal) index).getValue().intValueExact());

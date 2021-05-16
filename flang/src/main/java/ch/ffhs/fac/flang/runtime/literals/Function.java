@@ -29,11 +29,11 @@ public class Function implements Literal {
 			if (values.hasNext()) {
 				value = values.next();
 			}
-			body.setValue(param, value);
+			body.setOwnValue(param, value);
 		}
 		
 		// magic variable containing all the arguments
-		body.setValue(MAGIC_ARGUMENTS, new Array(arguments));
+		body.setOwnValue(MAGIC_ARGUMENTS, new Array(arguments));
 		return body.execute();
 	}
 	

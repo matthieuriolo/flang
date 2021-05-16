@@ -73,7 +73,7 @@ public class For implements Instruction {
 		for (var i = f; positiveDirection && i.compareTo(t) < 0
 				|| !positiveDirection && i.compareTo(t) > 0; i = i.add(b)) {
 			final var block = new Closure(closure, instructions);
-			block.setValue(identifier, new Decimal(i));
+			block.setOwnValue(identifier, new Decimal(i));
 			final var returnLiteral = block.execute();
 			if (returnLiteral != null) {
 				return returnLiteral;

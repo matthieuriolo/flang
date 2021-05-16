@@ -16,10 +16,16 @@ public class Array implements Literal {
 	}
 
 	public Literal get(final int index) {
+		if(index >= values.size()) {
+			return Undefined.UNDEFINED;
+		}
 		return values.get(index);
 	}
 
 	public Literal set(final int index, final Literal value) {
+		if(index >= values.size()) {
+			return Undefined.UNDEFINED;
+		}
 		return Objects.requireNonNullElse(values.set(index, value), Undefined.UNDEFINED);
 	}
 

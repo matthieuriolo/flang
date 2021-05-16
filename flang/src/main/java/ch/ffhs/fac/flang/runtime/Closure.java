@@ -113,6 +113,14 @@ public class Closure {
 		setValue(identifier.getName(), value);
 	}
 	
+	public void setOwnValue(final Identifier identifier, final Literal value) {
+		setOwnValue(identifier.getName(), value);
+	}
+	
+	public void setOwnValue(final String name, final Literal value) {
+		variables.put(name, value);
+	}
+	
 	@Deprecated
 	public void declareFunction(final String name, final List<Instruction> instructions) {
 		setValue(name, new Function(List.of(), instructions));

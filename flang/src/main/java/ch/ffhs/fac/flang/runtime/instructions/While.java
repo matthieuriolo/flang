@@ -18,9 +18,7 @@ public class While implements Instruction {
 	
 	@Override
 	public Literal execute(Closure closure) throws Throwable {
-		final var cond = condition.compute(closure);
-		
-		while(cond.toBoolean()) {
+		while(condition.compute(closure).toBoolean()) {
 			final var returnLiteral = new Closure(closure, instructions).execute();
 			if(returnLiteral != null) {
 				return returnLiteral;
