@@ -6,7 +6,6 @@ import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Instruction;
 import ch.ffhs.fac.flang.runtime.Literal;
-import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
 public class While implements Instruction {
 	private final Expression condition;

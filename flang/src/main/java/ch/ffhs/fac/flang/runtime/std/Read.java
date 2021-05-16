@@ -4,8 +4,8 @@ import java.io.BufferedReader;
 import java.util.List;
 
 import ch.ffhs.fac.flang.runtime.Closure;
-import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.Closure.FunctionInterface;
+import ch.ffhs.fac.flang.runtime.Literal;
 
 public class Read implements FunctionInterface {
 	public static final String NAME = "read";

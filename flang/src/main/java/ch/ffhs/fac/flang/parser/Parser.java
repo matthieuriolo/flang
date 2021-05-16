@@ -5,15 +5,23 @@
 
 package ch.ffhs.fac.flang.parser;
 
-import ch.ffhs.fac.flang.runtime.*;
-import ch.ffhs.fac.flang.runtime.expressions.*;
-import ch.ffhs.fac.flang.runtime.expressions.operations.*;
-import ch.ffhs.fac.flang.runtime.instructions.*;
-import java_cup.runtime.*;
-import java.util.*;
-import java.io.*;
 import java.math.BigDecimal;
-import java_cup.runtime.XMLElement;
+import java.util.LinkedList;
+import java.util.List;
+
+import ch.ffhs.fac.flang.runtime.Document;
+import ch.ffhs.fac.flang.runtime.Expression;
+import ch.ffhs.fac.flang.runtime.Instruction;
+import ch.ffhs.fac.flang.runtime.Literal;
+import ch.ffhs.fac.flang.runtime.expressions.FunctionCall;
+import ch.ffhs.fac.flang.runtime.expressions.operations.BiOperand;
+import ch.ffhs.fac.flang.runtime.expressions.operations.UnaryOperand;
+import ch.ffhs.fac.flang.runtime.instructions.Assignment;
+import ch.ffhs.fac.flang.runtime.instructions.For;
+import ch.ffhs.fac.flang.runtime.instructions.FunctionProcedure;
+import ch.ffhs.fac.flang.runtime.instructions.If;
+import ch.ffhs.fac.flang.runtime.instructions.Return;
+import ch.ffhs.fac.flang.runtime.instructions.While;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
   */

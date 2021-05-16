@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import ch.ffhs.fac.flang.runtime.Closure;
-import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.Closure.FunctionInterface;
+import ch.ffhs.fac.flang.runtime.Literal;
 
 public class CastString implements FunctionInterface {
 	public static final String NAME = "cast_string";

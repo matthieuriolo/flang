@@ -7,7 +7,6 @@ import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Instruction;
 import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.Routine;
-import ch.ffhs.fac.flang.runtime.literals.Identifier;
 
 public class FunctionProcedure extends Routine implements Instruction {
 	public FunctionProcedure(final Expression subject) {

@@ -1,16 +1,14 @@
 package ch.ffhs.fac.flang.runtime.instructions;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.List;
 
 import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Instruction;
 import ch.ffhs.fac.flang.runtime.Literal;
-import ch.ffhs.fac.flang.runtime.literals.Identifier;
-import ch.ffhs.fac.flang.runtime.literals.Undefined;
 import ch.ffhs.fac.flang.runtime.literals.Decimal;
+import ch.ffhs.fac.flang.runtime.literals.Identifier;
 
 public class For implements Instruction {
 	private final Identifier identifier;

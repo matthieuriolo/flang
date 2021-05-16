@@ -4,9 +4,9 @@ import java.util.List;
 
 import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Closure.FunctionInterface;
+import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.literals.Array;
 import ch.ffhs.fac.flang.runtime.literals.Decimal;
-import ch.ffhs.fac.flang.runtime.Literal;
 
 public class ArraySet implements FunctionInterface {
 	public static final String NAME = "array_set";
