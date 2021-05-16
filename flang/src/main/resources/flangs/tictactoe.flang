@@ -1,0 +1,85 @@
+matrix = array_create(1,2,3,4,5,6,7,8,9)
+
+indexify = :(row, column) {
+	return row * 3 + column
+}
+
+printMatrix = :(m) {
+	for row to 3 {
+		print("-" * 13)
+		str = ""
+		for column to 3 {
+			if column != 0 {
+				str = str + " "
+			}
+			str = str + "| " + cast_string(array_get(m, indexify(row, column)))
+		}
+		str = str + " |"
+		print(str)
+	}
+	print("-" * 13)
+}
+
+testWon = :(m, player) {
+	for row to 3 {
+		countVertical = 0
+		countHorizontal = 0
+		for column to 3 {
+			if player == array_get(m, indexify(row, column)) {
+				countHorizontal = countHorizontal + 1
+			}
+			
+			if player == array_get(m, indexify(column, row)) {
+				countVertical = countVertical + 1
+			}
+		}
+		
+		if countHorizontal == 3 or countVertical == 3 {
+			return TRUE
+		}
+	}
+	
+	countLeftToRight = 0
+	countRightToLeft = 0
+	for pos to 3 {
+		if player == array_get(m, indexify(pos, pos)) {
+			countLeftToRight = countLeftToRight + 1
+		}
+
+		if player == array_get(m, indexify(pos, 2 - pos)) {
+			countRightToLeft = countRightToLeft + 1
+		}
+	}
+	
+	return countLeftToRight == 3 or countRightToLeft == 3
+}
+
+activePlayer = "x"
+hasFinished = FALSE
+while hasFinished == FALSE {
+	printMatrix(matrix)
+	
+	print("It's the turn of the player:", activePlayer)
+	input = UNDEFINED
+	while input == UNDEFINED {
+		print("Please enter a number between 1 and 9")
+		input = cast_decimal(read()) - 1
+		char = array_get(matrix, input)
+		if char == UNDEFINED or char == "x" or char == "y" {
+			input = UNDEFINED
+		}
+	}
+	
+	array_set(matrix, input, activePlayer)
+	if testWon(matrix, activePlayer) {
+		printMatrix(matrix)
+		hasFinished = TRUE
+		print("The player", activePlayer, " has won!!!")
+	}else {
+		if activePlayer == "x" {
+			activePlayer = "o"
+		} else {
+			activePlayer = "x"
+		}
+	}
+}
