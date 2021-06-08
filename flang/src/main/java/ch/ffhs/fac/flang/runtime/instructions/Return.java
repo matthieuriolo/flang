@@ -8,7 +8,7 @@ import ch.ffhs.fac.flang.runtime.Visitable;
 import ch.ffhs.fac.flang.runtime.Visitor;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
-public class Return implements Instruction, Visitable {
+public class Return implements Instruction {
 	private final Expression expression;
 	
 	public Return() {

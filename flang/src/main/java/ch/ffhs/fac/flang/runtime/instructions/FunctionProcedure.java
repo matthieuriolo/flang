@@ -10,7 +10,7 @@ import ch.ffhs.fac.flang.runtime.Routine;
 import ch.ffhs.fac.flang.runtime.Visitable;
 import ch.ffhs.fac.flang.runtime.Visitor;
 
-public class FunctionProcedure extends Routine implements Instruction, Visitable {
+public class FunctionProcedure extends Routine implements Instruction {
 	public FunctionProcedure(final Expression subject) {
 		super(subject, List.of());
 	}

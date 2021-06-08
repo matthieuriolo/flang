@@ -70,6 +70,10 @@ public class Closure implements Visitable {
 		return parent;
 	}
 	
+	public List<Instruction> getInstructions() {
+		return instructions;
+	}
+	
 	public Literal execute() throws Throwable {
 		for(final var instr : instructions) {
 			final var returnValue = instr.execute(this);

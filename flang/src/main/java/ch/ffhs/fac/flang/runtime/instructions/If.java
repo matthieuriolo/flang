@@ -9,7 +9,7 @@ import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.Visitable;
 import ch.ffhs.fac.flang.runtime.Visitor;
 
-public class If implements Instruction, Visitable {
+public class If implements Instruction {
 	private final Expression condition;
 	private final List<Instruction> instructions;
 	private final List<Instruction> elseInstructions;

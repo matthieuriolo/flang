@@ -9,7 +9,7 @@ import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.Visitable;
 import ch.ffhs.fac.flang.runtime.Visitor;
 
-public class While implements Instruction, Visitable {
+public class While implements Instruction {
 	private final Expression condition;
 	private final List<Instruction> instructions;
 	

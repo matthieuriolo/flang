@@ -12,7 +12,7 @@ import ch.ffhs.fac.flang.runtime.Visitor;
 import ch.ffhs.fac.flang.runtime.literals.Decimal;
 import ch.ffhs.fac.flang.runtime.literals.Identifier;
 
-public class For implements Instruction, Visitable {
+public class For implements Instruction {
 	private final Identifier identifier;
 	private final Expression from;
 	private final Expression to;
@@ -57,6 +57,26 @@ public class For implements Instruction, Visitable {
 		this.to = to;
 		this.by = by;
 		this.instructions = instructions;
+	}
+	
+	public Identifier getIdentifier() {
+		return identifier;
+	}
+
+	public Expression getFrom() {
+		return from;
+	}
+
+	public Expression getTo() {
+		return to;
+	}
+
+	public Expression getBy() {
+		return by;
+	}
+
+	public List<Instruction> getInstructions() {
+		return instructions;
 	}
 
 	@Override
