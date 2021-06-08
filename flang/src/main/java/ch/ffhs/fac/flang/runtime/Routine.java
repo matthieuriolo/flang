@@ -2,8 +2,8 @@ package ch.ffhs.fac.flang.runtime;
 
 import java.util.LinkedList;
 import java.util.List;
-
-public class Routine {
+// TODO find home
+public abstract class Routine {
 	private final Expression subject;
 	private final List<Expression> arguments;
 	

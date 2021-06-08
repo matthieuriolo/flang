@@ -6,8 +6,10 @@ import java.util.Objects;
 import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Instruction;
 import ch.ffhs.fac.flang.runtime.Literal;
+import ch.ffhs.fac.flang.runtime.Visitable;
+import ch.ffhs.fac.flang.runtime.Visitor;
 
-public class Function implements Literal {
+public class Function implements Literal, Visitable {
 	public static final Identifier MAGIC_ARGUMENTS = new Identifier("__arguments__");
 	private Closure closureCreator;
 	private final List<Identifier> parameters;
@@ -67,5 +69,10 @@ public class Function implements Literal {
 	public Literal compute(Closure closure) throws Throwable {
 		closureCreator = closure;
 		return this;
+	}
+	
+	@Override
+	public void acceptVisitor(final Visitor visitor) {
+		visitor.visitLiteralFunction(this);
 	}
 }

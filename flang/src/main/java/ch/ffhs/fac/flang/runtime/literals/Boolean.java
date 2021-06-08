@@ -1,9 +1,10 @@
 package ch.ffhs.fac.flang.runtime.literals;
 
-import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Literal;
+import ch.ffhs.fac.flang.runtime.Visitable;
+import ch.ffhs.fac.flang.runtime.Visitor;
 
-public class Boolean implements Literal {
+public class Boolean implements Literal, Visitable {
 	public static final Boolean TRUE = new Boolean("TRUE");
 	public static final Boolean FALSE = new Boolean("FALSE");
 	
@@ -34,5 +35,10 @@ public class Boolean implements Literal {
 	@Override
 	public Literal operationNotEqual(final Literal right) {
 		return Boolean.of(this != right);
+	}
+	
+	@Override
+	public void acceptVisitor(final Visitor visitor) {
+		visitor.visitLiteralBoolean(this);
 	}
 }

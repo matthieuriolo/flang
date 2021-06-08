@@ -4,9 +4,11 @@ import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Instruction;
 import ch.ffhs.fac.flang.runtime.Literal;
+import ch.ffhs.fac.flang.runtime.Visitable;
+import ch.ffhs.fac.flang.runtime.Visitor;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
-public class Return implements Instruction {
+public class Return implements Instruction, Visitable {
 	private final Expression expression;
 	
 	public Return() {
@@ -20,5 +22,10 @@ public class Return implements Instruction {
 	@Override
 	public Literal execute(Closure closure) throws Throwable {
 		return expression.compute(closure);
+	}
+	
+	@Override
+	public void acceptVisitor(final Visitor visitor) {
+		visitor.visitInstructionReturn(this);
 	}
 }

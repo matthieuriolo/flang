@@ -9,7 +9,7 @@ import ch.ffhs.fac.flang.runtime.literals.Function;
 import ch.ffhs.fac.flang.runtime.literals.Identifier;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
-public class Closure {
+public class Closure implements Visitable {
 	private final Map<String, Literal> variables = new HashMap<String, Literal>();
 	private final Closure parent;
 	private final List<Instruction> instructions;
@@ -41,7 +41,7 @@ public class Closure {
 		}
 		
 		@Override
-		public Literal toDecimal(Closure closure) {
+		public Literal toDecimal(final Closure closure) {
 			return Undefined.UNDEFINED;
 		}
 	}
@@ -128,5 +128,10 @@ public class Closure {
 	
 	public void declareFunction(final String name, final FunctionInterface body) {
 		setValue(name, new FunctionBody(body));
+	}
+	
+	@Override
+	public void acceptVisitor(final Visitor visitor) {
+		visitor.visitClosure(this);
 	}
 }

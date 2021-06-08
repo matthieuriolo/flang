@@ -6,8 +6,10 @@ import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Instruction;
 import ch.ffhs.fac.flang.runtime.Literal;
+import ch.ffhs.fac.flang.runtime.Visitable;
+import ch.ffhs.fac.flang.runtime.Visitor;
 
-public class While implements Instruction {
+public class While implements Instruction, Visitable {
 	private final Expression condition;
 	private final List<Instruction> instructions;
 	
@@ -26,5 +28,10 @@ public class While implements Instruction {
 		}
 		
 		return null;
+	}
+	
+	@Override
+	public void acceptVisitor(final Visitor visitor) {
+		visitor.visitInstructionWhile(this);
 	}
 }

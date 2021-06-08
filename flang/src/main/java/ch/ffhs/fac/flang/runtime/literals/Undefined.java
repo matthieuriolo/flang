@@ -2,8 +2,10 @@ package ch.ffhs.fac.flang.runtime.literals;
 
 import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Literal;
+import ch.ffhs.fac.flang.runtime.Visitable;
+import ch.ffhs.fac.flang.runtime.Visitor;
 
-public class Undefined implements Literal {
+public class Undefined implements Literal, Visitable {
 	public static final Undefined UNDEFINED = new Undefined();
 	
 	@Override
@@ -29,5 +31,10 @@ public class Undefined implements Literal {
 	@Override
 	public Literal operationNotEqual(final Literal right) {
 		return Boolean.of(this != right);
+	}
+	
+	@Override
+	public void acceptVisitor(final Visitor visitor) {
+		visitor.visitLiteralUndefined(this);
 	}
 }

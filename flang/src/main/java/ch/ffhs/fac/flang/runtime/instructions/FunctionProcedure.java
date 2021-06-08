@@ -7,8 +7,10 @@ import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Instruction;
 import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.Routine;
+import ch.ffhs.fac.flang.runtime.Visitable;
+import ch.ffhs.fac.flang.runtime.Visitor;
 
-public class FunctionProcedure extends Routine implements Instruction {
+public class FunctionProcedure extends Routine implements Instruction, Visitable {
 	public FunctionProcedure(final Expression subject) {
 		super(subject, List.of());
 	}
@@ -21,5 +23,10 @@ public class FunctionProcedure extends Routine implements Instruction {
 	public Literal execute(Closure closure) throws Throwable {
 		perform(closure);
 		return null;
+	}
+	
+	@Override
+	public void acceptVisitor(final Visitor visitor) {
+		visitor.visitInstructionFunctionProcedure(this);
 	}
 }

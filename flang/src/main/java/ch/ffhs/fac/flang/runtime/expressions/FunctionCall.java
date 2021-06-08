@@ -7,9 +7,11 @@ import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.Routine;
+import ch.ffhs.fac.flang.runtime.Visitable;
+import ch.ffhs.fac.flang.runtime.Visitor;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
-public class FunctionCall extends Routine implements Expression {
+public class FunctionCall extends Routine implements Expression, Visitable {
 	public FunctionCall(final Expression subject) {
 		super(subject);
 	}
@@ -21,5 +23,10 @@ public class FunctionCall extends Routine implements Expression {
 	@Override
 	public Literal compute(Closure closure) throws Throwable {
 		return Objects.requireNonNullElse(perform(closure), Undefined.UNDEFINED);
+	}
+	
+	@Override
+	public void acceptVisitor(final Visitor visitor) {
+		visitor.visitExpressionFunctionCall(this);
 	}
 }

@@ -7,10 +7,12 @@ import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Instruction;
 import ch.ffhs.fac.flang.runtime.Literal;
+import ch.ffhs.fac.flang.runtime.Visitable;
+import ch.ffhs.fac.flang.runtime.Visitor;
 import ch.ffhs.fac.flang.runtime.literals.Decimal;
 import ch.ffhs.fac.flang.runtime.literals.Identifier;
 
-public class For implements Instruction {
+public class For implements Instruction, Visitable {
 	private final Identifier identifier;
 	private final Expression from;
 	private final Expression to;
@@ -64,7 +66,7 @@ public class For implements Instruction {
 		final var b = ((Decimal) by.compute(closure)).getValue();
 		final var positiveDirection = b.compareTo(BigDecimal.ZERO) > 0;
 
-		// some minimalistic guards
+		// TODO: some minimalistic guards
 		if (b.compareTo(BigDecimal.ZERO) == 0 || f.compareTo(t) > 0 && positiveDirection
 				|| f.compareTo(t) < 0 && !positiveDirection) {
 			throw new Exception("'For' cannot be executed");
@@ -81,5 +83,10 @@ public class For implements Instruction {
 		}
 
 		return null;
+	}
+	
+	@Override
+	public void acceptVisitor(final Visitor visitor) {
+		visitor.visitInstructionFor(this);
 	}
 }

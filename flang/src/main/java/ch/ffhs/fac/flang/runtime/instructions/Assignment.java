@@ -4,9 +4,11 @@ import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Instruction;
 import ch.ffhs.fac.flang.runtime.Literal;
+import ch.ffhs.fac.flang.runtime.Visitable;
+import ch.ffhs.fac.flang.runtime.Visitor;
 import ch.ffhs.fac.flang.runtime.literals.Identifier;
 
-public class Assignment implements Instruction {
+public class Assignment implements Instruction, Visitable {
 	private final Identifier identifier;
 	private final Expression expression;
 	
@@ -20,5 +22,10 @@ public class Assignment implements Instruction {
 		final var value = expression.compute(closure);
 		closure.setValue(identifier, value);
 		return null;
+	}
+	
+	@Override
+	public void acceptVisitor(final Visitor visitor) {
+		visitor.visitInstructionAssignment(this);
 	}
 }

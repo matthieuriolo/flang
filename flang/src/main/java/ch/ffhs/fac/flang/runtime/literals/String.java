@@ -1,11 +1,11 @@
 package ch.ffhs.fac.flang.runtime.literals;
 
-import java.math.BigDecimal;
-
 import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Literal;
+import ch.ffhs.fac.flang.runtime.Visitable;
+import ch.ffhs.fac.flang.runtime.Visitor;
 
-public class String implements Literal {
+public class String implements Literal, Visitable {
 	private final java.lang.String string;
 	public String() {
 		this("");
@@ -67,12 +67,17 @@ public class String implements Literal {
 	}
 	
 	@Override
-	public Literal toDecimal(Closure closure) {
+	public Literal toDecimal(final Closure closure) {
 		try {
 			return new Decimal(string);
 		}catch(Throwable e) {
 			e.printStackTrace();
 		}
 		return Undefined.UNDEFINED;
+	}
+	
+	@Override
+	public void acceptVisitor(final Visitor visitor) {
+		visitor.visitLiteralString(this);
 	}
 }

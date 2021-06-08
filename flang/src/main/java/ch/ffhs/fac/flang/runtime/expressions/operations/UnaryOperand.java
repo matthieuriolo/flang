@@ -3,6 +3,7 @@ package ch.ffhs.fac.flang.runtime.expressions.operations;
 import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Literal;
+import ch.ffhs.fac.flang.runtime.Visitor;
 import ch.ffhs.fac.flang.runtime.expressions.Operation;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
@@ -28,5 +29,11 @@ public class UnaryOperand implements Operation {
 			default:
 				return Undefined.UNDEFINED;
 		}
+	}
+	
+
+	@Override
+	public void acceptVisitor(final Visitor visitor) {
+		visitor.visitExpressionUnaryOperand(this);
 	}
 }

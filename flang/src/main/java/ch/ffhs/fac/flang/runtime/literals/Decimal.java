@@ -4,8 +4,10 @@ import java.math.BigDecimal;
 
 import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Literal;
+import ch.ffhs.fac.flang.runtime.Visitable;
+import ch.ffhs.fac.flang.runtime.Visitor;
 
-public class Decimal implements Literal {
+public class Decimal implements Literal, Visitable {
 	private BigDecimal value;
 	
 	public Decimal(final BigDecimal value) {
@@ -133,5 +135,10 @@ public class Decimal implements Literal {
 	@Override
 	public Literal toDecimal(final Closure closure) {
 		return this;
+	}
+	
+	@Override
+	public void acceptVisitor(final Visitor visitor) {
+		visitor.visitLiteralDecimal(this);
 	}
 }

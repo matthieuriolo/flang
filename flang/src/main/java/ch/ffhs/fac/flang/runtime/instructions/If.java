@@ -6,8 +6,10 @@ import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Instruction;
 import ch.ffhs.fac.flang.runtime.Literal;
+import ch.ffhs.fac.flang.runtime.Visitable;
+import ch.ffhs.fac.flang.runtime.Visitor;
 
-public class If implements Instruction {
+public class If implements Instruction, Visitable {
 	private final Expression condition;
 	private final List<Instruction> instructions;
 	private final List<Instruction> elseInstructions;
@@ -28,5 +30,10 @@ public class If implements Instruction {
 		final var instrs = cond.toBoolean() ? instructions : elseInstructions;
 		final var block = new Closure(closure, instrs);
 		return block.execute();
+	}
+	
+	@Override
+	public void acceptVisitor(final Visitor visitor) {
+		visitor.visitInstructionIf(this);
 	}
 }
