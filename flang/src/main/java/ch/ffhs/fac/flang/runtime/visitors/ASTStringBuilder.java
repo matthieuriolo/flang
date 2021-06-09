@@ -1,9 +1,12 @@
 package ch.ffhs.fac.flang.runtime.visitors;
 
+import java.util.List;
+
 import ch.ffhs.fac.flang.runtime.Document;
 import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Instruction;
 import ch.ffhs.fac.flang.runtime.Literal;
+import ch.ffhs.fac.flang.runtime.Visitable;
 import ch.ffhs.fac.flang.runtime.Visitor;
 import ch.ffhs.fac.flang.runtime.expressions.FunctionCall;
 import ch.ffhs.fac.flang.runtime.expressions.operations.BiOperand;
@@ -39,6 +42,18 @@ public class ASTStringBuilder implements Visitor {
 		bld.append("\n");
 	}
 	
+	private void append(final Visitable host) {
+		increment();
+		host.acceptVisitor(this);
+		decrement();
+	}
+	
+	private void append(final List<? extends Visitable> hosts) {
+		increment();
+		hosts.stream().forEach(host -> host.acceptVisitor(this));
+		decrement();
+	}
+	
 	private void appendLiteral(final java.lang.String type, final java.lang.String value) {
 		append(type + "(" + value + ")");
 	}
@@ -58,7 +73,7 @@ public class ASTStringBuilder implements Visitor {
 		increment();
 		append("- instructions:");
 		increment();
-		doc.getInstructions().stream().forEach(i -> i.acceptVisitor(this));
+		append(doc.getInstructions());
 		decrement();
 		decrement();
 	}
@@ -96,10 +111,11 @@ public class ASTStringBuilder implements Visitor {
 	@Override
 	public void visitInstructionAssignment(Assignment instr) {
 		append("Assignment");
-		append("- Identifier:", instr.getIdentifier().getName());
-		append("- Expression:");
 		increment();
-		instr.getExpression().acceptVisitor(this);
+		append("- Identifier:");
+		append(instr.getIdentifier());
+		append("- Expression:");
+		append(instr.getExpression());
 		decrement();
 	}
 
@@ -107,57 +123,53 @@ public class ASTStringBuilder implements Visitor {
 	public void visitInstructionFor(For instr) {
 		append("For");
 		increment();
-		append("- Identifier:", instr.getIdentifier().getName());
-		append("- From:", instr.getFrom().toString());
-		append("- To:", instr.getTo().toString());
-		append("- By:", instr.getBy().toString());
-		append("- instructions:", instr.getBy().toString());
-		increment();
-		instr.getInstructions().stream().forEach(i -> i.acceptVisitor(this));
-		decrement();
+		append("- Identifier:");
+		append(instr.getIdentifier());
+		append("- From:");
+		append(instr.getFrom());
+		append("- To:");
+		append(instr.getTo());
+		append("- By:");
+		append(instr.getBy());
+		append("- instructions:");
+		append(instr.getInstructions());
 		decrement();
 	}
 
 	@Override
-	public void visitInstructionFunctionProcedure(FunctionProcedure instr) {
+	public void visitInstructionFunctionProcedure(final FunctionProcedure instr) {
 		append("FunctionProcedure");
 		increment();
 		append("- subject:");
-		instr.getSubject().acceptVisitor(this);
-		append("- arguments:");
-		increment();
-		instr.getArguments().stream().forEach(i -> i.acceptVisitor(this));
-		decrement();
+		append(instr.getSubject());
+		if(!instr.getArguments().isEmpty()) {
+			append("- arguments:");
+			append(instr.getArguments());
+		}
 		decrement();
 	}
 
 	@Override
-	public void visitInstructionIf(If instr) {
+	public void visitInstructionIf(final If instr) {
 		append("If");
 		increment();
 		append("- condition:");
-		instr.getCondition().acceptVisitor(this);
+		append(instr.getCondition());
 		append("- instructions:");
-		increment();
-		instr.getInstructions().stream().forEach(i -> i.acceptVisitor(this));
-		decrement();
-		
+		append(instr.getInstructions());
 		if(!instr.getElseInstructions().isEmpty()) {
 			append("- else instructions:");
-			increment();
-			instr.getElseInstructions().stream().forEach(i -> i.acceptVisitor(this));
-			decrement();
+			append(instr.getElseInstructions());
 		}
-		
 		decrement();
 	}
 
 	@Override
-	public void visitInstructionReturn(Return instr) {
+	public void visitInstructionReturn(final Return instr) {
 		append("Return");
 		increment();
 		append("- expression:");
-		instr.getExpression().acceptVisitor(this);
+		append(instr.getExpression());
 		decrement();
 	}
 
@@ -166,11 +178,9 @@ public class ASTStringBuilder implements Visitor {
 		append("While");
 		increment();
 		append("- condition:");
-		instr.getCondition().acceptVisitor(this);
+		append(instr.getCondition());
 		append("- instructions:");
-		increment();
-		instr.getInstructions().stream().forEach(i -> i.acceptVisitor(this));
-		decrement();
+		append(instr.getInstructions());
 		decrement();
 	}
 
@@ -179,11 +189,9 @@ public class ASTStringBuilder implements Visitor {
 		append("FunctionCall");
 		increment();
 		append("- subject:");
-		expr.getSubject().acceptVisitor(this);
+		append(expr.getSubject());
 		append("- arguments:");
-		increment();
-		expr.getArguments().stream().forEach(i -> i.acceptVisitor(this));
-		decrement();
+		append(expr.getArguments());
 		decrement();
 	}
 
@@ -193,9 +201,9 @@ public class ASTStringBuilder implements Visitor {
 		increment();
 		append("- operator:", expr.getType().getName());
 		append("- left:");
-		expr.getLeft().acceptVisitor(this);
+		append(expr.getLeft());
 		append("- right:");
-		expr.getRight().acceptVisitor(this);
+		append(expr.getRight());
 		decrement();
 	}
 
@@ -205,7 +213,7 @@ public class ASTStringBuilder implements Visitor {
 		increment();
 		append("- operator:", expr.getType().getName());
 		append("- operand:");
-		expr.getOperand().acceptVisitor(this);
+		append(expr.getOperand());
 		decrement();
 	}
 
