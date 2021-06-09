@@ -12,7 +12,17 @@ public class UnaryOperand implements Operation {
 	private final Type type;
 	
 	public enum Type {
-		MINUS;
+		MINUS("MINUS");
+		
+		private final java.lang.String name;
+		
+		private Type(final java.lang.String name) {
+			this.name = name;
+		}
+		
+		public java.lang.String getName() {
+			return name;
+		}
 	}
 
 	public UnaryOperand(final Expression operand, final Type type) {
@@ -20,6 +30,14 @@ public class UnaryOperand implements Operation {
 		this.type = type;
 	}
 	
+	public Expression getOperand() {
+		return operand;
+	}
+
+	public Type getType() {
+		return type;
+	}
+
 	@Override
 	public Literal compute(final Closure closure) throws Throwable {
 		final var l = operand.compute(closure);

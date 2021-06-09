@@ -19,6 +19,10 @@ public class Return implements Instruction {
 		this.expression = expression;
 	}
 	
+	public Expression getExpression() {
+		return expression;
+	}
+	
 	@Override
 	public Literal execute(Closure closure) throws Throwable {
 		return expression.compute(closure);

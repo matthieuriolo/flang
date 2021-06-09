@@ -12,10 +12,18 @@ import ch.ffhs.fac.flang.runtime.Visitor;
 public class While implements Instruction {
 	private final Expression condition;
 	private final List<Instruction> instructions;
-	
+
 	public While(final Expression condition, final List<Instruction> instructions) {
 		this.condition = condition;
 		this.instructions = instructions;
+	}
+	
+	public Expression getCondition() {
+		return condition;
+	}
+
+	public List<Instruction> getInstructions() {
+		return instructions;
 	}
 	
 	@Override

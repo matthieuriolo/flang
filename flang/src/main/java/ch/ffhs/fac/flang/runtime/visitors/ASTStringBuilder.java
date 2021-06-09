@@ -2,6 +2,8 @@ package ch.ffhs.fac.flang.runtime.visitors;
 
 import ch.ffhs.fac.flang.runtime.Document;
 import ch.ffhs.fac.flang.runtime.Expression;
+import ch.ffhs.fac.flang.runtime.Instruction;
+import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.Visitor;
 import ch.ffhs.fac.flang.runtime.expressions.FunctionCall;
 import ch.ffhs.fac.flang.runtime.expressions.operations.BiOperand;
@@ -118,8 +120,15 @@ public class ASTStringBuilder implements Visitor {
 
 	@Override
 	public void visitInstructionFunctionProcedure(FunctionProcedure instr) {
-		// TODO Auto-generated method stub
-		
+		append("FunctionProcedure");
+		increment();
+		append("- subject:");
+		instr.getSubject().acceptVisitor(this);
+		append("- arguments:");
+		increment();
+		instr.getArguments().stream().forEach(i -> i.acceptVisitor(this));
+		decrement();
+		decrement();
 	}
 
 	@Override
@@ -145,38 +154,74 @@ public class ASTStringBuilder implements Visitor {
 
 	@Override
 	public void visitInstructionReturn(Return instr) {
-		// TODO Auto-generated method stub
-		
+		append("Return");
+		increment();
+		append("- expression:");
+		instr.getExpression().acceptVisitor(this);
+		decrement();
 	}
 
 	@Override
 	public void visitInstructionWhile(While instr) {
-		// TODO Auto-generated method stub
-		
+		append("While");
+		increment();
+		append("- condition:");
+		instr.getCondition().acceptVisitor(this);
+		append("- instructions:");
+		increment();
+		instr.getInstructions().stream().forEach(i -> i.acceptVisitor(this));
+		decrement();
+		decrement();
 	}
 
 	@Override
 	public void visitExpressionFunctionCall(FunctionCall expr) {
-		// TODO Auto-generated method stub
-		
+		append("FunctionCall");
+		increment();
+		append("- subject:");
+		expr.getSubject().acceptVisitor(this);
+		append("- arguments:");
+		increment();
+		expr.getArguments().stream().forEach(i -> i.acceptVisitor(this));
+		decrement();
+		decrement();
 	}
 
 	@Override
 	public void visitExpressionBiOperand(BiOperand expr) {
-		// TODO Auto-generated method stub
-		
+		append("BiOperand");
+		increment();
+		append("- operator:", expr.getType().getName());
+		append("- left:");
+		expr.getLeft().acceptVisitor(this);
+		append("- right:");
+		expr.getRight().acceptVisitor(this);
+		decrement();
 	}
 
 	@Override
 	public void visitExpressionUnaryOperand(UnaryOperand expr) {
-		// TODO Auto-generated method stub
-		
+		append("UnaryOperand");
+		increment();
+		append("- operator:", expr.getType().getName());
+		append("- operand:");
+		expr.getOperand().acceptVisitor(this);
+		decrement();
 	}
 
 	@Override
-	public void visitLiteral(Expression expr) {
-		// TODO Auto-generated method stub
-		
+	public void visitLiteral(final Literal obj) {
+		append("Unknown literal:", obj.getClass().getName());
+	}
+	
+	@Override
+	public void visitExpression(final Expression expr) {
+		append("Unknown expression:", expr.getClass().getName());
+	}
+	
+	@Override
+	public void visitInstruction(final Instruction instr) {
+		append("Unknown instruction:", instr.getClass().getName());
 	}
 	
 }

@@ -13,25 +13,47 @@ public class BiOperand implements Operation {
 	private final Type type;
 
 	public enum Type {
-		OR,
-		AND,
-		PLUS,
-		MINUS,
-		ASTERISK,
-		SLASH,
-		EQUAL,
-		NOT_EQUAL,
-		LESS,
-		LESS_EQUAL,
-		GREATER,
-		GREATER_EQUAL,
+		OR("OR"),
+		AND("AND"),
+		PLUS("PLUS"),
+		MINUS("MINUS"),
+		ASTERISK("ASTERISK"),
+		SLASH("SLASH"),
+		EQUAL("EQUAL"),
+		NOT_EQUAL("NOT_EQUAL"),
+		LESS("LESS"),
+		LESS_EQUAL("LESS_EQUAL"),
+		GREATER("GREATER"),
+		GREATER_EQUAL("GREATER_EQUAL"),
 		;
+		
+		private final java.lang.String name;
+		
+		private Type(final java.lang.String name) {
+			this.name = name;
+		}
+		
+		public java.lang.String getName() {
+			return name;
+		}
 	};
 
 	public BiOperand(final Expression left, final Type type, final Expression right) {
 		this.left = left;
 		this.type = type;
 		this.right = right;
+	}
+
+	public Expression getLeft() {
+		return left;
+	}
+
+	public Expression getRight() {
+		return right;
+	}
+
+	public Type getType() {
+		return type;
 	}
 
 	@Override

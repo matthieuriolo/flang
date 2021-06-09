@@ -15,6 +15,14 @@ public abstract class Routine {
 		this.subject = subject;
 		this.arguments = arguments;
 	}
+	
+	public Expression getSubject() {
+		return subject;
+	}
+
+	public List<Expression> getArguments() {
+		return arguments;
+	}
 
 	public Literal perform(Closure closure)  throws Throwable {
 		final var literal = subject.compute(closure);

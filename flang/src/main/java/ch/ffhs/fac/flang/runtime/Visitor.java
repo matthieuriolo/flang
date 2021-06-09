@@ -19,9 +19,9 @@ import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
 public interface Visitor {
 	public void visitDocument(final Document doc);
-	public void visitLiteral(final Expression expr);
-	//public void visitExpression(final Expression expr);
-	//public void visitInstruction(final Instruction instr);
+	public void visitLiteral(final Literal obj);
+	public void visitExpression(final Expression expr);
+	public void visitInstruction(final Instruction instr);
 	
 	
 	
