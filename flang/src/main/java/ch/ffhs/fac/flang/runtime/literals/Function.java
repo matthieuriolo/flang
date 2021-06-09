@@ -14,7 +14,7 @@ public class Function implements Literal {
 	private Closure closureCreator;
 	private final List<Identifier> parameters;
 	private final List<Instruction> instructions;
-	
+
 	public Function(final List<Instruction> instructions) {
 		this(List.of(), instructions);
 	}
@@ -22,6 +22,14 @@ public class Function implements Literal {
 	public Function(final List<Identifier> parameters, final List<Instruction> instructions) {
 		this.parameters = parameters;
 		this.instructions = instructions;
+	}
+	
+	public List<Identifier> getParameters() {
+		return parameters;
+	}
+
+	public List<Instruction> getInstructions() {
+		return instructions;
 	}
 
 	public Literal functionalCall(final Closure closure, final List<Literal> arguments) throws Throwable {
