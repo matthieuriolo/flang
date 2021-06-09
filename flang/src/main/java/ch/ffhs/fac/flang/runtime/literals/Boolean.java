@@ -4,7 +4,7 @@ import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.Visitable;
 import ch.ffhs.fac.flang.runtime.Visitor;
 
-public class Boolean implements Literal, Visitable {
+public class Boolean implements Literal {
 	public static final Boolean TRUE = new Boolean("TRUE");
 	public static final Boolean FALSE = new Boolean("FALSE");
 	

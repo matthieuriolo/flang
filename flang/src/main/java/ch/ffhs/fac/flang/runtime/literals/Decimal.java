@@ -7,7 +7,7 @@ import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.Visitable;
 import ch.ffhs.fac.flang.runtime.Visitor;
 
-public class Decimal implements Literal, Visitable {
+public class Decimal implements Literal {
 	private BigDecimal value;
 	
 	public Decimal(final BigDecimal value) {

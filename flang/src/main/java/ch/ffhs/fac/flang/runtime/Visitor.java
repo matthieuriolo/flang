@@ -18,7 +18,8 @@ import ch.ffhs.fac.flang.runtime.literals.String;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
 public interface Visitor {
-	public void visitClosure(final Closure obj);
+	public void visitDocument(final Document doc);
+	public void visitLiteral(final Expression expr);
 	//public void visitExpression(final Expression expr);
 	//public void visitInstruction(final Instruction instr);
 	

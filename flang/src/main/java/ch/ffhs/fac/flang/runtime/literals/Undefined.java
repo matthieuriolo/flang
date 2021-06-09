@@ -5,7 +5,7 @@ import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.Visitable;
 import ch.ffhs.fac.flang.runtime.Visitor;
 
-public class Undefined implements Literal, Visitable {
+public class Undefined implements Literal {
 	public static final Undefined UNDEFINED = new Undefined();
 	
 	@Override

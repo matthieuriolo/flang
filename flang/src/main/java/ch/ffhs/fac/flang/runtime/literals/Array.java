@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import ch.ffhs.fac.flang.runtime.Closure;
 import ch.ffhs.fac.flang.runtime.Literal;
+import ch.ffhs.fac.flang.runtime.Visitor;
 
 public class Array implements Literal {
 	private final List<Literal> values;
@@ -58,5 +59,10 @@ public class Array implements Literal {
 	@Override
 	public boolean toBoolean() {
 		return !values.isEmpty();
+	}
+
+	@Override
+	public void acceptVisitor(final Visitor visitor) {
+		visitor.visitLiteral(this);
 	}
 }

@@ -1,8 +1,7 @@
 package ch.ffhs.fac.flang.runtime.visitors;
 
-import ch.ffhs.fac.flang.runtime.Closure;
+import ch.ffhs.fac.flang.runtime.Document;
 import ch.ffhs.fac.flang.runtime.Expression;
-import ch.ffhs.fac.flang.runtime.Instruction;
 import ch.ffhs.fac.flang.runtime.Visitor;
 import ch.ffhs.fac.flang.runtime.expressions.FunctionCall;
 import ch.ffhs.fac.flang.runtime.expressions.operations.BiOperand;
@@ -28,14 +27,18 @@ public class ASTStringBuilder implements Visitor {
 		return bld.toString();
 	}
 	
-	private void append(java.lang.String... strs) {
+	private void append(final java.lang.String... strs) {
 		append(java.lang.String.join(" ", strs));
 	}
 	
-	private void append(java.lang.String str) {
+	private void append(final java.lang.String str) {
 		bld.append("  ".repeat(indentationCount));
 		bld.append(str);
 		bld.append("\n");
+	}
+	
+	private void appendLiteral(final java.lang.String type, final java.lang.String value) {
+		append(type + "(" + value + ")");
 	}
 	
 	private void increment() {
@@ -48,40 +51,39 @@ public class ASTStringBuilder implements Visitor {
 	}
 	
 	@Override
-	public void visitClosure(Closure obj) {
-		append("Closure");
+	public void visitDocument(Document doc) {
+		append("Document");
 		increment();
-		
-		for(final var instr : obj.getInstructions()) {
-			instr.acceptVisitor(this);
-		}
-		
+		append("- instructions:");
+		increment();
+		doc.getInstructions().stream().forEach(i -> i.acceptVisitor(this));
+		decrement();
 		decrement();
 	}
 
 	@Override
 	public void visitLiteralBoolean(Boolean obj) {
-		append("Boolean:", obj.toString());
+		appendLiteral("Boolean", obj.toString());
 	}
 
 	@Override
 	public void visitLiteralDecimal(Decimal obj) {
-		append("Decimal:", obj.toString());
+		appendLiteral("Decimal", obj.toString());
 	}
 
 	@Override
 	public void visitLiteralFunction(Function obj) {
-		append("Function:", obj.toString());
+		appendLiteral("Function", obj.toString());
 	}
 
 	@Override
 	public void visitLiteralIdentifier(Identifier obj) {
-		append("Identifier:", obj.getName());
+		appendLiteral("Identifier", obj.toString());
 	}
 
 	@Override
 	public void visitLiteralString(String obj) {
-		append("String:", obj.toString());
+		appendLiteral("String", obj.toString());
 	}
 
 	@Override
@@ -92,8 +94,10 @@ public class ASTStringBuilder implements Visitor {
 	@Override
 	public void visitInstructionAssignment(Assignment instr) {
 		append("Assignment");
+		append("- Identifier:", instr.getIdentifier().getName());
+		append("- Expression:");
 		increment();
-		append("Identifier:", instr.getIdentifier().getName());
+		instr.getExpression().acceptVisitor(this);
 		decrement();
 	}
 
@@ -101,16 +105,13 @@ public class ASTStringBuilder implements Visitor {
 	public void visitInstructionFor(For instr) {
 		append("For");
 		increment();
-		append("Identifier:", instr.getIdentifier().getName());
-		append("From:", instr.getFrom().toString());
-		append("To:", instr.getTo().toString());
-		append("By:", instr.getBy().toString());
+		append("- Identifier:", instr.getIdentifier().getName());
+		append("- From:", instr.getFrom().toString());
+		append("- To:", instr.getTo().toString());
+		append("- By:", instr.getBy().toString());
+		append("- instructions:", instr.getBy().toString());
 		increment();
-		
-		for(final var i : instr.getInstructions()) {
-			i.acceptVisitor(this);
-		}
-		
+		instr.getInstructions().stream().forEach(i -> i.acceptVisitor(this));
 		decrement();
 		decrement();
 	}
@@ -123,8 +124,23 @@ public class ASTStringBuilder implements Visitor {
 
 	@Override
 	public void visitInstructionIf(If instr) {
-		// TODO Auto-generated method stub
+		append("If");
+		increment();
+		append("- condition:");
+		instr.getCondition().acceptVisitor(this);
+		append("- instructions:");
+		increment();
+		instr.getInstructions().stream().forEach(i -> i.acceptVisitor(this));
+		decrement();
 		
+		if(!instr.getElseInstructions().isEmpty()) {
+			append("- else instructions:");
+			increment();
+			instr.getElseInstructions().stream().forEach(i -> i.acceptVisitor(this));
+			decrement();
+		}
+		
+		decrement();
 	}
 
 	@Override
@@ -153,6 +169,12 @@ public class ASTStringBuilder implements Visitor {
 
 	@Override
 	public void visitExpressionUnaryOperand(UnaryOperand expr) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visitLiteral(Expression expr) {
 		// TODO Auto-generated method stub
 		
 	}

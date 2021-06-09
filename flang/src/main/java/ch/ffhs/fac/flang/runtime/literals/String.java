@@ -5,7 +5,7 @@ import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.Visitable;
 import ch.ffhs.fac.flang.runtime.Visitor;
 
-public class String implements Literal, Visitable {
+public class String implements Literal {
 	private final java.lang.String string;
 	public String() {
 		this("");

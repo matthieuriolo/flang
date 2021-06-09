@@ -9,7 +9,7 @@ import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.Visitable;
 import ch.ffhs.fac.flang.runtime.Visitor;
 
-public class Function implements Literal, Visitable {
+public class Function implements Literal {
 	public static final Identifier MAGIC_ARGUMENTS = new Identifier("__arguments__");
 	private Closure closureCreator;
 	private final List<Identifier> parameters;

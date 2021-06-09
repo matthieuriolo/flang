@@ -6,7 +6,7 @@ import java.util.Objects;
 
 import ch.ffhs.fac.flang.runtime.literals.Decimal;
 
-public class Document extends Closure {
+public class Document extends Closure implements Visitable {
 	public Document(final List<Instruction> instructions) {
 		super(instructions);
 	}
@@ -14,5 +14,12 @@ public class Document extends Closure {
 	@Override
 	public Literal execute() throws Throwable {
 		return Objects.requireNonNullElse(super.execute(), new Decimal(BigDecimal.ZERO));
+	}
+	
+
+	
+	@Override
+	public void acceptVisitor(final Visitor visitor) {
+		visitor.visitDocument(this);
 	}
 }

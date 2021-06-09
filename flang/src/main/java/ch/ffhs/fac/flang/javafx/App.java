@@ -25,6 +25,7 @@ import ch.ffhs.fac.flang.runtime.std.CastDecimal;
 import ch.ffhs.fac.flang.runtime.std.CastString;
 import ch.ffhs.fac.flang.runtime.std.Print;
 import ch.ffhs.fac.flang.runtime.std.Read;
+import ch.ffhs.fac.flang.runtime.visitors.ASTStringBuilder;
 import java_cup.runtime.Symbol;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -198,6 +199,11 @@ public class App extends Application {
 						}
 					});
 					document.declareFunction(Read.NAME, new Read(new BufferedReader(userReader)));
+					
+					final var astStr = new ASTStringBuilder();
+					astStr.visitDocument(document);
+					textareaAST.setText(astStr.getString());
+					
 					return document.execute();
 				} catch (Throwable e) {
 					throw new Exception(e);

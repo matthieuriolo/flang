@@ -20,6 +20,11 @@ public class Identifier implements Expression, Visitable {
 	}
 	
 	@Override
+	public java.lang.String toString() {
+		return getName();
+	}
+	
+	@Override
 	public Literal compute(Closure closure) throws Throwable {
 		return closure.getValue(getName());
 	}

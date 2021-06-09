@@ -13,7 +13,7 @@ public class If implements Instruction {
 	private final Expression condition;
 	private final List<Instruction> instructions;
 	private final List<Instruction> elseInstructions;
-	
+
 	public If(final Expression condition, final List<Instruction> instructions) {
 		this(condition, instructions, List.of());
 	}
@@ -22,6 +22,18 @@ public class If implements Instruction {
 		this.condition = condition;
 		this.instructions = instructions;
 		this.elseInstructions = elseInstructions;
+	}
+	
+	public Expression getCondition() {
+		return condition;
+	}
+
+	public List<Instruction> getInstructions() {
+		return instructions;
+	}
+
+	public List<Instruction> getElseInstructions() {
+		return elseInstructions;
 	}
 	
 	@Override
