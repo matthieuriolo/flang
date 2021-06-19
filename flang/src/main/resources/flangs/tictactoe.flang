@@ -65,7 +65,7 @@ while hasFinished == FALSE {
 		print("Please enter a number between 1 and 9")
 		input = cast_decimal(read()) - 1
 		char = array_get(matrix, input)
-		if char == UNDEFINED or char == "x" or char == "y" {
+		if char == UNDEFINED or char == "x" or char == "o" {
 			input = UNDEFINED
 		}
 	}
