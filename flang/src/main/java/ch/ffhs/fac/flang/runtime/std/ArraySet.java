@@ -15,6 +15,7 @@ public class ArraySet implements FunctionBridgeBase {
 	@Override
 	public Literal execute(final Context closure, final List<Literal> parameters) throws Throwable {
 		if(parameters.size() != 3) {
+			// TODO
 			throw new Exception("Three arguments required");
 		}
 		

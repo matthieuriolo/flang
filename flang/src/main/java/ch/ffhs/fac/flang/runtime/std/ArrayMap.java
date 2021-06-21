@@ -14,6 +14,7 @@ public class ArrayMap implements FunctionBridgeBase {
 	@Override
 	public Literal execute(final Context closure, final List<Literal> parameters) throws Throwable {
 		if (parameters.size() != 2) {
+			// TODO
 			throw new Exception("Two arguments required");
 		}
 

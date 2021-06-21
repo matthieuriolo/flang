@@ -25,6 +25,7 @@ public class ArrayFilter implements FunctionBridgeBase {
 		}
 
 		if (!(func instanceof Function)) {
+			// TODO
 			throw new Exception("Second argument must be an function");
 		}
 
