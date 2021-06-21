@@ -4,8 +4,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 
+import ch.ffhs.fac.flang.runtime.expressions.Identifier;
 import ch.ffhs.fac.flang.runtime.literals.Function;
-import ch.ffhs.fac.flang.runtime.literals.Identifier;
 
 public class Validator extends Transferer {
 	// TODO

@@ -1,4 +1,4 @@
-package ch.ffhs.fac.flang.runtime.literals;
+package ch.ffhs.fac.flang.runtime.expressions;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import ch.ffhs.fac.flang.parser.interfaces.Visitable;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
 
-public class Identifier implements Expression, Visitable {
+public class Identifier implements Expression {
 	private final java.lang.String name;
 	
 	public Identifier(final java.lang.String name) {

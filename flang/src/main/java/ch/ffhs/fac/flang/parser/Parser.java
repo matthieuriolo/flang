@@ -617,7 +617,7 @@ class CUP$Parser$actions {
               Instruction RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		ch.ffhs.fac.flang.runtime.literals.Identifier i = (ch.ffhs.fac.flang.runtime.literals.Identifier)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		ch.ffhs.fac.flang.runtime.expressions.Identifier i = (ch.ffhs.fac.flang.runtime.expressions.Identifier)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		int eleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		Expression e = (Expression)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
@@ -632,7 +632,7 @@ class CUP$Parser$actions {
               Instruction RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
-		ch.ffhs.fac.flang.runtime.literals.Identifier i = (ch.ffhs.fac.flang.runtime.literals.Identifier)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
+		ch.ffhs.fac.flang.runtime.expressions.Identifier i = (ch.ffhs.fac.flang.runtime.expressions.Identifier)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
 		int eleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		LinkedList<Expression> e = (LinkedList<Expression>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
@@ -710,7 +710,7 @@ class CUP$Parser$actions {
               Instruction RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).right;
-		ch.ffhs.fac.flang.runtime.literals.Identifier i = (ch.ffhs.fac.flang.runtime.literals.Identifier)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-5)).value;
+		ch.ffhs.fac.flang.runtime.expressions.Identifier i = (ch.ffhs.fac.flang.runtime.expressions.Identifier)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-5)).value;
 		int tleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
 		int tright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
 		Expression t = (Expression)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
@@ -728,7 +728,7 @@ class CUP$Parser$actions {
               Instruction RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)).right;
-		ch.ffhs.fac.flang.runtime.literals.Identifier i = (ch.ffhs.fac.flang.runtime.literals.Identifier)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-7)).value;
+		ch.ffhs.fac.flang.runtime.expressions.Identifier i = (ch.ffhs.fac.flang.runtime.expressions.Identifier)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-7)).value;
 		int tleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).left;
 		int tright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).right;
 		Expression t = (Expression)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-5)).value;
@@ -749,7 +749,7 @@ class CUP$Parser$actions {
               Instruction RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)).right;
-		ch.ffhs.fac.flang.runtime.literals.Identifier i = (ch.ffhs.fac.flang.runtime.literals.Identifier)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-7)).value;
+		ch.ffhs.fac.flang.runtime.expressions.Identifier i = (ch.ffhs.fac.flang.runtime.expressions.Identifier)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-7)).value;
 		int fleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).left;
 		int fright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)).right;
 		Expression f = (Expression)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-5)).value;
@@ -770,7 +770,7 @@ class CUP$Parser$actions {
               Instruction RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-9)).right;
-		ch.ffhs.fac.flang.runtime.literals.Identifier i = (ch.ffhs.fac.flang.runtime.literals.Identifier)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-9)).value;
+		ch.ffhs.fac.flang.runtime.expressions.Identifier i = (ch.ffhs.fac.flang.runtime.expressions.Identifier)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-9)).value;
 		int fleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)).left;
 		int fright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-7)).right;
 		Expression f = (Expression)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-7)).value;
@@ -878,7 +878,7 @@ class CUP$Parser$actions {
               Expression RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
-		ch.ffhs.fac.flang.runtime.literals.Identifier i = (ch.ffhs.fac.flang.runtime.literals.Identifier)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		ch.ffhs.fac.flang.runtime.expressions.Identifier i = (ch.ffhs.fac.flang.runtime.expressions.Identifier)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		 RESULT = i; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("expression",12, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1142,11 +1142,11 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 48: // identifier ::= IDENTIFIER 
             {
-              ch.ffhs.fac.flang.runtime.literals.Identifier RESULT =null;
+              ch.ffhs.fac.flang.runtime.expressions.Identifier RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		String i = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new ch.ffhs.fac.flang.runtime.literals.Identifier(i); 
+		 RESULT = new ch.ffhs.fac.flang.runtime.expressions.Identifier(i); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("identifier",15, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1169,7 +1169,7 @@ class CUP$Parser$actions {
               Literal RESULT =null;
 		int aleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-4)).right;
-		LinkedList<ch.ffhs.fac.flang.runtime.literals.Identifier> a = (LinkedList<ch.ffhs.fac.flang.runtime.literals.Identifier>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
+		LinkedList<ch.ffhs.fac.flang.runtime.expressions.Identifier> a = (LinkedList<ch.ffhs.fac.flang.runtime.expressions.Identifier>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-4)).value;
 		int ileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		List<Instruction> i = (List<Instruction>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
@@ -1181,13 +1181,13 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 51: // functionArguments ::= functionArguments COMMA identifier 
             {
-              LinkedList<ch.ffhs.fac.flang.runtime.literals.Identifier> RESULT =null;
+              LinkedList<ch.ffhs.fac.flang.runtime.expressions.Identifier> RESULT =null;
 		int lleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).left;
 		int lright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)).right;
-		LinkedList<ch.ffhs.fac.flang.runtime.literals.Identifier> l = (LinkedList<ch.ffhs.fac.flang.runtime.literals.Identifier>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
+		LinkedList<ch.ffhs.fac.flang.runtime.expressions.Identifier> l = (LinkedList<ch.ffhs.fac.flang.runtime.expressions.Identifier>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-2)).value;
 		int ileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
-		ch.ffhs.fac.flang.runtime.literals.Identifier i = (ch.ffhs.fac.flang.runtime.literals.Identifier)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		ch.ffhs.fac.flang.runtime.expressions.Identifier i = (ch.ffhs.fac.flang.runtime.expressions.Identifier)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
 		 RESULT = l;  l.add(i); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("functionArguments",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-2)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
@@ -1196,11 +1196,11 @@ class CUP$Parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 52: // functionArguments ::= identifier 
             {
-              LinkedList<ch.ffhs.fac.flang.runtime.literals.Identifier> RESULT =null;
+              LinkedList<ch.ffhs.fac.flang.runtime.expressions.Identifier> RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
-		ch.ffhs.fac.flang.runtime.literals.Identifier i = (ch.ffhs.fac.flang.runtime.literals.Identifier)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = new LinkedList<ch.ffhs.fac.flang.runtime.literals.Identifier>(); RESULT.add(i); 
+		ch.ffhs.fac.flang.runtime.expressions.Identifier i = (ch.ffhs.fac.flang.runtime.expressions.Identifier)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = new LinkedList<ch.ffhs.fac.flang.runtime.expressions.Identifier>(); RESULT.add(i); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("functionArguments",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1211,7 +1211,7 @@ class CUP$Parser$actions {
               Expression RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-3)).right;
-		ch.ffhs.fac.flang.runtime.literals.Identifier i = (ch.ffhs.fac.flang.runtime.literals.Identifier)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
+		ch.ffhs.fac.flang.runtime.expressions.Identifier i = (ch.ffhs.fac.flang.runtime.expressions.Identifier)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-3)).value;
 		int eleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int eright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		LinkedList<Expression> e = (LinkedList<Expression>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;

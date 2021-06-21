@@ -8,8 +8,8 @@ import java.util.Map;
 import ch.ffhs.fac.flang.parser.interfaces.Instruction;
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
+import ch.ffhs.fac.flang.runtime.expressions.Identifier;
 import ch.ffhs.fac.flang.runtime.literals.Function;
-import ch.ffhs.fac.flang.runtime.literals.Identifier;
 import ch.ffhs.fac.flang.runtime.literals.LiteralBase;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 

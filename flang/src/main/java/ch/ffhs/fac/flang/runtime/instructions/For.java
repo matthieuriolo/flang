@@ -9,8 +9,8 @@ import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitable;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
+import ch.ffhs.fac.flang.runtime.expressions.Identifier;
 import ch.ffhs.fac.flang.runtime.literals.Decimal;
-import ch.ffhs.fac.flang.runtime.literals.Identifier;
 
 public class For implements Instruction {
 	private final Identifier identifier;

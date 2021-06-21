@@ -10,6 +10,7 @@ import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Document;
 import ch.ffhs.fac.flang.runtime.expressions.BinaryOperation;
 import ch.ffhs.fac.flang.runtime.expressions.FunctionCall;
+import ch.ffhs.fac.flang.runtime.expressions.Identifier;
 import ch.ffhs.fac.flang.runtime.expressions.UnaryOperation;
 import ch.ffhs.fac.flang.runtime.instructions.Assignment;
 import ch.ffhs.fac.flang.runtime.instructions.For;
@@ -20,7 +21,6 @@ import ch.ffhs.fac.flang.runtime.instructions.While;
 import ch.ffhs.fac.flang.runtime.literals.Boolean;
 import ch.ffhs.fac.flang.runtime.literals.Decimal;
 import ch.ffhs.fac.flang.runtime.literals.Function;
-import ch.ffhs.fac.flang.runtime.literals.Identifier;
 import ch.ffhs.fac.flang.runtime.literals.String;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
