@@ -1,13 +1,12 @@
-package ch.ffhs.fac.flang.runtime.expressions.operations;
+package ch.ffhs.fac.flang.runtime.expressions;
 
 import ch.ffhs.fac.flang.parser.interfaces.Expression;
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
-import ch.ffhs.fac.flang.runtime.expressions.Operation;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
-public class BiOperand implements Operation {
+public class BinaryOperation implements Expression {
 	private final Expression left;
 	private final Expression right;
 	private final Type type;
@@ -38,7 +37,7 @@ public class BiOperand implements Operation {
 		}
 	};
 
-	public BiOperand(final Expression left, final Type type, final Expression right) {
+	public BinaryOperation(final Expression left, final Type type, final Expression right) {
 		this.left = left;
 		this.type = type;
 		this.right = right;

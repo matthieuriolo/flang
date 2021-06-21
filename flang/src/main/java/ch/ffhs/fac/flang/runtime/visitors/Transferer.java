@@ -8,9 +8,9 @@ import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitable;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Document;
+import ch.ffhs.fac.flang.runtime.expressions.BinaryOperation;
 import ch.ffhs.fac.flang.runtime.expressions.FunctionCall;
-import ch.ffhs.fac.flang.runtime.expressions.operations.BiOperand;
-import ch.ffhs.fac.flang.runtime.expressions.operations.UnaryOperand;
+import ch.ffhs.fac.flang.runtime.expressions.UnaryOperation;
 import ch.ffhs.fac.flang.runtime.instructions.Assignment;
 import ch.ffhs.fac.flang.runtime.instructions.For;
 import ch.ffhs.fac.flang.runtime.instructions.FunctionProcedure;
@@ -118,13 +118,13 @@ public abstract class Transferer implements Visitor {
 	}
 
 	@Override
-	public void visitExpressionBiOperand(BiOperand expr) {
+	public void visitExpressionBiOperand(BinaryOperation expr) {
 		visit(expr.getLeft());
 		visit(expr.getRight());
 	}
 
 	@Override
-	public void visitExpressionUnaryOperand(UnaryOperand expr) {
+	public void visitExpressionUnaryOperand(UnaryOperation expr) {
 		visit(expr.getOperand());
 	}
 }

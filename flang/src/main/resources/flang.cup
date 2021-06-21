@@ -1,8 +1,9 @@
 package ch.ffhs.fac.flang.parser;
 
+import ch.ffhs.fac.flang.parser.interfaces.*;
 import ch.ffhs.fac.flang.runtime.*;
 import ch.ffhs.fac.flang.runtime.expressions.*;
-import ch.ffhs.fac.flang.runtime.expressions.operations.*;
+import ch.ffhs.fac.flang.runtime.expressions.*;
 import ch.ffhs.fac.flang.runtime.instructions.*;
 
 import java_cup.runtime.*;
@@ -124,19 +125,19 @@ expressions          ::= expressions:l COMMA expression:i {: RESULT = l; l.add(i
 ;
 
 
-expression           ::= expression:l OR expression:r              {: RESULT = new BiOperand(l, BiOperand.Type.OR, r); :}
-                       | expression:l AND expression:r             {: RESULT = new BiOperand(l, BiOperand.Type.AND, r); :}
-                       | expression:l EQUAL expression:r           {: RESULT = new BiOperand(l, BiOperand.Type.EQUAL, r); :}
-                       | expression:l NOT_EQUAL expression:r       {: RESULT = new BiOperand(l, BiOperand.Type.NOT_EQUAL, r); :}
-                       | expression:l LESS expression:r            {: RESULT = new BiOperand(l, BiOperand.Type.LESS, r); :}
-                       | expression:l LESS_EQUAL expression:r      {: RESULT = new BiOperand(l, BiOperand.Type.LESS_EQUAL, r); :}
-                       | expression:l GREATER expression:r         {: RESULT = new BiOperand(l, BiOperand.Type.GREATER, r); :}
-                       | expression:l GREATER_EQUAL expression:r   {: RESULT = new BiOperand(l, BiOperand.Type.GREATER_EQUAL, r); :}
-                       | expression:l PLUS expression:r            {: RESULT = new BiOperand(l, BiOperand.Type.PLUS, r); :}
-                       | expression:l MINUS expression:r           {: RESULT = new BiOperand(l, BiOperand.Type.MINUS, r); :}
-                       | expression:l ASTERISK expression:r        {: RESULT = new BiOperand(l, BiOperand.Type.ASTERISK, r); :}
-                       | expression:l SLASH expression:r           {: RESULT = new BiOperand(l, BiOperand.Type.SLASH, r); :}
-                       | MINUS expression:i                        {: RESULT = new UnaryOperand(i, UnaryOperand.Type.MINUS); :} %prec UMINUS
+expression           ::= expression:l OR expression:r              {: RESULT = new BinaryOperation(l, BinaryOperation.Type.OR, r); :}
+                       | expression:l AND expression:r             {: RESULT = new BinaryOperation(l, BinaryOperation.Type.AND, r); :}
+                       | expression:l EQUAL expression:r           {: RESULT = new BinaryOperation(l, BinaryOperation.Type.EQUAL, r); :}
+                       | expression:l NOT_EQUAL expression:r       {: RESULT = new BinaryOperation(l, BinaryOperation.Type.NOT_EQUAL, r); :}
+                       | expression:l LESS expression:r            {: RESULT = new BinaryOperation(l, BinaryOperation.Type.LESS, r); :}
+                       | expression:l LESS_EQUAL expression:r      {: RESULT = new BinaryOperation(l, BinaryOperation.Type.LESS_EQUAL, r); :}
+                       | expression:l GREATER expression:r         {: RESULT = new BinaryOperation(l, BinaryOperation.Type.GREATER, r); :}
+                       | expression:l GREATER_EQUAL expression:r   {: RESULT = new BinaryOperation(l, BinaryOperation.Type.GREATER_EQUAL, r); :}
+                       | expression:l PLUS expression:r            {: RESULT = new BinaryOperation(l, BinaryOperation.Type.PLUS, r); :}
+                       | expression:l MINUS expression:r           {: RESULT = new BinaryOperation(l, BinaryOperation.Type.MINUS, r); :}
+                       | expression:l ASTERISK expression:r        {: RESULT = new BinaryOperation(l, BinaryOperation.Type.ASTERISK, r); :}
+                       | expression:l SLASH expression:r           {: RESULT = new BinaryOperation(l, BinaryOperation.Type.SLASH, r); :}
+                       | MINUS expression:i                        {: RESULT = new UnaryOperation(i, UnaryOperation.Type.MINUS); :} %prec UMINUS
                        | ROUND_OPEN expression:i ROUND_CLOSED      {: RESULT = i; :}
                        | functionCall:i                            {: RESULT = i; :}
                        | literal:i                                 {: RESULT = i; :}

@@ -2,9 +2,9 @@ package ch.ffhs.fac.flang.parser.interfaces;
 
 
 import ch.ffhs.fac.flang.runtime.Document;
+import ch.ffhs.fac.flang.runtime.expressions.BinaryOperation;
 import ch.ffhs.fac.flang.runtime.expressions.FunctionCall;
-import ch.ffhs.fac.flang.runtime.expressions.operations.BiOperand;
-import ch.ffhs.fac.flang.runtime.expressions.operations.UnaryOperand;
+import ch.ffhs.fac.flang.runtime.expressions.UnaryOperation;
 import ch.ffhs.fac.flang.runtime.instructions.Assignment;
 import ch.ffhs.fac.flang.runtime.instructions.For;
 import ch.ffhs.fac.flang.runtime.instructions.FunctionProcedure;
@@ -41,6 +41,6 @@ public interface Visitor {
 	public void visitInstructionWhile(final While instr);
 	
 	public void visitExpressionFunctionCall(final FunctionCall expr);
-	public void visitExpressionBiOperand(final BiOperand expr);
-	public void visitExpressionUnaryOperand(final UnaryOperand expr);
+	public void visitExpressionBiOperand(final BinaryOperation expr);
+	public void visitExpressionUnaryOperand(final UnaryOperation expr);
 }

@@ -1,13 +1,12 @@
-package ch.ffhs.fac.flang.runtime.expressions.operations;
+package ch.ffhs.fac.flang.runtime.expressions;
 
 import ch.ffhs.fac.flang.parser.interfaces.Expression;
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
-import ch.ffhs.fac.flang.runtime.expressions.Operation;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
-public class UnaryOperand implements Operation {
+public class UnaryOperation implements Expression {
 	private final Expression operand;
 	private final Type type;
 	
@@ -25,7 +24,7 @@ public class UnaryOperand implements Operation {
 		}
 	}
 
-	public UnaryOperand(final Expression operand, final Type type) {
+	public UnaryOperation(final Expression operand, final Type type) {
 		this.operand = operand;
 		this.type = type;
 	}
