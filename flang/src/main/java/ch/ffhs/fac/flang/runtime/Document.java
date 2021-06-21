@@ -11,16 +11,19 @@ import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.literals.Decimal;
 
 public class Document extends Context implements Visitable {
+	private final List<Instruction> instructions;
+	
 	public Document(final List<Instruction> instructions) {
-		super(instructions);
+		this.instructions = instructions;
 	}
 	
-	@Override
+	public List<Instruction> getInstructions() {
+		return instructions;
+	}
+	
 	public Literal execute() throws Throwable {
-		return Objects.requireNonNullElse(super.execute(), new Decimal(BigDecimal.ZERO));
+		return Objects.requireNonNullElse(execute(instructions), new Decimal(BigDecimal.ZERO));
 	}
-	
-
 	
 	@Override
 	public void acceptVisitor(final Visitor visitor) {

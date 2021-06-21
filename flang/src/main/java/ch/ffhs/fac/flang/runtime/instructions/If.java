@@ -40,8 +40,8 @@ public class If implements Instruction {
 	public Literal execute(Context closure) throws Throwable {
 		final var cond = condition.compute(closure);
 		final var instrs = cond.toBoolean() ? instructions : elseInstructions;
-		final var block = new Context(closure, instrs);
-		return block.execute();
+		final var ctx = new Context(closure);
+		return ctx.execute(instrs);
 	}
 	
 	@Override

@@ -35,7 +35,7 @@ public class Function extends LiteralBase {
 
 	public Literal functionalCall(final Context closure, final List<Literal> arguments) throws Throwable {
 		Objects.requireNonNull(closureCreator);
-		final var body = new Context(closureCreator, instructions);
+		final var body = new Context(closureCreator);
 		final var values = arguments.iterator();
 		for (final var param : parameters) {
 			Literal value = Undefined.UNDEFINED;
@@ -47,7 +47,7 @@ public class Function extends LiteralBase {
 		
 		// magic variable containing all the arguments
 		body.setOwnValue(MAGIC_ARGUMENTS, new Array(arguments));
-		return body.execute();
+		return body.execute(instructions);
 	}
 	
 	@Override

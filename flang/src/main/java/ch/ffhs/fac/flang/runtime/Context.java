@@ -16,7 +16,7 @@ import ch.ffhs.fac.flang.runtime.literals.Undefined;
 public class Context {
 	private final Map<String, Literal> variables = new HashMap<String, Literal>();
 	private final Context parent;
-	private final List<Instruction> instructions;//TODO
+
 	//TODO
 	@FunctionalInterface
 	public interface FunctionInterface {
@@ -58,33 +58,17 @@ public class Context {
 	
 	public Context() {
 		this.parent = null;
-		this.instructions = new LinkedList<Instruction>();
 	}
 	
 	public Context(final Context parent) {
 		this.parent = parent;
-		this.instructions = new LinkedList<Instruction>();
-	}
-	
-	public Context(final Context parent, final List<Instruction> instructions) {
-		this.parent = parent;
-		this.instructions = instructions;
-	}
-	
-	public Context(final List<Instruction> instructions) {
-		this.parent = null;
-		this.instructions = instructions;
 	}
 	
 	public Context getParentClosure() {
 		return parent;
 	}
 	
-	public List<Instruction> getInstructions() {
-		return instructions;
-	}
-	
-	public Literal execute() throws Throwable {
+	public Literal execute(final List<Instruction> instructions) throws Throwable {
 		for(final var instr : instructions) {
 			final var returnValue = instr.execute(this);
 			if(returnValue != null) {

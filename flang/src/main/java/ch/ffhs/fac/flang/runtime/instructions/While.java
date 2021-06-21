@@ -29,7 +29,7 @@ public class While implements Instruction {
 	@Override
 	public Literal execute(Context closure) throws Throwable {
 		while(condition.compute(closure).toBoolean()) {
-			final var returnLiteral = new Context(closure, instructions).execute();
+			final var returnLiteral = new Context(closure).execute(instructions);
 			if(returnLiteral != null) {
 				return returnLiteral;
 			}

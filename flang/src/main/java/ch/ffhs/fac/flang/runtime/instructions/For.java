@@ -94,9 +94,9 @@ public class For implements Instruction {
 
 		for (var i = f; positiveDirection && i.compareTo(t) < 0
 				|| !positiveDirection && i.compareTo(t) > 0; i = i.add(b)) {
-			final var block = new Context(closure, instructions);
-			block.setOwnValue(identifier, new Decimal(i));
-			final var returnLiteral = block.execute();
+			final var ctx = new Context(closure);
+			ctx.setOwnValue(identifier, new Decimal(i));
+			final var returnLiteral = ctx.execute(instructions);
 			if (returnLiteral != null) {
 				return returnLiteral;
 			}
