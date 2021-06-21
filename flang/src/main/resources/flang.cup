@@ -57,17 +57,7 @@ non terminal LinkedList<ch.ffhs.fac.flang.runtime.literals.Identifier> functionA
 non terminal Literal functionDeclaration;
 non terminal LinkedList<Expression> expressions;
 non terminal Expression expression;
-/*
-We keep this for now - it has been replaced by "%prec" and "precedence left"
-non terminal Expression expressionPriority1;
-non terminal Expression expressionPriority2;
-non terminal Expression expressionPriority3;
-non terminal Expression expressionPriority4;
-non terminal Expression expressionPriority5;
-non terminal Expression expressionPriority6;
-non terminal Expression expressionPriority7;
-non terminal Expression expressionPriority8;
-*/
+non terminal Expression operation;
 
 non terminal Literal literal;
 non terminal ch.ffhs.fac.flang.runtime.literals.Identifier identifier;
@@ -125,7 +115,15 @@ expressions          ::= expressions:l COMMA expression:i {: RESULT = l; l.add(i
 ;
 
 
-expression           ::= expression:l OR expression:r              {: RESULT = new BinaryOperation(l, BinaryOperation.Type.OR, r); :}
+expression           ::= operation:i                               {: RESULT = i; :}
+                       | ROUND_OPEN expression:i ROUND_CLOSED      {: RESULT = i; :}
+                       | functionCall:i                            {: RESULT = i; :}
+                       | literal:i                                 {: RESULT = i; :}
+                       | identifier:i                              {: RESULT = i; :}
+;
+
+/* operators */
+operation            ::= expression:l OR expression:r              {: RESULT = new BinaryOperation(l, BinaryOperation.Type.OR, r); :}
                        | expression:l AND expression:r             {: RESULT = new BinaryOperation(l, BinaryOperation.Type.AND, r); :}
                        | expression:l EQUAL expression:r           {: RESULT = new BinaryOperation(l, BinaryOperation.Type.EQUAL, r); :}
                        | expression:l NOT_EQUAL expression:r       {: RESULT = new BinaryOperation(l, BinaryOperation.Type.NOT_EQUAL, r); :}
@@ -138,50 +136,7 @@ expression           ::= expression:l OR expression:r              {: RESULT = n
                        | expression:l ASTERISK expression:r        {: RESULT = new BinaryOperation(l, BinaryOperation.Type.ASTERISK, r); :}
                        | expression:l SLASH expression:r           {: RESULT = new BinaryOperation(l, BinaryOperation.Type.SLASH, r); :}
                        | MINUS expression:i                        {: RESULT = new UnaryOperation(i, UnaryOperation.Type.MINUS); :} %prec UMINUS
-                       | ROUND_OPEN expression:i ROUND_CLOSED      {: RESULT = i; :}
-                       | functionCall:i                            {: RESULT = i; :}
-                       | literal:i                                 {: RESULT = i; :}
-                       | identifier:i                              {: RESULT = i; :}
-;
-
-/*
- Older versions of CUP forced the user to write unambiguous grammars, but now there is a construct allowing the
- user to specify precedences and associativities for terminals.
-expression           ::= expressionPriority1;
-expressionPriority1  ::= expressionPriority1 OR expressionPriority2
-                       | expressionPriority2
-;
-expressionPriority2  ::= expressionPriority2 AND expressionPriority3
-                       | expressionPriority3
-;
-expressionPriority3  ::= expressionPriority3 EQUAL expressionPriority4
-                       | expressionPriority3 NOT_EQUAL expressionPriority4
-                       | expressionPriority4
-;
-expressionPriority4  ::= expressionPriority4 LESS expressionPriority5
-                       | expressionPriority4 LESS_EQUAL expressionPriority5
-                       | expressionPriority4 GREATER expressionPriority5
-                       | expressionPriority4 GREATER_EQUAL expressionPriority5
-                       | expressionPriority5
-;
-expressionPriority5  ::= expressionPriority5 PLUS expressionPriority6
-                       | expressionPriority5 MINUS expressionPriority6
-                       | expressionPriority6
-;
-expressionPriority6  ::= expressionPriority6 ASTERISK expressionPriority7
-                       | expressionPriority6 SLASH expressionPriority7
-                       | expressionPriority7
-;
-expressionPriority7  ::= MINUS expressionPriority8
-                       | expressionPriority8
-;
-expressionPriority8  ::= ROUND_OPEN expression:i ROUND_CLOSED
-                       | literal
-;
-*/
-
-/* operators */
-
+;                       
 
 /* literals */
 literal              ::= DECIMAL:i             {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Decimal(i); :}
