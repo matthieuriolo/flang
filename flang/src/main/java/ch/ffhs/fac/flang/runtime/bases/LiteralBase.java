@@ -8,7 +8,7 @@ import ch.ffhs.fac.flang.runtime.literals.Boolean;
 import ch.ffhs.fac.flang.runtime.literals.Decimal;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
-public abstract class LiteralBase implements Literal {
+public abstract class LiteralBase extends LocatedInTextBase implements Literal {
 	@Override
 	public Literal computeOr(final Literal right) {
 		return ch.ffhs.fac.flang.runtime.literals.Boolean.of(toBoolean() || right.toBoolean());

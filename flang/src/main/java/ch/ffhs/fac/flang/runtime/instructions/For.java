@@ -8,10 +8,11 @@ import ch.ffhs.fac.flang.parser.interfaces.Instruction;
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
+import ch.ffhs.fac.flang.runtime.bases.LocatedInTextBase;
 import ch.ffhs.fac.flang.runtime.expressions.Identifier;
 import ch.ffhs.fac.flang.runtime.literals.Decimal;
 
-public class For implements Instruction {
+public class For extends LocatedInTextBase implements Instruction {
 	private final Identifier identifier;
 	private final Expression from;
 	private final Expression to;

@@ -4,8 +4,9 @@ import ch.ffhs.fac.flang.parser.interfaces.Expression;
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
+import ch.ffhs.fac.flang.runtime.bases.LocatedInTextBase;
 
-public class Identifier implements Expression {
+public class Identifier extends LocatedInTextBase implements Expression {
 	private final java.lang.String name;
 	
 	public Identifier(final java.lang.String name) {

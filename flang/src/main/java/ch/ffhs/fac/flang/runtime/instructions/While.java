@@ -7,8 +7,9 @@ import ch.ffhs.fac.flang.parser.interfaces.Instruction;
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
+import ch.ffhs.fac.flang.runtime.bases.LocatedInTextBase;
 
-public class While implements Instruction {
+public class While extends LocatedInTextBase implements Instruction {
 	private final Expression condition;
 	private final List<Instruction> instructions;
 

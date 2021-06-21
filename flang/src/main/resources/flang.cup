@@ -18,6 +18,10 @@ parser code {:
 	public Document parseDocument() throws java.lang.Exception {
 		return new Document(parseInstructions());
 	}
+	
+	private void setLoc(final LocatedInText o, final int col, final int row) {
+		o.setLocation(new Location(col, row));
+	}
 :};
 
 
@@ -42,9 +46,9 @@ terminal     UMINUS;
 
 
 // literals
-terminal String IDENTIFIER;
-terminal String STRING;
-terminal BigDecimal DECIMAL;
+terminal     String IDENTIFIER;
+terminal     String STRING;
+terminal     BigDecimal DECIMAL;
 
 
 /** Non-Terminals */
@@ -65,6 +69,8 @@ non terminal Expression operation;
 
 non terminal Literal literal;
 non terminal Identifier identifier;
+
+
 /** Precedences */
 precedence left OR;
 precedence left AND;
@@ -80,28 +86,28 @@ precedence left UMINUS;
 
 start with instructions;
 
-instructions         ::= instructions:l instruction:i   {: RESULT = l; l.add(i); :}
-                       | /* empty */                    {: RESULT = new LinkedList<Instruction>(); :}
+instructions         ::= instructions:l instruction:i                                                                                 {: RESULT = l; l.add(i); :}
+                       | /* empty */                                                                                                  {: RESULT = new LinkedList<Instruction>(); :}
 ;
 
-instruction          ::= assignment:i                   {: RESULT = i; :}
-                       | END                            {: RESULT = new Return(); :}
-                       | RETURN expression:i            {: RESULT = new Return(i); :}
-                       | if:i                           {: RESULT = i; :}
-                       | while:i                        {: RESULT = i; :}
-                       | for:i                          {: RESULT = i; :}
-                       | functionProcedure:i            {: RESULT = i; :}
+instruction          ::= assignment:i                                                                                                 {: RESULT = i; parser.setLoc(RESULT, ileft, iright); :}
+                       | END:i                                                                                                        {: RESULT = new Return(); parser.setLoc(RESULT, ileft, iright); :}
+                       | RETURN expression:i                                                                                          {: RESULT = new Return(i); parser.setLoc(RESULT, ileft, iright); :}
+                       | if:i                                                                                                         {: RESULT = i; parser.setLoc(RESULT, ileft, iright); :}
+                       | while:i                                                                                                      {: RESULT = i; parser.setLoc(RESULT, ileft, iright); :}
+                       | for:i                                                                                                        {: RESULT = i; parser.setLoc(RESULT, ileft, iright); :}
+                       | functionProcedure:i                                                                                          {: RESULT = i; parser.setLoc(RESULT, ileft, iright); :}
 ;
 
 /* instructions */
-assignment           ::= identifier:i ASSIGN expression:e                          {: RESULT = new Assignment(i, e); :};
-functionProcedure    ::= identifier:i ROUND_OPEN expressions:e ROUND_CLOSED        {: RESULT = new ProcedureCall(i, e); :}
-                       | functionCall:c ROUND_OPEN expressions:e ROUND_CLOSED      {: RESULT = new ProcedureCall(c, e); :}
+assignment           ::= identifier:i ASSIGN expression:e                                                                             {: RESULT = new Assignment(i, e); :};
+functionProcedure    ::= identifier:i ROUND_OPEN expressions:e ROUND_CLOSED                                                           {: RESULT = new ProcedureCall(i, e); :}
+                       | functionCall:c ROUND_OPEN expressions:e ROUND_CLOSED                                                         {: RESULT = new ProcedureCall(c, e); :}
 ;
 
 
-if                   ::= IF expression:e CURLY_OPEN instructions:i CURLY_CLOSED                                             {: RESULT = new If(e, i); :}
-                       | IF expression:e CURLY_OPEN instructions:i CURLY_CLOSED ELSE CURLY_OPEN instructions:o CURLY_CLOSED {: RESULT = new If(e, i, o); :}
+if                   ::= IF expression:e CURLY_OPEN instructions:i CURLY_CLOSED                                                       {: RESULT = new If(e, i); :}
+                       | IF expression:e CURLY_OPEN instructions:i CURLY_CLOSED ELSE CURLY_OPEN instructions:o CURLY_CLOSED           {: RESULT = new If(e, i, o); :}
 ;
 while                ::= WHILE expression:e CURLY_OPEN instructions:i CURLY_CLOSED                                                    {: RESULT = new While(e, i); :};
 for                  ::= FOR identifier:i TO expression:t CURLY_OPEN instructions:s CURLY_CLOSED                                      {: RESULT = new For(i, BigDecimal.ZERO, t, BigDecimal.ONE, s); :}
@@ -112,51 +118,51 @@ for                  ::= FOR identifier:i TO expression:t CURLY_OPEN instruction
 
 
 /* expressions */
-expressions          ::= expressions:l COMMA expression:i {: RESULT = l; l.add(i); :}
-                       | expression:i                     {: RESULT = new LinkedList<Expression>(); RESULT.add(i); :}
-                       | /* empty */                      {: RESULT = new LinkedList<Expression>(); :}
-;
+expressions          ::= expressions:l COMMA expression:i                                                                             {: RESULT = l; l.add(i); :}
+                       | expression:i                                                                                                 {: RESULT = new LinkedList<Expression>(); RESULT.add(i); :}
+                       | /* empty */                                                                                                  {: RESULT = new LinkedList<Expression>(); :}
+;                                                                                                                                     
 
 
-expression           ::= operation:i                               {: RESULT = i; :}
-                       | ROUND_OPEN expression:i ROUND_CLOSED      {: RESULT = i; :}
-                       | functionCall:i                            {: RESULT = i; :}
-                       | literal:i                                 {: RESULT = i; :}
-                       | identifier:i                              {: RESULT = i; :}
-;
+expression           ::= operation:i                                                                                                  {: RESULT = i; parser.setLoc(RESULT, ileft, iright); :}
+                       | ROUND_OPEN expression:i ROUND_CLOSED                                                                         {: RESULT = i; parser.setLoc(RESULT, ileft, iright); :}
+                       | functionCall:i                                                                                               {: RESULT = i; parser.setLoc(RESULT, ileft, iright); :}
+                       | literal:i                                                                                                    {: RESULT = i; parser.setLoc(RESULT, ileft, iright); :}
+                       | identifier:i                                                                                                 {: RESULT = i; parser.setLoc(RESULT, ileft, iright); :}
+;                                                                                                                                     
 
 /* operators */
-operation            ::= expression:l OR expression:r              {: RESULT = new BinaryOperation(l, BinaryOperation.Type.OR, r); :}
-                       | expression:l AND expression:r             {: RESULT = new BinaryOperation(l, BinaryOperation.Type.AND, r); :}
-                       | expression:l EQUAL expression:r           {: RESULT = new BinaryOperation(l, BinaryOperation.Type.EQUAL, r); :}
-                       | expression:l NOT_EQUAL expression:r       {: RESULT = new BinaryOperation(l, BinaryOperation.Type.NOT_EQUAL, r); :}
-                       | expression:l LESS expression:r            {: RESULT = new BinaryOperation(l, BinaryOperation.Type.LESS, r); :}
-                       | expression:l LESS_EQUAL expression:r      {: RESULT = new BinaryOperation(l, BinaryOperation.Type.LESS_EQUAL, r); :}
-                       | expression:l GREATER expression:r         {: RESULT = new BinaryOperation(l, BinaryOperation.Type.GREATER, r); :}
-                       | expression:l GREATER_EQUAL expression:r   {: RESULT = new BinaryOperation(l, BinaryOperation.Type.GREATER_EQUAL, r); :}
-                       | expression:l PLUS expression:r            {: RESULT = new BinaryOperation(l, BinaryOperation.Type.PLUS, r); :}
-                       | expression:l MINUS expression:r           {: RESULT = new BinaryOperation(l, BinaryOperation.Type.MINUS, r); :}
-                       | expression:l ASTERISK expression:r        {: RESULT = new BinaryOperation(l, BinaryOperation.Type.ASTERISK, r); :}
-                       | expression:l SLASH expression:r           {: RESULT = new BinaryOperation(l, BinaryOperation.Type.SLASH, r); :}
-                       | MINUS expression:i                        {: RESULT = new UnaryOperation(i, UnaryOperation.Type.MINUS); :} %prec UMINUS
+operation            ::= expression:l OR expression:r                                                                                 {: RESULT = new BinaryOperation(l, BinaryOperation.Type.OR, r); :}
+                       | expression:l AND expression:r                                                                                {: RESULT = new BinaryOperation(l, BinaryOperation.Type.AND, r); :}
+                       | expression:l EQUAL expression:r                                                                              {: RESULT = new BinaryOperation(l, BinaryOperation.Type.EQUAL, r); :}
+                       | expression:l NOT_EQUAL expression:r                                                                          {: RESULT = new BinaryOperation(l, BinaryOperation.Type.NOT_EQUAL, r); :}
+                       | expression:l LESS expression:r                                                                               {: RESULT = new BinaryOperation(l, BinaryOperation.Type.LESS, r); :}
+                       | expression:l LESS_EQUAL expression:r                                                                         {: RESULT = new BinaryOperation(l, BinaryOperation.Type.LESS_EQUAL, r); :}
+                       | expression:l GREATER expression:r                                                                            {: RESULT = new BinaryOperation(l, BinaryOperation.Type.GREATER, r); :}
+                       | expression:l GREATER_EQUAL expression:r                                                                      {: RESULT = new BinaryOperation(l, BinaryOperation.Type.GREATER_EQUAL, r); :}
+                       | expression:l PLUS expression:r                                                                               {: RESULT = new BinaryOperation(l, BinaryOperation.Type.PLUS, r); :}
+                       | expression:l MINUS expression:r                                                                              {: RESULT = new BinaryOperation(l, BinaryOperation.Type.MINUS, r); :}
+                       | expression:l ASTERISK expression:r                                                                           {: RESULT = new BinaryOperation(l, BinaryOperation.Type.ASTERISK, r); :}
+                       | expression:l SLASH expression:r                                                                              {: RESULT = new BinaryOperation(l, BinaryOperation.Type.SLASH, r); :}
+                       | MINUS expression:i                                                                                           {: RESULT = new UnaryOperation(i, UnaryOperation.Type.MINUS); :} %prec UMINUS
 ;                       
 
 /* literals */
-literal              ::= DECIMAL:i             {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Decimal(i); :}
-                       | TRUE                  {: RESULT = ch.ffhs.fac.flang.runtime.literals.Boolean.TRUE; :}
-                       | FALSE                 {: RESULT = ch.ffhs.fac.flang.runtime.literals.Boolean.FALSE; :}
-                       | UNDEFINED             {: RESULT = ch.ffhs.fac.flang.runtime.literals.Undefined.UNDEFINED; :}
-                       | functionDeclaration:i {: RESULT = i; :}
-                       | STRING:i              {: RESULT = new ch.ffhs.fac.flang.runtime.literals.String(i); :}
+literal              ::= DECIMAL:i                                                                                                    {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Decimal(i); :}
+                       | TRUE                                                                                                         {: RESULT = ch.ffhs.fac.flang.runtime.literals.Boolean.TRUE; :}
+                       | FALSE                                                                                                        {: RESULT = ch.ffhs.fac.flang.runtime.literals.Boolean.FALSE; :}
+                       | UNDEFINED                                                                                                    {: RESULT = ch.ffhs.fac.flang.runtime.literals.Undefined.UNDEFINED; :}
+                       | functionDeclaration:i                                                                                        {: RESULT = i; :}
+                       | STRING:i                                                                                                     {: RESULT = new ch.ffhs.fac.flang.runtime.literals.String(i); :}
 ;
 
-identifier           ::= IDENTIFIER:i          {: RESULT = new Identifier(i); :};
+identifier           ::= IDENTIFIER:i                                                                                                 {: RESULT = new Identifier(i); :};
 
-functionDeclaration  ::= COLON ROUND_OPEN ROUND_CLOSED CURLY_OPEN instructions:i CURLY_CLOSED   {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Function(i); :}
-                       | COLON ROUND_OPEN functionArguments:a ROUND_CLOSED CURLY_OPEN instructions:i CURLY_CLOSED   {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Function(a, i); :};
-functionArguments    ::= functionArguments:l COMMA identifier:i {: RESULT = l;  l.add(i); :}
-                       | identifier:i {: RESULT = new LinkedList<Identifier>(); RESULT.add(i); :}
+functionDeclaration  ::= COLON ROUND_OPEN ROUND_CLOSED CURLY_OPEN instructions:i CURLY_CLOSED                                         {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Function(i); :}
+                       | COLON ROUND_OPEN functionArguments:a ROUND_CLOSED CURLY_OPEN instructions:i CURLY_CLOSED                     {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Function(a, i); :};
+functionArguments    ::= functionArguments:l COMMA identifier:i                                                                       {: RESULT = l;  l.add(i); parser.setLoc(i, ileft, iright); :}
+                       | identifier:i                                                                                                 {: RESULT = new LinkedList<Identifier>(); RESULT.add(i); parser.setLoc(i, ileft, iright); :}
 ;
-functionCall         ::= identifier:i ROUND_OPEN expressions:e ROUND_CLOSED              {: RESULT = new FunctionCall(i, e); :}
-                       | functionCall:c ROUND_OPEN expressions:e ROUND_CLOSED            {: RESULT = new FunctionCall(c, e); :}
+functionCall         ::= identifier:i ROUND_OPEN expressions:e ROUND_CLOSED                                                           {: RESULT = new FunctionCall(i, e); :}
+                       | functionCall:c ROUND_OPEN expressions:e ROUND_CLOSED                                                         {: RESULT = new FunctionCall(c, e); :}
 ;
