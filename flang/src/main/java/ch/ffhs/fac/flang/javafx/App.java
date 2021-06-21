@@ -14,8 +14,8 @@ import java.util.concurrent.Future;
 
 import ch.ffhs.fac.flang.parser.Parser;
 import ch.ffhs.fac.flang.parser.Scanner;
+import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.runtime.Document;
-import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.std.ArrayCreate;
 import ch.ffhs.fac.flang.runtime.std.ArrayFilter;
 import ch.ffhs.fac.flang.runtime.std.ArrayGet;

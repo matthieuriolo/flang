@@ -3,11 +3,11 @@ package ch.ffhs.fac.flang.runtime.literals;
 import java.util.List;
 import java.util.Objects;
 
+import ch.ffhs.fac.flang.parser.interfaces.Instruction;
+import ch.ffhs.fac.flang.parser.interfaces.Literal;
+import ch.ffhs.fac.flang.parser.interfaces.Visitable;
+import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
-import ch.ffhs.fac.flang.runtime.Instruction;
-import ch.ffhs.fac.flang.runtime.Literal;
-import ch.ffhs.fac.flang.runtime.Visitable;
-import ch.ffhs.fac.flang.runtime.Visitor;
 
 public class Function implements Literal {
 	public static final Identifier MAGIC_ARGUMENTS = new Identifier("__arguments__");

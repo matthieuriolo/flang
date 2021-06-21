@@ -2,6 +2,9 @@ package ch.ffhs.fac.flang.runtime;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import ch.ffhs.fac.flang.parser.interfaces.Expression;
+import ch.ffhs.fac.flang.parser.interfaces.Literal;
 // TODO find home
 public abstract class Routine {
 	private final Expression subject;

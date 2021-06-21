@@ -1,8 +1,8 @@
 package ch.ffhs.fac.flang.runtime.literals;
 
-import ch.ffhs.fac.flang.runtime.Literal;
-import ch.ffhs.fac.flang.runtime.Visitable;
-import ch.ffhs.fac.flang.runtime.Visitor;
+import ch.ffhs.fac.flang.parser.interfaces.Literal;
+import ch.ffhs.fac.flang.parser.interfaces.Visitable;
+import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 
 public class Boolean implements Literal {
 	public static final Boolean TRUE = new Boolean("TRUE");

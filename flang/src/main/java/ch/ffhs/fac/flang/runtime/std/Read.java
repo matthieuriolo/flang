@@ -3,9 +3,9 @@ package ch.ffhs.fac.flang.runtime.std;
 import java.io.BufferedReader;
 import java.util.List;
 
+import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.Context.FunctionInterface;
-import ch.ffhs.fac.flang.runtime.Literal;
 
 public class Read implements FunctionInterface {
 	public static final String NAME = "read";

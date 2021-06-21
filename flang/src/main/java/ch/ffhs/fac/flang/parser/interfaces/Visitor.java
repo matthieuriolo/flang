@@ -1,6 +1,7 @@
-package ch.ffhs.fac.flang.runtime;
+package ch.ffhs.fac.flang.parser.interfaces;
 
 
+import ch.ffhs.fac.flang.runtime.Document;
 import ch.ffhs.fac.flang.runtime.expressions.FunctionCall;
 import ch.ffhs.fac.flang.runtime.expressions.operations.BiOperand;
 import ch.ffhs.fac.flang.runtime.expressions.operations.UnaryOperand;
