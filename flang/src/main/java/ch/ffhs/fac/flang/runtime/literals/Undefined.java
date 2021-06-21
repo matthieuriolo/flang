@@ -5,7 +5,7 @@ import ch.ffhs.fac.flang.parser.interfaces.Visitable;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
 
-public class Undefined implements Literal {
+public class Undefined extends LiteralBase {
 	public static final Undefined UNDEFINED = new Undefined();
 	
 	@Override

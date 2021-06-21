@@ -9,7 +9,7 @@ import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
 
-public class Array implements Literal {
+public class Array extends LiteralBase {
 	private final List<Literal> values;
 
 	public Array(final List<Literal> values) {

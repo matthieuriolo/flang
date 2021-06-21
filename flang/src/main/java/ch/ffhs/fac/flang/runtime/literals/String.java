@@ -5,7 +5,7 @@ import ch.ffhs.fac.flang.parser.interfaces.Visitable;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
 
-public class String implements Literal {
+public class String extends LiteralBase {
 	private final java.lang.String string;
 	public String() {
 		this("");
@@ -21,7 +21,7 @@ public class String implements Literal {
 			return new String(string + ((String) right).string);
 		}
 
-		return Literal.super.operationPlus(right);
+		return super.operationPlus(right);
 	}
 	
 	@Override
@@ -30,7 +30,7 @@ public class String implements Literal {
 			return new String(string.repeat(((Decimal) right).getValue().intValueExact()));
 		}
 		
-		return Literal.super.operationAsterisk(right);
+		return super.operationAsterisk(right);
 	}
 	
 	@Override
@@ -39,7 +39,7 @@ public class String implements Literal {
 			return Boolean.of(string.equals(((String) right).string));
 		}
 
-		return Literal.super.operationEqual(right);
+		return super.operationEqual(right);
 	}
 	
 	@Override
@@ -48,7 +48,7 @@ public class String implements Literal {
 			return Boolean.of(!string.equals(((String) right).string));
 		}
 
-		return Literal.super.operationNotEqual(right);
+		return super.operationNotEqual(right);
 	}
 	
 	@Override
@@ -71,6 +71,7 @@ public class String implements Literal {
 		try {
 			return new Decimal(string);
 		}catch(Throwable e) {
+			// TODO
 			e.printStackTrace();
 		}
 		return Undefined.UNDEFINED;

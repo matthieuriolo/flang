@@ -4,7 +4,7 @@ import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitable;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 
-public class Boolean implements Literal {
+public class Boolean extends LiteralBase {
 	public static final Boolean TRUE = new Boolean("TRUE");
 	public static final Boolean FALSE = new Boolean("FALSE");
 	

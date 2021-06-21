@@ -7,7 +7,7 @@ import ch.ffhs.fac.flang.parser.interfaces.Visitable;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
 
-public class Decimal implements Literal {
+public class Decimal extends LiteralBase {
 	private BigDecimal value;
 	
 	public Decimal(final BigDecimal value) {
@@ -32,7 +32,7 @@ public class Decimal implements Literal {
 			return new Decimal(value.add(((Decimal) right).value));
 		}
 
-		return Literal.super.operationPlus(right);
+		return super.operationPlus(right);
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class Decimal implements Literal {
 			return new Decimal(value.subtract(((Decimal) right).value));
 		}
 
-		return Literal.super.operationMinus(right);
+		return super.operationMinus(right);
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class Decimal implements Literal {
 			return new Decimal(value.multiply(((Decimal) right).value));
 		}
 
-		return Literal.super.operationAsterisk(right);
+		return super.operationAsterisk(right);
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class Decimal implements Literal {
 			return new Decimal(value.multiply(((Decimal) right).value));
 		}
 
-		return Literal.super.operationSlash(right);
+		return super.operationSlash(right);
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class Decimal implements Literal {
 			return Boolean.of(value.compareTo(((Decimal) right).value) == 0);
 		}
 
-		return Literal.super.operationEqual(right);
+		return super.operationEqual(right);
 	}
 
 	@Override
@@ -78,7 +78,7 @@ public class Decimal implements Literal {
 			return Boolean.of(value.compareTo(((Decimal) right).value) != 0);
 		}
 
-		return Literal.super.operationNotEqual(right);
+		return super.operationNotEqual(right);
 	}
 
 	@Override
@@ -87,7 +87,7 @@ public class Decimal implements Literal {
 			return Boolean.of(value.compareTo(((Decimal) right).value) < 0);
 		}
 
-		return Literal.super.operationLess(right);
+		return super.operationLess(right);
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class Decimal implements Literal {
 			return Boolean.of(value.compareTo(((Decimal) right).value) <= 0);
 		}
 
-		return Literal.super.operationLessEqual(right);
+		return super.operationLessEqual(right);
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class Decimal implements Literal {
 			return Boolean.of(value.compareTo(((Decimal) right).value) > 0);
 		}
 
-		return Literal.super.operationGreater(right);
+		return super.operationGreater(right);
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public class Decimal implements Literal {
 			return Boolean.of(value.compareTo(((Decimal) right).value) >= 0);
 		}
 
-		return Literal.super.operationGreater(right);
+		return super.operationGreater(right);
 	}
 
 	@Override

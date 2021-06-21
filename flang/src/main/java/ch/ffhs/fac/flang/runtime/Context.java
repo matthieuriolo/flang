@@ -10,6 +10,7 @@ import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.literals.Function;
 import ch.ffhs.fac.flang.runtime.literals.Identifier;
+import ch.ffhs.fac.flang.runtime.literals.LiteralBase;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
 public class Context {
@@ -22,7 +23,8 @@ public class Context {
 		Literal execute(final Context closure, final List<Literal> parameters) throws Throwable;
 	}
 	
-	private class FunctionBody implements Literal {
+	//TODO
+	private class FunctionBody extends LiteralBase {
 		private final FunctionInterface body;
 		
 		FunctionBody(final FunctionInterface body) {

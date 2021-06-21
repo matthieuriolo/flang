@@ -9,7 +9,7 @@ import ch.ffhs.fac.flang.parser.interfaces.Visitable;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
 
-public class Function implements Literal {
+public class Function extends LiteralBase {
 	public static final Identifier MAGIC_ARGUMENTS = new Identifier("__arguments__");
 	private Context closureCreator;
 	private final List<Identifier> parameters;
