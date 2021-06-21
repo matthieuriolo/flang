@@ -7,67 +7,67 @@ import ch.ffhs.fac.flang.runtime.Context;
 
 public abstract class LiteralBase implements Literal {
 	@Override
-	public Literal operationOr(final Literal right) {
+	public Literal computeOr(final Literal right) {
 		return ch.ffhs.fac.flang.runtime.literals.Boolean.of(toBoolean() || right.toBoolean());
 	}
 	
 	@Override
-	public Literal operationAnd(final Literal right) {
+	public Literal computeAnd(final Literal right) {
 		return ch.ffhs.fac.flang.runtime.literals.Boolean.of(toBoolean() && right.toBoolean());
 	}
 	
 	@Override
-	public Literal operationPlus(final Literal right) {
+	public Literal computePlus(final Literal right) {
 		return Undefined.UNDEFINED;
 	}
 	
 	@Override
-	public Literal operationMinus(final Literal right) {
+	public Literal computeMinus(final Literal right) {
 		return Undefined.UNDEFINED;
 	}
 	
 	@Override
-	public Literal operationAsterisk(final Literal right) {
+	public Literal computeAsterisk(final Literal right) {
 		return Undefined.UNDEFINED;
 	}
 	
 	@Override
-	public Literal operationSlash(final Literal right) {
+	public Literal computeSlash(final Literal right) {
 		return Undefined.UNDEFINED;
 	}
 	
 	@Override
-	public Literal operationEqual(final Literal right) {
+	public Literal computeEqual(final Literal right) {
 		return Undefined.UNDEFINED;
 	}
 	
 	@Override
-	public Literal operationNotEqual(final Literal right) {
+	public Literal computeNotEqual(final Literal right) {
 		return Undefined.UNDEFINED;
 	}
 	
 	@Override
-	public Literal operationLess(final Literal right) {
+	public Literal computeLess(final Literal right) {
 		return Undefined.UNDEFINED;
 	}
 	
 	@Override
-	public Literal operationLessEqual(final Literal right) {
+	public Literal computeLessEqual(final Literal right) {
 		return Undefined.UNDEFINED;
 	}
 	
 	@Override
-	public Literal operationGreater(final Literal right) {
+	public Literal computeGreater(final Literal right) {
 		return Undefined.UNDEFINED;
 	}
 	
 	@Override
-	public Literal operationGreaterEqual(final Literal right) {
+	public Literal computeGreaterEqual(final Literal right) {
 		return Undefined.UNDEFINED;
 	}
 	
 	@Override
-	public Literal operationUnaryMinus() {
+	public Literal computeUnaryMinus() {
 		return Undefined.UNDEFINED;
 	}
 	

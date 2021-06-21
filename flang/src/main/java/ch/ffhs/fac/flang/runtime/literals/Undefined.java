@@ -23,12 +23,12 @@ public class Undefined extends LiteralBase {
 	}
 	
 	@Override
-	public Literal operationEqual(final Literal right) {
+	public Literal computeEqual(final Literal right) {
 		return Boolean.of(this == right);
 	}
 	
 	@Override
-	public Literal operationNotEqual(final Literal right) {
+	public Literal computeNotEqual(final Literal right) {
 		return Boolean.of(this != right);
 	}
 	

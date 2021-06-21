@@ -42,7 +42,7 @@ public class UnaryOperation implements Expression {
 		final var l = operand.compute(closure);
 		switch(type) {
 		case MINUS:
-			return l.operationUnaryMinus();
+			return l.computeUnaryMinus();
 			default:
 				return Undefined.UNDEFINED;
 		}

@@ -15,39 +15,39 @@ public class String extends LiteralBase {
 	}
 	
 	@Override
-	public Literal operationPlus(final Literal right) {
+	public Literal computePlus(final Literal right) {
 		if (right instanceof String) {
 			return new String(string + ((String) right).string);
 		}
 
-		return super.operationPlus(right);
+		return super.computePlus(right);
 	}
 	
 	@Override
-	public Literal operationAsterisk(final Literal right) {
+	public Literal computeAsterisk(final Literal right) {
 		if (right instanceof Decimal) {
 			return new String(string.repeat(((Decimal) right).getValue().intValueExact()));
 		}
 		
-		return super.operationAsterisk(right);
+		return super.computeAsterisk(right);
 	}
 	
 	@Override
-	public Literal operationEqual(final Literal right) {
+	public Literal computeEqual(final Literal right) {
 		if (right instanceof String) {
 			return Boolean.of(string.equals(((String) right).string));
 		}
 
-		return super.operationEqual(right);
+		return super.computeEqual(right);
 	}
 	
 	@Override
-	public Literal operationNotEqual(final Literal right) {
+	public Literal computeNotEqual(final Literal right) {
 		if (right instanceof String) {
 			return Boolean.of(!string.equals(((String) right).string));
 		}
 
-		return super.operationNotEqual(right);
+		return super.computeNotEqual(right);
 	}
 	
 	@Override

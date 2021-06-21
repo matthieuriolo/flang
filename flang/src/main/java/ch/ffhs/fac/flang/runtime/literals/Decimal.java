@@ -26,34 +26,34 @@ public class Decimal extends LiteralBase {
 	}
 	
 	@Override
-	public Literal operationPlus(final Literal right) {
+	public Literal computePlus(final Literal right) {
 		if (right instanceof Decimal) {
 			return new Decimal(value.add(((Decimal) right).value));
 		}
 
-		return super.operationPlus(right);
+		return super.computePlus(right);
 	}
 
 	@Override
-	public Literal operationMinus(final Literal right) {
+	public Literal computeMinus(final Literal right) {
 		if (right instanceof Decimal) {
 			return new Decimal(value.subtract(((Decimal) right).value));
 		}
 
-		return super.operationMinus(right);
+		return super.computeMinus(right);
 	}
 
 	@Override
-	public Literal operationAsterisk(final Literal right) {
+	public Literal computeAsterisk(final Literal right) {
 		if (right instanceof Decimal) {
 			return new Decimal(value.multiply(((Decimal) right).value));
 		}
 
-		return super.operationAsterisk(right);
+		return super.computeAsterisk(right);
 	}
 
 	@Override
-	public Literal operationSlash(final Literal right) {
+	public Literal computeSlash(final Literal right) {
 		if (right instanceof Decimal) {
 			final var val = ((Decimal)right).value;
 			if (val.compareTo(BigDecimal.ZERO) == 0) {
@@ -63,65 +63,65 @@ public class Decimal extends LiteralBase {
 			return new Decimal(value.divide(val));
 		}
 
-		return super.operationSlash(right);
+		return super.computeSlash(right);
 	}
 
 	@Override
-	public Literal operationEqual(final Literal right) {
+	public Literal computeEqual(final Literal right) {
 		if (right instanceof Decimal) {
 			return Boolean.of(value.compareTo(((Decimal) right).value) == 0);
 		}
 
-		return super.operationEqual(right);
+		return super.computeEqual(right);
 	}
 
 	@Override
-	public Literal operationNotEqual(final Literal right) {
+	public Literal computeNotEqual(final Literal right) {
 		if (right instanceof Decimal) {
 			return Boolean.of(value.compareTo(((Decimal) right).value) != 0);
 		}
 
-		return super.operationNotEqual(right);
+		return super.computeNotEqual(right);
 	}
 
 	@Override
-	public Literal operationLess(final Literal right) {
+	public Literal computeLess(final Literal right) {
 		if (right instanceof Decimal) {
 			return Boolean.of(value.compareTo(((Decimal) right).value) < 0);
 		}
 
-		return super.operationLess(right);
+		return super.computeLess(right);
 	}
 
 	@Override
-	public Literal operationLessEqual(final Literal right) {
+	public Literal computeLessEqual(final Literal right) {
 		if (right instanceof Decimal) {
 			return Boolean.of(value.compareTo(((Decimal) right).value) <= 0);
 		}
 
-		return super.operationLessEqual(right);
+		return super.computeLessEqual(right);
 	}
 
 	@Override
-	public Literal operationGreater(final Literal right) {
+	public Literal computeGreater(final Literal right) {
 		if (right instanceof Decimal) {
 			return Boolean.of(value.compareTo(((Decimal) right).value) > 0);
 		}
 
-		return super.operationGreater(right);
+		return super.computeGreater(right);
 	}
 
 	@Override
-	public Literal operationGreaterEqual(final Literal right) {
+	public Literal computeGreaterEqual(final Literal right) {
 		if (right instanceof Decimal) {
 			return Boolean.of(value.compareTo(((Decimal) right).value) >= 0);
 		}
 
-		return super.operationGreater(right);
+		return super.computeGreater(right);
 	}
 
 	@Override
-	public Literal operationUnaryMinus() {
+	public Literal computeUnaryMinus() {
 		return new Decimal(value.negate());
 	}
 

@@ -61,29 +61,29 @@ public class BinaryOperation implements Expression {
 		final var r = right.compute(closure);
 		switch (type) {
 		case OR:
-			return l.operationOr(r);
+			return l.computeOr(r);
 		case AND:
-			return l.operationAnd(r);
+			return l.computeAnd(r);
 		case PLUS:
-			return l.operationPlus(r);
+			return l.computePlus(r);
 		case MINUS:
-			return l.operationMinus(r);
+			return l.computeMinus(r);
 		case SLASH:
-			return l.operationSlash(r);
+			return l.computeSlash(r);
 		case ASTERISK:
-			return l.operationAsterisk(r);
+			return l.computeAsterisk(r);
 		case EQUAL:
-			return l.operationEqual(r);
+			return l.computeEqual(r);
 		case NOT_EQUAL:
-			return l.operationNotEqual(r);
+			return l.computeNotEqual(r);
 		case GREATER:
-			return l.operationGreater(r);
+			return l.computeGreater(r);
 		case GREATER_EQUAL:
-			return l.operationGreaterEqual(r);
+			return l.computeGreaterEqual(r);
 		case LESS:
-			return l.operationLess(r);
+			return l.computeLess(r);
 		case LESS_EQUAL:
-			return l.operationLessEqual(r);
+			return l.computeLessEqual(r);
 		default:
 			return Undefined.UNDEFINED;
 		}
