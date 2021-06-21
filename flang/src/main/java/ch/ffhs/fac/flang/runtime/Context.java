@@ -7,6 +7,7 @@ import java.util.Map;
 import ch.ffhs.fac.flang.parser.interfaces.Instruction;
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
+import ch.ffhs.fac.flang.runtime.bases.FunctionBridgeBase;
 import ch.ffhs.fac.flang.runtime.bases.LiteralBase;
 import ch.ffhs.fac.flang.runtime.expressions.Identifier;
 import ch.ffhs.fac.flang.runtime.literals.Function;
@@ -15,18 +16,11 @@ import ch.ffhs.fac.flang.runtime.literals.Undefined;
 public class Context {
 	private final Map<String, Literal> variables = new HashMap<String, Literal>();
 	private final Context parent;
-
-	//TODO
-	@FunctionalInterface
-	public interface FunctionInterface {
-		Literal execute(final Context closure, final List<Literal> parameters) throws Throwable;
-	}
 	
-	//TODO
-	private class FunctionBody extends LiteralBase {
-		private final FunctionInterface body;
+	private class FunctionBridge extends LiteralBase {
+		private final FunctionBridgeBase body;
 		
-		FunctionBody(final FunctionInterface body) {
+		FunctionBridge(final FunctionBridgeBase body) {
 			this.body = body;
 		}
 		
@@ -118,7 +112,7 @@ public class Context {
 		variables.put(name, value);
 	}
 	
-	public void declareFunction(final String name, final FunctionInterface body) {
-		setValue(name, new FunctionBody(body));
+	public void declareFunction(final String name, final FunctionBridgeBase body) {
+		setValue(name, new FunctionBridge(body));
 	}
 }

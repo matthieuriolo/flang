@@ -4,10 +4,10 @@ import java.util.List;
 
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.runtime.Context;
-import ch.ffhs.fac.flang.runtime.Context.FunctionInterface;
+import ch.ffhs.fac.flang.runtime.bases.FunctionBridgeBase;
 import ch.ffhs.fac.flang.runtime.literals.Array;
 
-public class ArrayCreate implements FunctionInterface {
+public class ArrayCreate implements FunctionBridgeBase {
 	public static final String NAME = "array_create";
 
 	@Override

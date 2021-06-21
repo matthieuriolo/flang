@@ -4,12 +4,12 @@ import java.util.List;
 
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.runtime.Context;
-import ch.ffhs.fac.flang.runtime.Context.FunctionInterface;
+import ch.ffhs.fac.flang.runtime.bases.FunctionBridgeBase;
 import ch.ffhs.fac.flang.runtime.literals.Array;
 import ch.ffhs.fac.flang.runtime.literals.Decimal;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
-public class ArrayGet implements FunctionInterface {
+public class ArrayGet implements FunctionBridgeBase {
 	public static final String NAME = "array_get";
 
 	@Override
