@@ -1,9 +1,12 @@
-package ch.ffhs.fac.flang.runtime.literals;
+package ch.ffhs.fac.flang.runtime.bases;
 
 import java.util.List;
 
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.runtime.Context;
+import ch.ffhs.fac.flang.runtime.literals.Boolean;
+import ch.ffhs.fac.flang.runtime.literals.Decimal;
+import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
 public abstract class LiteralBase implements Literal {
 	@Override

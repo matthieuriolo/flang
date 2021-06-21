@@ -1,20 +1,21 @@
-package ch.ffhs.fac.flang.runtime;
+package ch.ffhs.fac.flang.runtime.bases;
 
 import java.util.LinkedList;
 import java.util.List;
 
 import ch.ffhs.fac.flang.parser.interfaces.Expression;
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
-// TODO find home
-public abstract class Routine {
+import ch.ffhs.fac.flang.runtime.Context;
+
+public abstract class FunctionBase {
 	private final Expression subject;
 	private final List<Expression> arguments;
 	
-	public Routine(final Expression subject) {
+	public FunctionBase(final Expression subject) {
 		this(subject, List.of());
 	}
 	
-	public Routine(final Expression subject, final List<Expression> arguments) {
+	public FunctionBase(final Expression subject, final List<Expression> arguments) {
 		this.subject = subject;
 		this.arguments = arguments;
 	}

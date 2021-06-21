@@ -1,4 +1,4 @@
-package ch.ffhs.fac.flang.runtime.visitors;
+package ch.ffhs.fac.flang.runtime.bases;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ import ch.ffhs.fac.flang.runtime.literals.Function;
 import ch.ffhs.fac.flang.runtime.literals.String;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
-public abstract class Traverser implements Visitor {
+public abstract class VisitorBase implements Visitor {
 	private void visit(final Visitable host) {
 		host.acceptVisitor(this);
 	}

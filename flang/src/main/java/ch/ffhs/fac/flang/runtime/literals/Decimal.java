@@ -5,6 +5,7 @@ import java.math.BigDecimal;
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
+import ch.ffhs.fac.flang.runtime.bases.LiteralBase;
 
 public class Decimal extends LiteralBase {
 	private BigDecimal value;

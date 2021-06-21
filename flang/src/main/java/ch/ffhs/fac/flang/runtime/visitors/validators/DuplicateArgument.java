@@ -1,10 +1,11 @@
 package ch.ffhs.fac.flang.runtime.visitors.validators;
 
 import java.util.HashSet;
-import ch.ffhs.fac.flang.runtime.literals.Function;
-import ch.ffhs.fac.flang.runtime.visitors.Traverser;
 
-public class DuplicateArgument extends Traverser {
+import ch.ffhs.fac.flang.runtime.bases.VisitorBase;
+import ch.ffhs.fac.flang.runtime.literals.Function;
+
+public class DuplicateArgument extends VisitorBase {
 	@Override
 	public void visitLiteralFunction(final Function obj) {
 		final var args = new HashSet<String>();

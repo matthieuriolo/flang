@@ -7,6 +7,7 @@ import ch.ffhs.fac.flang.parser.interfaces.Instruction;
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
+import ch.ffhs.fac.flang.runtime.bases.LiteralBase;
 import ch.ffhs.fac.flang.runtime.expressions.Identifier;
 
 public class Function extends LiteralBase {

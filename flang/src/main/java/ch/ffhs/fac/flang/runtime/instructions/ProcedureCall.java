@@ -7,9 +7,9 @@ import ch.ffhs.fac.flang.parser.interfaces.Instruction;
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
-import ch.ffhs.fac.flang.runtime.Routine;
+import ch.ffhs.fac.flang.runtime.bases.FunctionBase;
 
-public class ProcedureCall extends Routine implements Instruction {
+public class ProcedureCall extends FunctionBase implements Instruction {
 	public ProcedureCall(final Expression subject) {
 		super(subject, List.of());
 	}

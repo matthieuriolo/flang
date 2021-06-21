@@ -2,6 +2,7 @@ package ch.ffhs.fac.flang.runtime.literals;
 
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
+import ch.ffhs.fac.flang.runtime.bases.LiteralBase;
 
 public class Boolean extends LiteralBase {
 	public static final Boolean TRUE = new Boolean("TRUE");

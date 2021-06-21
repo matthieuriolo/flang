@@ -1,6 +1,7 @@
 package ch.ffhs.fac.flang.runtime.visitors.validators;
 
 import ch.ffhs.fac.flang.parser.interfaces.Instruction;
+import ch.ffhs.fac.flang.runtime.bases.VisitorBase;
 import ch.ffhs.fac.flang.runtime.expressions.FunctionCall;
 import ch.ffhs.fac.flang.runtime.instructions.Assignment;
 import ch.ffhs.fac.flang.runtime.instructions.For;
@@ -9,9 +10,8 @@ import ch.ffhs.fac.flang.runtime.instructions.ProcedureCall;
 import ch.ffhs.fac.flang.runtime.instructions.Return;
 import ch.ffhs.fac.flang.runtime.instructions.While;
 import ch.ffhs.fac.flang.runtime.literals.Function;
-import ch.ffhs.fac.flang.runtime.visitors.Traverser;
 
-public class DeadCode extends Traverser {
+public class DeadCode extends VisitorBase {
 	private boolean foundReturn = false;
 	
 	private void validateDeadCode() {

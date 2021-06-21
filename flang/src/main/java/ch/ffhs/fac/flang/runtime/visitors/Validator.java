@@ -5,10 +5,11 @@ import java.util.List;
 
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Document;
+import ch.ffhs.fac.flang.runtime.bases.VisitorBase;
 import ch.ffhs.fac.flang.runtime.visitors.validators.DeadCode;
 import ch.ffhs.fac.flang.runtime.visitors.validators.DuplicateArgument;
 
-public class Validator extends Traverser {
+public class Validator extends VisitorBase {
 	@SuppressWarnings("serial")
 	private final List<Visitor> validators = new LinkedList<Visitor>() {{
 		add(new DeadCode());
