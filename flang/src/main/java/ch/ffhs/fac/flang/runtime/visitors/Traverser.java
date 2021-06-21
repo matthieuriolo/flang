@@ -24,7 +24,7 @@ import ch.ffhs.fac.flang.runtime.literals.Function;
 import ch.ffhs.fac.flang.runtime.literals.String;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
-public abstract class Transferer implements Visitor {
+public abstract class Traverser implements Visitor {
 	private void visit(final Visitable host) {
 		host.acceptVisitor(this);
 	}
@@ -51,7 +51,9 @@ public abstract class Transferer implements Visitor {
 	public void visitLiteralDecimal(Decimal obj) {}
 
 	@Override
-	public void visitLiteralFunction(Function obj) {}
+	public void visitLiteralFunction(Function obj) {
+		visit(obj.getInstructions());
+	}
 
 	@Override
 	public void visitLiteralIdentifier(Identifier obj) {}
