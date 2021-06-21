@@ -70,10 +70,10 @@ public class String extends LiteralBase {
 		try {
 			return new Decimal(string);
 		}catch(Throwable e) {
-			// TODO
-			e.printStackTrace();
+			// if the conversion fails we silently catch the exception
+			// and instead return undefined
+			return Undefined.UNDEFINED;
 		}
-		return Undefined.UNDEFINED;
 	}
 	
 	@Override
