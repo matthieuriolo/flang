@@ -153,8 +153,7 @@ public class App extends Application {
 					}
 				};
 
-				final var symbol = parser.parse();
-				final var document = (Document) symbol.value;
+				final var document = parser.parseDocument();
 				document.declareFunction(CastString.NAME, new CastString());
 				document.declareFunction(CastDecimal.NAME, new CastDecimal());
 				document.declareFunction(ArrayCreate.NAME, new ArrayCreate());

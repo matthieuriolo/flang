@@ -3,16 +3,21 @@ package ch.ffhs.fac.flang.parser;
 import ch.ffhs.fac.flang.parser.interfaces.*;
 import ch.ffhs.fac.flang.runtime.*;
 import ch.ffhs.fac.flang.runtime.expressions.*;
-import ch.ffhs.fac.flang.runtime.expressions.*;
 import ch.ffhs.fac.flang.runtime.instructions.*;
 
-import java_cup.runtime.*;
 import java.util.*;
-import java.io.*;
 import java.math.BigDecimal;
 
 parser code {:
-   
+	@SuppressWarnings("unchecked")
+	public List<Instruction> parseInstructions() throws java.lang.Exception {
+		final var symbol = parse();
+		return (List<Instruction>) symbol.value;
+	}
+	
+	public Document parseDocument() throws java.lang.Exception {
+		return new Document(parseInstructions());
+	}
 :};
 
 
@@ -43,7 +48,6 @@ terminal BigDecimal DECIMAL;
 
 
 /** Non-Terminals */
-non terminal Document document;
 non terminal List<Instruction> instructions;
 non terminal Instruction instruction;
 
@@ -74,9 +78,8 @@ precedence left UMINUS;
 
 /** ============= GRAMMAR ============= */
 
-start with document;
+start with instructions;
 
-document             ::= instructions:i                 {: RESULT = new Document(i); :};
 instructions         ::= instructions:l instruction:i   {: RESULT = l; l.add(i); :}
                        | /* empty */                    {: RESULT = new LinkedList<Instruction>(); :}
 ;
