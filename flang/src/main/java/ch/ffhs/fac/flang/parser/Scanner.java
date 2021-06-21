@@ -7,7 +7,6 @@ package ch.ffhs.fac.flang.parser;
 import java.math.BigDecimal;
 
 import ch.ffhs.fac.flang.parser.exceptions.IllegalSymbol;
-
 /*
  FLang Scanner
 */
