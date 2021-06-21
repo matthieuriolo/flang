@@ -2,7 +2,7 @@ package ch.ffhs.fac.flang.runtime.literals;
 
 import java.util.List;
 
-import ch.ffhs.fac.flang.runtime.Closure;
+import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.Visitable;
@@ -25,7 +25,7 @@ public class Identifier implements Expression, Visitable {
 	}
 	
 	@Override
-	public Literal compute(Closure closure) throws Throwable {
+	public Literal compute(Context closure) throws Throwable {
 		return closure.getValue(getName());
 	}
 	

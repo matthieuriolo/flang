@@ -9,14 +9,14 @@ import ch.ffhs.fac.flang.runtime.literals.Function;
 import ch.ffhs.fac.flang.runtime.literals.Identifier;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
-public class Closure {
+public class Context {
 	private final Map<String, Literal> variables = new HashMap<String, Literal>();
-	private final Closure parent;
-	private final List<Instruction> instructions;
-	
+	private final Context parent;
+	private final List<Instruction> instructions;//TODO
+	//TODO
 	@FunctionalInterface
 	public interface FunctionInterface {
-		Literal execute(final Closure closure, final List<Literal> parameters) throws Throwable;
+		Literal execute(final Context closure, final List<Literal> parameters) throws Throwable;
 	}
 	
 	private class FunctionBody implements Literal {
@@ -26,7 +26,7 @@ public class Closure {
 			this.body = body;
 		}
 		
-		public Literal functionalCall(final Closure closure, final List<Literal> arguments) throws Throwable {
+		public Literal functionalCall(final Context closure, final List<Literal> arguments) throws Throwable {
 			return body.execute(closure, arguments);
 		}
 
@@ -41,7 +41,7 @@ public class Closure {
 		}
 		
 		@Override
-		public Literal toDecimal(final Closure closure) {
+		public Literal toDecimal(final Context closure) {
 			return Undefined.UNDEFINED;
 		}
 
@@ -51,27 +51,27 @@ public class Closure {
 		}
 	}
 	
-	public Closure() {
+	public Context() {
 		this.parent = null;
 		this.instructions = new LinkedList<Instruction>();
 	}
 	
-	public Closure(final Closure parent) {
+	public Context(final Context parent) {
 		this.parent = parent;
 		this.instructions = new LinkedList<Instruction>();
 	}
 	
-	public Closure(final Closure parent, final List<Instruction> instructions) {
+	public Context(final Context parent, final List<Instruction> instructions) {
 		this.parent = parent;
 		this.instructions = instructions;
 	}
 	
-	public Closure(final List<Instruction> instructions) {
+	public Context(final List<Instruction> instructions) {
 		this.parent = null;
 		this.instructions = instructions;
 	}
 	
-	public Closure getParentClosure() {
+	public Context getParentClosure() {
 		return parent;
 	}
 	
@@ -90,7 +90,7 @@ public class Closure {
 		return null;
 	}
 	
-	private Closure findClosureWithVariable(final String name) {
+	private Context findClosureWithVariable(final String name) {
 		if(variables.containsKey(name)) {
 			return this;
 		}else if(parent != null) {

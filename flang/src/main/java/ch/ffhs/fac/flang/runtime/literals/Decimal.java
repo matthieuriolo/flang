@@ -2,7 +2,7 @@ package ch.ffhs.fac.flang.runtime.literals;
 
 import java.math.BigDecimal;
 
-import ch.ffhs.fac.flang.runtime.Closure;
+import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.Visitable;
 import ch.ffhs.fac.flang.runtime.Visitor;
@@ -133,7 +133,7 @@ public class Decimal implements Literal {
 	}
 	
 	@Override
-	public Literal toDecimal(final Closure closure) {
+	public Literal toDecimal(final Context closure) {
 		return this;
 	}
 	

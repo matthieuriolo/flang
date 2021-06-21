@@ -3,7 +3,7 @@ package ch.ffhs.fac.flang.runtime.expressions;
 import java.util.List;
 import java.util.Objects;
 
-import ch.ffhs.fac.flang.runtime.Closure;
+import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.Routine;
@@ -21,7 +21,7 @@ public class FunctionCall extends Routine implements Expression, Visitable {
 	}
 	
 	@Override
-	public Literal compute(Closure closure) throws Throwable {
+	public Literal compute(Context closure) throws Throwable {
 		return Objects.requireNonNullElse(perform(closure), Undefined.UNDEFINED);
 	}
 	

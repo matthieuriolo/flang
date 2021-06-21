@@ -1,6 +1,6 @@
 package ch.ffhs.fac.flang.runtime.literals;
 
-import ch.ffhs.fac.flang.runtime.Closure;
+import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.Visitable;
 import ch.ffhs.fac.flang.runtime.Visitor;
@@ -67,7 +67,7 @@ public class String implements Literal {
 	}
 	
 	@Override
-	public Literal toDecimal(final Closure closure) {
+	public Literal toDecimal(final Context closure) {
 		try {
 			return new Decimal(string);
 		}catch(Throwable e) {

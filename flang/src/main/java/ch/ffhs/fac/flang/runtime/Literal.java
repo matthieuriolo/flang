@@ -58,7 +58,7 @@ public interface Literal extends Expression {
 		return Undefined.UNDEFINED;
 	}
 	
-	public default Literal functionalCall(final Closure closure, final List<Literal> arguments) throws Throwable {
+	public default Literal functionalCall(final Context closure, final List<Literal> arguments) throws Throwable {
 		return Undefined.UNDEFINED;
 	}
 	
@@ -68,12 +68,12 @@ public interface Literal extends Expression {
 		return toString();
 	}
 	
-	public default Literal toDecimal(final Closure closure) {
+	public default Literal toDecimal(final Context closure) {
 		return new Decimal(toBoolean());
 	}
 	
 	@Override
-	public default Literal compute(Closure closure) throws Throwable {
+	public default Literal compute(Context closure) throws Throwable {
 		return this;
 	}
 }

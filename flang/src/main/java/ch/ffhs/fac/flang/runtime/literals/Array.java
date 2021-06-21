@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import ch.ffhs.fac.flang.runtime.Closure;
+import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.Visitor;
 
@@ -30,7 +30,7 @@ public class Array implements Literal {
 		return Objects.requireNonNullElse(values.set(index, value), Undefined.UNDEFINED);
 	}
 
-	public Array map(final Closure closure, final Function func) throws Throwable {
+	public Array map(final Context closure, final Function func) throws Throwable {
 		final var list = new LinkedList<Literal>();
 		for (final var val : values) {
 			list.add(func.functionalCall(closure, List.of(val)));
@@ -38,7 +38,7 @@ public class Array implements Literal {
 		return new Array(list);
 	}
 
-	public Array filter(final Closure closure, final Function func) throws Throwable {
+	public Array filter(final Context closure, final Function func) throws Throwable {
 		final var list = new LinkedList<Literal>();
 		for (final var val : values) {
 			final var ret = func.functionalCall(closure, List.of(val));

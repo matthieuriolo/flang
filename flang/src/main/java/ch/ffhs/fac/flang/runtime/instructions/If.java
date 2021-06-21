@@ -2,7 +2,7 @@ package ch.ffhs.fac.flang.runtime.instructions;
 
 import java.util.List;
 
-import ch.ffhs.fac.flang.runtime.Closure;
+import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Instruction;
 import ch.ffhs.fac.flang.runtime.Literal;
@@ -37,10 +37,10 @@ public class If implements Instruction {
 	}
 	
 	@Override
-	public Literal execute(Closure closure) throws Throwable {
+	public Literal execute(Context closure) throws Throwable {
 		final var cond = condition.compute(closure);
 		final var instrs = cond.toBoolean() ? instructions : elseInstructions;
-		final var block = new Closure(closure, instrs);
+		final var block = new Context(closure, instrs);
 		return block.execute();
 	}
 	

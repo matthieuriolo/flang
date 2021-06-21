@@ -2,7 +2,7 @@ package ch.ffhs.fac.flang.runtime.instructions;
 
 import java.util.List;
 
-import ch.ffhs.fac.flang.runtime.Closure;
+import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Instruction;
 import ch.ffhs.fac.flang.runtime.Literal;
@@ -20,7 +20,7 @@ public class FunctionProcedure extends Routine implements Instruction {
 	}
 	
 	@Override
-	public Literal execute(Closure closure) throws Throwable {
+	public Literal execute(Context closure) throws Throwable {
 		perform(closure);
 		return null;
 	}

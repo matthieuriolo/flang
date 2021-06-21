@@ -3,7 +3,7 @@ package ch.ffhs.fac.flang.runtime.instructions;
 import java.math.BigDecimal;
 import java.util.List;
 
-import ch.ffhs.fac.flang.runtime.Closure;
+import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Instruction;
 import ch.ffhs.fac.flang.runtime.Literal;
@@ -80,7 +80,7 @@ public class For implements Instruction {
 	}
 
 	@Override
-	public Literal execute(Closure closure) throws Throwable {
+	public Literal execute(Context closure) throws Throwable {
 		final var f = ((Decimal) from.compute(closure)).getValue();
 		final var t = ((Decimal) to.compute(closure)).getValue();
 		final var b = ((Decimal) by.compute(closure)).getValue();
@@ -94,7 +94,7 @@ public class For implements Instruction {
 
 		for (var i = f; positiveDirection && i.compareTo(t) < 0
 				|| !positiveDirection && i.compareTo(t) > 0; i = i.add(b)) {
-			final var block = new Closure(closure, instructions);
+			final var block = new Context(closure, instructions);
 			block.setOwnValue(identifier, new Decimal(i));
 			final var returnLiteral = block.execute();
 			if (returnLiteral != null) {

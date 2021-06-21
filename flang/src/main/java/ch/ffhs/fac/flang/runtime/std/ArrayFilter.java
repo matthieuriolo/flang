@@ -2,8 +2,8 @@ package ch.ffhs.fac.flang.runtime.std;
 
 import java.util.List;
 
-import ch.ffhs.fac.flang.runtime.Closure;
-import ch.ffhs.fac.flang.runtime.Closure.FunctionInterface;
+import ch.ffhs.fac.flang.runtime.Context;
+import ch.ffhs.fac.flang.runtime.Context.FunctionInterface;
 import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.literals.Array;
 import ch.ffhs.fac.flang.runtime.literals.Function;
@@ -12,7 +12,7 @@ public class ArrayFilter implements FunctionInterface {
 	public static final String NAME = "array_filter";
 
 	@Override
-	public Literal execute(final Closure closure, final List<Literal> parameters) throws Throwable {
+	public Literal execute(final Context closure, final List<Literal> parameters) throws Throwable {
 		if (parameters.size() != 2) {
 			throw new Exception("Two arguments required");
 		}

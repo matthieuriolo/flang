@@ -2,7 +2,7 @@ package ch.ffhs.fac.flang.runtime.instructions;
 
 import java.util.List;
 
-import ch.ffhs.fac.flang.runtime.Closure;
+import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Instruction;
 import ch.ffhs.fac.flang.runtime.Literal;
@@ -27,9 +27,9 @@ public class While implements Instruction {
 	}
 	
 	@Override
-	public Literal execute(Closure closure) throws Throwable {
+	public Literal execute(Context closure) throws Throwable {
 		while(condition.compute(closure).toBoolean()) {
-			final var returnLiteral = new Closure(closure, instructions).execute();
+			final var returnLiteral = new Context(closure, instructions).execute();
 			if(returnLiteral != null) {
 				return returnLiteral;
 			}

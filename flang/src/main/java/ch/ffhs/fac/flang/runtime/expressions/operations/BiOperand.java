@@ -1,6 +1,6 @@
 package ch.ffhs.fac.flang.runtime.expressions.operations;
 
-import ch.ffhs.fac.flang.runtime.Closure;
+import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.Visitor;
@@ -57,7 +57,7 @@ public class BiOperand implements Operation {
 	}
 
 	@Override
-	public Literal compute(final Closure closure) throws Throwable {
+	public Literal compute(final Context closure) throws Throwable {
 		final var l = left.compute(closure);
 		final var r = right.compute(closure);
 		switch (type) {

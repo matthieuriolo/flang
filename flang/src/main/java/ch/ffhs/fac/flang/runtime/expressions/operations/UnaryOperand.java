@@ -1,6 +1,6 @@
 package ch.ffhs.fac.flang.runtime.expressions.operations;
 
-import ch.ffhs.fac.flang.runtime.Closure;
+import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.Visitor;
@@ -39,7 +39,7 @@ public class UnaryOperand implements Operation {
 	}
 
 	@Override
-	public Literal compute(final Closure closure) throws Throwable {
+	public Literal compute(final Context closure) throws Throwable {
 		final var l = operand.compute(closure);
 		switch(type) {
 		case MINUS:

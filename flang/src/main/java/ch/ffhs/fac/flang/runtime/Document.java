@@ -6,7 +6,7 @@ import java.util.Objects;
 
 import ch.ffhs.fac.flang.runtime.literals.Decimal;
 
-public class Document extends Closure implements Visitable {
+public class Document extends Context implements Visitable {
 	public Document(final List<Instruction> instructions) {
 		super(instructions);
 	}

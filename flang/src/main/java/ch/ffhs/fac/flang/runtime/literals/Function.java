@@ -3,7 +3,7 @@ package ch.ffhs.fac.flang.runtime.literals;
 import java.util.List;
 import java.util.Objects;
 
-import ch.ffhs.fac.flang.runtime.Closure;
+import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.Instruction;
 import ch.ffhs.fac.flang.runtime.Literal;
 import ch.ffhs.fac.flang.runtime.Visitable;
@@ -11,7 +11,7 @@ import ch.ffhs.fac.flang.runtime.Visitor;
 
 public class Function implements Literal {
 	public static final Identifier MAGIC_ARGUMENTS = new Identifier("__arguments__");
-	private Closure closureCreator;
+	private Context closureCreator;
 	private final List<Identifier> parameters;
 	private final List<Instruction> instructions;
 
@@ -32,9 +32,9 @@ public class Function implements Literal {
 		return instructions;
 	}
 
-	public Literal functionalCall(final Closure closure, final List<Literal> arguments) throws Throwable {
+	public Literal functionalCall(final Context closure, final List<Literal> arguments) throws Throwable {
 		Objects.requireNonNull(closureCreator);
-		final var body = new Closure(closureCreator, instructions);
+		final var body = new Context(closureCreator, instructions);
 		final var values = arguments.iterator();
 		for (final var param : parameters) {
 			Literal value = Undefined.UNDEFINED;
@@ -69,12 +69,12 @@ public class Function implements Literal {
 	}
 	
 	@Override
-	public Literal toDecimal(Closure closure) {
+	public Literal toDecimal(Context closure) {
 		return Undefined.UNDEFINED;
 	}
 	
 	@Override
-	public Literal compute(Closure closure) throws Throwable {
+	public Literal compute(Context closure) throws Throwable {
 		closureCreator = closure;
 		return this;
 	}

@@ -1,6 +1,6 @@
 package ch.ffhs.fac.flang.runtime.instructions;
 
-import ch.ffhs.fac.flang.runtime.Closure;
+import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.Expression;
 import ch.ffhs.fac.flang.runtime.Instruction;
 import ch.ffhs.fac.flang.runtime.Literal;
@@ -25,7 +25,7 @@ public class Assignment implements Instruction {
 	}
 	
 	@Override
-	public Literal execute(Closure closure) throws Throwable {
+	public Literal execute(Context closure) throws Throwable {
 		final var value = expression.compute(closure);
 		closure.setValue(identifier, value);
 		return null;

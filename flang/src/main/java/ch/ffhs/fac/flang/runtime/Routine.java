@@ -24,7 +24,7 @@ public abstract class Routine {
 		return arguments;
 	}
 
-	public Literal perform(Closure closure)  throws Throwable {
+	public Literal perform(Context closure)  throws Throwable {
 		final var literal = subject.compute(closure);
 		final var parameters = new LinkedList<Literal>();
 		for(final var arg : arguments) {
