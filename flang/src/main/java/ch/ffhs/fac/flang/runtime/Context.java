@@ -118,11 +118,6 @@ public class Context {
 		variables.put(name, value);
 	}
 	
-	@Deprecated
-	public void declareFunction(final String name, final List<Instruction> instructions) {
-		setValue(name, new Function(List.of(), instructions));
-	}
-	
 	public void declareFunction(final String name, final FunctionInterface body) {
 		setValue(name, new FunctionBody(body));
 	}
