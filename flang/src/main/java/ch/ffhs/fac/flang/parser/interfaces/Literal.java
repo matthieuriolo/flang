@@ -2,6 +2,7 @@ package ch.ffhs.fac.flang.parser.interfaces;
 
 import java.util.List;
 
+import ch.ffhs.fac.flang.parser.Location;
 import ch.ffhs.fac.flang.runtime.Context;
 
 public interface Literal extends Expression {
@@ -19,7 +20,7 @@ public interface Literal extends Expression {
 	public Literal computeGreaterEqual(final Literal right);
 	public Literal computeUnaryMinus();
 	
-	public Literal functionalCall(final Context closure, final List<Literal> arguments) throws Throwable;
+	public Literal functionalCall(final Context closure, final List<Literal> arguments, final Location location) throws Throwable;
 	
 	public boolean toBoolean();
 	public String toString();

@@ -5,7 +5,6 @@ package ch.ffhs.fac.flang.parser;
 */
 
 import java_cup.runtime.*;
-import ch.ffhs.fac.flang.parser.exceptions.IllegalSymbol;
 import java.math.BigDecimal;
 
 /**
@@ -124,4 +123,4 @@ DECIMAL                        = (([1-9][\d_]*\d)|\d)(\.(_*\d)+)?
 }
 
 /* error fallback */
-[^]                   { throw new IllegalSymbol(yyline, yycolumn, yytext()); }
+[^]                   { throw new IllegalSymbolException(yytext(), new Location(yyline, yycolumn)); }

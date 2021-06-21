@@ -9,6 +9,7 @@ package ch.ffhs.fac.flang.parser;
 */
 
 import java_cup.runtime.*;
+import ch.ffhs.fac.flang.parser.IllegalSymbolException;
 import java.math.BigDecimal;
 
 /**

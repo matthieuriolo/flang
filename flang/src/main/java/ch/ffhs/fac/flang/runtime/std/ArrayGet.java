@@ -2,6 +2,7 @@ package ch.ffhs.fac.flang.runtime.std;
 
 import java.util.List;
 
+import ch.ffhs.fac.flang.parser.Location;
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.FunctionBridgeBase;
@@ -13,7 +14,7 @@ public class ArrayGet implements FunctionBridgeBase {
 	public static final String NAME = "array_get";
 
 	@Override
-	public Literal execute(final Context closure, final List<Literal> parameters) throws Throwable {
+	public Literal execute(final Context closure, final List<Literal> parameters, final Location location) throws Throwable {
 		if (parameters.size() != 2) {
 			// TODO
 			throw new Exception("Two arguments required");

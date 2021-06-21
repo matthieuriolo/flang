@@ -2,18 +2,18 @@ package ch.ffhs.fac.flang.parser;
 
 public class Location {
 	private final int column;
-	private final int row;
+	private final int line;
 	
-	public Location(int column, int row) {
+	public Location(final int line, final int column) {
+		this.line = line;
 		this.column = column;
-		this.row = row;
 	}
 
 	public int getColumn() {
 		return column;
 	}
 
-	public int getRow() {
-		return row;
+	public int getLine() {
+		return line;
 	}
 }
