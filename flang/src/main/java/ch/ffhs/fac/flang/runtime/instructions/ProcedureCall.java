@@ -10,12 +10,12 @@ import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.Routine;
 
-public class FunctionProcedure extends Routine implements Instruction {
-	public FunctionProcedure(final Expression subject) {
+public class ProcedureCall extends Routine implements Instruction {
+	public ProcedureCall(final Expression subject) {
 		super(subject, List.of());
 	}
 	
-	public FunctionProcedure(final Expression subject, final List<Expression> arguments) {
+	public ProcedureCall(final Expression subject, final List<Expression> arguments) {
 		super(subject, arguments);
 	}
 	

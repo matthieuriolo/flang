@@ -53,14 +53,14 @@ non terminal Instruction while;
 non terminal Instruction assignment;
 non terminal Expression functionCall;
 non terminal Instruction functionProcedure;
-non terminal LinkedList<ch.ffhs.fac.flang.runtime.literals.Identifier> functionArguments;
+non terminal LinkedList<Identifier> functionArguments;
 non terminal Literal functionDeclaration;
 non terminal LinkedList<Expression> expressions;
 non terminal Expression expression;
 non terminal Expression operation;
 
 non terminal Literal literal;
-non terminal ch.ffhs.fac.flang.runtime.literals.Identifier identifier;
+non terminal Identifier identifier;
 /** Precedences */
 precedence left OR;
 precedence left AND;
@@ -92,8 +92,8 @@ instruction          ::= assignment:i                   {: RESULT = i; :}
 
 /* instructions */
 assignment           ::= identifier:i ASSIGN expression:e                          {: RESULT = new Assignment(i, e); :};
-functionProcedure    ::= identifier:i ROUND_OPEN expressions:e ROUND_CLOSED        {: RESULT = new FunctionProcedure(i, e); :}
-                       | functionCall:c ROUND_OPEN expressions:e ROUND_CLOSED      {: RESULT = new FunctionProcedure(c, e); :}
+functionProcedure    ::= identifier:i ROUND_OPEN expressions:e ROUND_CLOSED        {: RESULT = new ProcedureCall(i, e); :}
+                       | functionCall:c ROUND_OPEN expressions:e ROUND_CLOSED      {: RESULT = new ProcedureCall(c, e); :}
 ;
 
 
@@ -147,12 +147,12 @@ literal              ::= DECIMAL:i             {: RESULT = new ch.ffhs.fac.flang
                        | STRING:i              {: RESULT = new ch.ffhs.fac.flang.runtime.literals.String(i); :}
 ;
 
-identifier           ::= IDENTIFIER:i          {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Identifier(i); :};
+identifier           ::= IDENTIFIER:i          {: RESULT = new Identifier(i); :};
 
 functionDeclaration  ::= COLON ROUND_OPEN ROUND_CLOSED CURLY_OPEN instructions:i CURLY_CLOSED   {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Function(i); :}
                        | COLON ROUND_OPEN functionArguments:a ROUND_CLOSED CURLY_OPEN instructions:i CURLY_CLOSED   {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Function(a, i); :};
 functionArguments    ::= functionArguments:l COMMA identifier:i {: RESULT = l;  l.add(i); :}
-                       | identifier:i {: RESULT = new LinkedList<ch.ffhs.fac.flang.runtime.literals.Identifier>(); RESULT.add(i); :}
+                       | identifier:i {: RESULT = new LinkedList<Identifier>(); RESULT.add(i); :}
 ;
 functionCall         ::= identifier:i ROUND_OPEN expressions:e ROUND_CLOSED              {: RESULT = new FunctionCall(i, e); :}
                        | functionCall:c ROUND_OPEN expressions:e ROUND_CLOSED            {: RESULT = new FunctionCall(c, e); :}

@@ -14,7 +14,7 @@ import ch.ffhs.fac.flang.runtime.expressions.Identifier;
 import ch.ffhs.fac.flang.runtime.expressions.UnaryOperation;
 import ch.ffhs.fac.flang.runtime.instructions.Assignment;
 import ch.ffhs.fac.flang.runtime.instructions.For;
-import ch.ffhs.fac.flang.runtime.instructions.FunctionProcedure;
+import ch.ffhs.fac.flang.runtime.instructions.ProcedureCall;
 import ch.ffhs.fac.flang.runtime.instructions.If;
 import ch.ffhs.fac.flang.runtime.instructions.Return;
 import ch.ffhs.fac.flang.runtime.instructions.While;
@@ -88,7 +88,7 @@ public abstract class Transferer implements Visitor {
 	}
 
 	@Override
-	public void visitInstructionFunctionProcedure(FunctionProcedure instr) {
+	public void visitInstructionFunctionProcedure(ProcedureCall instr) {
 		visit(instr.getSubject());
 		visit(instr.getArguments());
 	}
