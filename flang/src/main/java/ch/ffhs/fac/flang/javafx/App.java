@@ -150,7 +150,7 @@ public class App extends Application {
 						return sym;
 					}
 				};
-
+// TODO: proper handling of exceptions in parser
 				final var document = parser.parseDocument();
 				document.declareFunction(CastString.NAME, new CastString());
 				document.declareFunction(CastDecimal.NAME, new CastDecimal());
