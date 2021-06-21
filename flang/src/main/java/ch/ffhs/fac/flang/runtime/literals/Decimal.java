@@ -55,8 +55,12 @@ public class Decimal extends LiteralBase {
 	@Override
 	public Literal operationSlash(final Literal right) {
 		if (right instanceof Decimal) {
-			// TODO we should check if it is a division by zero
-			return new Decimal(value.multiply(((Decimal) right).value));
+			final var val = ((Decimal)right).value;
+			if (val.compareTo(BigDecimal.ZERO) == 0) {
+				return Undefined.UNDEFINED;
+			}
+
+			return new Decimal(value.divide(val));
 		}
 
 		return super.operationSlash(right);
