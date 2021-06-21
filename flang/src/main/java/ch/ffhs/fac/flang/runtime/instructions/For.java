@@ -85,12 +85,6 @@ public class For implements Instruction {
 		final var b = ((Decimal) by.compute(closure)).getValue();
 		final var positiveDirection = b.compareTo(BigDecimal.ZERO) > 0;
 
-		// TODO: some minimalistic guards
-		if (b.compareTo(BigDecimal.ZERO) == 0 || f.compareTo(t) > 0 && positiveDirection
-				|| f.compareTo(t) < 0 && !positiveDirection) {
-			throw new Exception("'For' cannot be executed");
-		}
-
 		for (var i = f; positiveDirection && i.compareTo(t) < 0
 				|| !positiveDirection && i.compareTo(t) > 0; i = i.add(b)) {
 			final var ctx = new Context(closure);
