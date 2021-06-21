@@ -1027,7 +1027,7 @@ public final class Scanner implements java_cup.runtime.Scanner {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            { throw new IllegalSymbolException(yytext(), new Location(yyline, yycolumn));
+            { throw new IllegalSymbolException(yytext(), new Location(yyline + 1, yycolumn));
             }
             // fall through
           case 44: break;

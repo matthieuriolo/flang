@@ -458,8 +458,8 @@ public class Parser extends java_cup.runtime.lr_parser {
 		return new Document(parseInstructions());
 	}
 	
-	private void setLoc(final LocatedInText o, final int col, final int row) {
-		o.setLocation(new Location(col, row));
+	private void setLoc(final LocatedInText o, final int line, final int col) {
+		o.setLocation(new Location(line + 1, col));
 	}
 
 

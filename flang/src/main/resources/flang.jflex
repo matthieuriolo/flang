@@ -123,4 +123,4 @@ DECIMAL                        = (([1-9][\d_]*\d)|\d)(\.(_*\d)+)?
 }
 
 /* error fallback */
-[^]                   { throw new IllegalSymbolException(yytext(), new Location(yyline, yycolumn)); }
+[^]                   { throw new IllegalSymbolException(yytext(), new Location(yyline + 1, yycolumn)); }
