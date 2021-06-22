@@ -7,7 +7,9 @@ import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.FunctionBridgeBase;
 import ch.ffhs.fac.flang.runtime.exceptions.IllegalArgumentCountException;
+import ch.ffhs.fac.flang.runtime.exceptions.WrongTypeException;
 import ch.ffhs.fac.flang.runtime.literals.Array;
+import ch.ffhs.fac.flang.runtime.literals.Decimal;
 import ch.ffhs.fac.flang.runtime.literals.Function;
 
 public class ArrayMap implements FunctionBridgeBase {
@@ -24,11 +26,11 @@ public class ArrayMap implements FunctionBridgeBase {
 		final var func = parameters.get(1);
 
 		if (!(array instanceof Array)) {
-			throw new Exception("First argument must be an array");
+			throw new WrongTypeException(1, Array.NAME, array);
 		}
 
 		if (!(func instanceof Function)) {
-			throw new Exception("Second argument must be an function");
+			throw new WrongTypeException(2, Function.NAME, func);
 		}
 
 		return ((Array) array).map(closure, ((Function) func));

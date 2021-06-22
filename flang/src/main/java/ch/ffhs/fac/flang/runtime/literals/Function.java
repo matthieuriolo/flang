@@ -11,6 +11,7 @@ import ch.ffhs.fac.flang.runtime.bases.LiteralBase;
 import ch.ffhs.fac.flang.runtime.expressions.Identifier;
 
 public class Function extends LiteralBase {
+	public final static java.lang.String NAME = "Function";
 	public static final Identifier MAGIC_ARGUMENTS = new Identifier("__arguments__");
 	private Context closureCreator;
 	private final List<Identifier> parameters;
@@ -78,6 +79,11 @@ public class Function extends LiteralBase {
 	public Literal compute(Context closure) throws Throwable {
 		closureCreator = closure;
 		return this;
+	}
+	
+	@Override
+	public java.lang.String getTypeName() {
+		return Function.NAME;
 	}
 	
 	@Override

@@ -49,6 +49,11 @@ public class Context {
 		public void acceptVisitor(final Visitor visitor) {
 			visitor.visitLiteral(this);
 		}
+
+		@Override
+		public String getTypeName() {
+			return Function.NAME;
+		}
 	}
 	
 	public Context() {

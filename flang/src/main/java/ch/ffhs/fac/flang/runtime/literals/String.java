@@ -6,6 +6,7 @@ import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.LiteralBase;
 
 public class String extends LiteralBase {
+	public final static java.lang.String NAME = "String";
 	private final java.lang.String string;
 	public String() {
 		this("");
@@ -75,6 +76,11 @@ public class String extends LiteralBase {
 			// and instead return undefined
 			return Undefined.UNDEFINED;
 		}
+	}
+	
+	@Override
+	public java.lang.String getTypeName() {
+		return String.NAME;
 	}
 	
 	@Override

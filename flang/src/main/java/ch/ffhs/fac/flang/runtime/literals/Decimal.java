@@ -8,6 +8,8 @@ import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.LiteralBase;
 
 public class Decimal extends LiteralBase {
+	public final static java.lang.String NAME = "Decimal";
+	
 	private BigDecimal value;
 	
 	public Decimal(final BigDecimal value) {
@@ -139,6 +141,11 @@ public class Decimal extends LiteralBase {
 	@Override
 	public Literal toDecimal(final Context closure) {
 		return this;
+	}
+	
+	@Override
+	public java.lang.String getTypeName() {
+		return Decimal.NAME;
 	}
 	
 	@Override

@@ -11,6 +11,7 @@ import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.LiteralBase;
 
 public class Array extends LiteralBase {
+	public final static java.lang.String NAME = "Array";
 	private final List<Literal> values;
 
 	public Array(final List<Literal> values) {
@@ -62,6 +63,11 @@ public class Array extends LiteralBase {
 		return !values.isEmpty();
 	}
 
+	@Override
+	public java.lang.String getTypeName() {
+		return Array.NAME;
+	}
+	
 	@Override
 	public void acceptVisitor(final Visitor visitor) {
 		visitor.visitLiteral(this);

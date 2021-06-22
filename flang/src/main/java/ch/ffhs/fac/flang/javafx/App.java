@@ -79,6 +79,7 @@ public class App extends Application {
 			mainWindow = loader.load();
 			mainWindow.show();
 		} catch (IOException e) {
+			// TODO
 			e.printStackTrace();
 		}
 	}
@@ -95,6 +96,7 @@ public class App extends Application {
 				textareaCode.setText(Files.readString(file.toPath()));
 			}
 		} catch (IOException e) {
+			// TODO
 			e.printStackTrace();
 		}
 	}
@@ -151,6 +153,7 @@ public class App extends Application {
 					}
 				};
 // TODO: proper handling of exceptions in parser
+				//TODO: disable buttons
 				final var document = parser.parseDocument();
 				document.declareFunction(CastString.NAME, new CastString());
 				document.declareFunction(CastDecimal.NAME, new CastDecimal());
@@ -207,6 +210,7 @@ public class App extends Application {
 					
 					return document.execute();
 				} catch (Throwable e) {
+					// TODO
 					throw new Exception(e);
 				}
 			}

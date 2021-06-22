@@ -5,6 +5,7 @@ import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.bases.LiteralBase;
 
 public class Boolean extends LiteralBase {
+	public final static java.lang.String NAME = "Boolean";
 	public static final Boolean TRUE = new Boolean("TRUE");
 	public static final Boolean FALSE = new Boolean("FALSE");
 	
@@ -35,6 +36,11 @@ public class Boolean extends LiteralBase {
 	@Override
 	public Literal computeNotEqual(final Literal right) {
 		return Boolean.of(this != right);
+	}
+	
+	@Override
+	public java.lang.String getTypeName() {
+		return Boolean.NAME;
 	}
 	
 	@Override

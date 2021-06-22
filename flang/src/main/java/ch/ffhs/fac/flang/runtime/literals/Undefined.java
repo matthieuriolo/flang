@@ -6,6 +6,7 @@ import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.LiteralBase;
 
 public class Undefined extends LiteralBase {
+	public final static java.lang.String NAME = "Undefined";
 	public static final Undefined UNDEFINED = new Undefined();
 	
 	@Override
@@ -31,6 +32,11 @@ public class Undefined extends LiteralBase {
 	@Override
 	public Literal computeNotEqual(final Literal right) {
 		return Boolean.of(this != right);
+	}
+	
+	@Override
+	public java.lang.String getTypeName() {
+		return Undefined.NAME;
 	}
 	
 	@Override

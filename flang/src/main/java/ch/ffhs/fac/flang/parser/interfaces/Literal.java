@@ -26,6 +26,7 @@ public interface Literal extends Expression {
 	public String toString();
 	public String toHumanReadableString();
 	public Literal toDecimal(final Context closure);
+	public String getTypeName();
 	
 	@Override
 	public Literal compute(Context closure) throws Throwable;

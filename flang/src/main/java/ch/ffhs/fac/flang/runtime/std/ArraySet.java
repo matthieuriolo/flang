@@ -7,6 +7,7 @@ import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.FunctionBridgeBase;
 import ch.ffhs.fac.flang.runtime.exceptions.IllegalArgumentCountException;
+import ch.ffhs.fac.flang.runtime.exceptions.WrongTypeException;
 import ch.ffhs.fac.flang.runtime.literals.Array;
 import ch.ffhs.fac.flang.runtime.literals.Decimal;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
@@ -26,11 +27,11 @@ public class ArraySet implements FunctionBridgeBase {
 		final var value = parameters.get(2);
 		
 		if(!(array instanceof Array)) {
-			return Undefined.UNDEFINED;
+			throw new WrongTypeException(1, Array.NAME, array);
 		}
 		
 		if(!(index instanceof Decimal)) {
-			return Undefined.UNDEFINED;
+			throw new WrongTypeException(2, Decimal.NAME, index);
 		}
 		
 		return ((Array)array).set(((Decimal)index).getValue().intValueExact(), value);
