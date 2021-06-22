@@ -1,7 +1,6 @@
 package ch.ffhs.fac.flang.runtime.bases;
 
 import ch.ffhs.fac.flang.parser.Location;
-import ch.ffhs.fac.flang.parser.interfaces.Expression;
 import ch.ffhs.fac.flang.parser.interfaces.LocatedInText;
 
 public abstract class LocatedInTextBase implements LocatedInText {

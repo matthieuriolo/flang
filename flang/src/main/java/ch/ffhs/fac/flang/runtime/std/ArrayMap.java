@@ -9,7 +9,6 @@ import ch.ffhs.fac.flang.runtime.bases.FunctionBridgeBase;
 import ch.ffhs.fac.flang.runtime.exceptions.IllegalArgumentCountException;
 import ch.ffhs.fac.flang.runtime.exceptions.WrongTypeException;
 import ch.ffhs.fac.flang.runtime.literals.Array;
-import ch.ffhs.fac.flang.runtime.literals.Decimal;
 import ch.ffhs.fac.flang.runtime.literals.Function;
 
 public class ArrayMap implements FunctionBridgeBase {

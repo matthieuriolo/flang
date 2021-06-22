@@ -7,7 +7,6 @@ import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.FunctionBridgeBase;
 import ch.ffhs.fac.flang.runtime.exceptions.IllegalArgumentCountException;
-import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
 public class CastDecimal implements FunctionBridgeBase {
 	public static final String NAME = "cast_decimal";

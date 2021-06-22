@@ -5,13 +5,25 @@
 
 package ch.ffhs.fac.flang.parser;
 
-import ch.ffhs.fac.flang.parser.interfaces.*;
-import ch.ffhs.fac.flang.runtime.*;
-import ch.ffhs.fac.flang.runtime.expressions.*;
-import ch.ffhs.fac.flang.runtime.instructions.*;
-import java.util.*;
 import java.math.BigDecimal;
-import java_cup.runtime.XMLElement;
+import java.util.LinkedList;
+import java.util.List;
+
+import ch.ffhs.fac.flang.parser.interfaces.Expression;
+import ch.ffhs.fac.flang.parser.interfaces.Instruction;
+import ch.ffhs.fac.flang.parser.interfaces.Literal;
+import ch.ffhs.fac.flang.parser.interfaces.LocatedInText;
+import ch.ffhs.fac.flang.runtime.Document;
+import ch.ffhs.fac.flang.runtime.expressions.BinaryOperation;
+import ch.ffhs.fac.flang.runtime.expressions.FunctionCall;
+import ch.ffhs.fac.flang.runtime.expressions.Identifier;
+import ch.ffhs.fac.flang.runtime.expressions.UnaryOperation;
+import ch.ffhs.fac.flang.runtime.instructions.Assignment;
+import ch.ffhs.fac.flang.runtime.instructions.For;
+import ch.ffhs.fac.flang.runtime.instructions.If;
+import ch.ffhs.fac.flang.runtime.instructions.ProcedureCall;
+import ch.ffhs.fac.flang.runtime.instructions.Return;
+import ch.ffhs.fac.flang.runtime.instructions.While;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
   */
