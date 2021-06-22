@@ -23,6 +23,7 @@ public interface Literal extends Expression {
 	public Literal functionalCall(final Context closure, final List<Literal> arguments, final Location location) throws Throwable;
 	
 	public boolean toBoolean();
+	@Override
 	public String toString();
 	public String toHumanReadableString();
 	public Literal toDecimal(final Context closure);
