@@ -26,6 +26,6 @@ public class ProcedureCall extends FunctionBase implements Instruction {
 	
 	@Override
 	public void acceptVisitor(final Visitor visitor) {
-		visitor.visitInstructionFunctionProcedure(this);
+		visitor.visitInstructionProcedureCall(this);
 	}
 }

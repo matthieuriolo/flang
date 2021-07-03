@@ -29,6 +29,6 @@ public class Identifier extends LocatedInTextBase implements Expression {
 	
 	@Override
 	public void acceptVisitor(final Visitor visitor) {
-		visitor.visitLiteralIdentifier(this);
+		visitor.visitExpressionIdentifier(this);
 	}
 }

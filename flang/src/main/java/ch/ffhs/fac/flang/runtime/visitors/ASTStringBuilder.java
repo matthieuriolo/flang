@@ -94,7 +94,7 @@ public class ASTStringBuilder implements Visitor {
 	}
 
 	@Override
-	public void visitLiteralIdentifier(Identifier obj) {
+	public void visitExpressionIdentifier(Identifier obj) {
 		appendLiteral("Identifier", obj.toString());
 	}
 
@@ -137,7 +137,7 @@ public class ASTStringBuilder implements Visitor {
 	}
 
 	@Override
-	public void visitInstructionFunctionProcedure(final ProcedureCall instr) {
+	public void visitInstructionProcedureCall(final ProcedureCall instr) {
 		append("FunctionProcedure");
 		increment();
 		append("- subject:");

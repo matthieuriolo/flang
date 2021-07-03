@@ -41,9 +41,9 @@ public class DeadCode extends VisitorBase {
 	}
 	
 	@Override
-	public void visitInstructionFunctionProcedure(ProcedureCall instr) {
+	public void visitInstructionProcedureCall(ProcedureCall instr) {
 		validateDeadCode(instr);
-		super.visitInstructionFunctionProcedure(instr);
+		super.visitInstructionProcedureCall(instr);
 		foundReturn = false;
 	}
 	

@@ -41,6 +41,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Application instance for JavaFX and UI controller for the stage "simple-ide.fxml"
+ * @author matthieuriolo
+ */
 public class App extends Application {
 	private static final String mainWindowFXML = "/simple-ide.fxml";
 	private static final String aboutWindowFXML = "/simple-ide-about.fxml";
@@ -65,6 +69,10 @@ public class App extends Application {
 	@FXML
 	private Button buttonInput;
 
+	/**
+	 * Launches the JavaFX Application
+	 * @param args
+	 */
 	public static void launchJavaFX(final String[] args) {
 		launch(args);
 	}
@@ -84,6 +92,10 @@ public class App extends Application {
 		}
 	}
 
+	/**
+	 * Handler for the menu entry "open". Display a file dialog and inserts the selected file into the editor
+	 * @param event
+	 */
 	@FXML
 	private void open(ActionEvent event) {
 		try {
@@ -101,11 +113,19 @@ public class App extends Application {
 		}
 	}
 
+	/**
+	 * Handler for the menu item "Quit". Closes the application
+	 * @param event
+	 */
 	@FXML
 	private void exit(ActionEvent event) {
 		Platform.exit();
 	}
 
+	/**
+	 * Handler for the menu item "About". Displays a model with the information about the application
+	 * @param event
+	 */
 	@FXML
 	private void showAbout(ActionEvent event) {
 		final var cl = getClass();
@@ -121,6 +141,10 @@ public class App extends Application {
 		}
 	}
 
+	/**
+	 * Handler for the button "execute". Parses the content from the editor and executes the code in a separate thread
+	 * @param event
+	 */
 	@FXML
 	private void clickCompile(ActionEvent event) {
 		if (documentTask != null && !documentTask.isDone()) {

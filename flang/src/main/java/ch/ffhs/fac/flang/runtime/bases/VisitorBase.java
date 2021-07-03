@@ -56,7 +56,7 @@ public abstract class VisitorBase implements Visitor {
 	}
 
 	@Override
-	public void visitLiteralIdentifier(Identifier obj) {}
+	public void visitExpressionIdentifier(Identifier obj) {}
 
 	@Override
 	public void visitLiteralString(String obj) {}
@@ -90,7 +90,7 @@ public abstract class VisitorBase implements Visitor {
 	}
 
 	@Override
-	public void visitInstructionFunctionProcedure(ProcedureCall instr) {
+	public void visitInstructionProcedureCall(ProcedureCall instr) {
 		visit(instr.getSubject());
 		visit(instr.getArguments());
 	}

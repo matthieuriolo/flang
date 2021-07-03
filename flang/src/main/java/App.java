@@ -10,6 +10,10 @@
  *
  */
 public class App {
+	/**
+	 * Entry point for the parser with an UI
+	 * @param args
+	 */
     public static void main(String[] args) {
     	ch.ffhs.fac.flang.javafx.App.launchJavaFX(args);
     }
