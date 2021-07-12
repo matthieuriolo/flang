@@ -14,6 +14,7 @@ import java.util.concurrent.Executors;
 import ch.ffhs.fac.flang.parser.Parser;
 import ch.ffhs.fac.flang.parser.Scanner;
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
+import ch.ffhs.fac.flang.runtime.Document;
 import ch.ffhs.fac.flang.runtime.LiteralFactory;
 import ch.ffhs.fac.flang.runtime.std.ArrayCreate;
 import ch.ffhs.fac.flang.runtime.std.ArrayFilter;
@@ -179,7 +180,7 @@ public class App extends Application {
 				};
 // TODO: proper handling of exceptions in parser
 				//TODO: disable buttons
-				final var document = parser.parseDocument();
+				final var document = new Document(parser.parseInstructions());
 				document.declareFunction(CastString.NAME, new CastString());
 				document.declareFunction(CastDecimal.NAME, new CastDecimal());
 				document.declareFunction(ArrayCreate.NAME, new ArrayCreate());

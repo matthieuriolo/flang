@@ -22,7 +22,7 @@ public class Document extends Context implements Visitable {
 	}
 	
 	public Literal execute() throws Throwable {
-		return Objects.requireNonNullElse(execute(instructions), new Decimal(BigDecimal.ZERO));
+		return Objects.requireNonNullElse(execute(instructions), Decimal.ZERO);
 	}
 	
 	@Override

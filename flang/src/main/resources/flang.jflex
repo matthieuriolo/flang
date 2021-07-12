@@ -5,7 +5,6 @@ package ch.ffhs.fac.flang.parser;
 */
 
 import java_cup.runtime.*;
-import java.math.BigDecimal;
 import ch.ffhs.fac.flang.parser.exceptions.*;
 
 /**
@@ -99,7 +98,7 @@ DECIMAL                        = (([1-9][\d_]*\d)|\d)(\.(_*\d)+)?
 	
 	/* literals */
 	{IDENTIFIER}      { return symbol(Symbols.IDENTIFIER, new String(yytext())); }
-	{DECIMAL}         { return symbol(Symbols.DECIMAL, new BigDecimal(new String(yytext()).replace("_", ""))); }
+	{DECIMAL}         { return symbol(Symbols.DECIMAL, new String(yytext()).replace("_", "")); }
 	\"                { string.setLength(0); yybegin(STRING); }
 	
 	/* comments & whitespaces */
