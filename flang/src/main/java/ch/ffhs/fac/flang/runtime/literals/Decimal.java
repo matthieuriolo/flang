@@ -9,6 +9,8 @@ import ch.ffhs.fac.flang.runtime.bases.LiteralBase;
 
 public class Decimal extends LiteralBase {
 	public final static java.lang.String NAME = "Decimal";
+	public final static Decimal ZERO = new Decimal("0");
+	public final static Decimal ONE = new Decimal("1");
 	
 	private BigDecimal value;
 	
