@@ -14,6 +14,7 @@ import java.util.concurrent.Executors;
 import ch.ffhs.fac.flang.parser.Parser;
 import ch.ffhs.fac.flang.parser.Scanner;
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
+import ch.ffhs.fac.flang.runtime.LiteralFactory;
 import ch.ffhs.fac.flang.runtime.std.ArrayCreate;
 import ch.ffhs.fac.flang.runtime.std.ArrayFilter;
 import ch.ffhs.fac.flang.runtime.std.ArrayGet;
@@ -159,8 +160,8 @@ public class App extends Application {
 				final var sourceCode = textareaCode.getText();
 				final var reader = new StringReader(sourceCode);
 				final var lexer = new Scanner(reader);
-				@SuppressWarnings("deprecation")
-				final var parser = new Parser(lexer) {
+				
+				final var parser = new Parser(lexer, new LiteralFactory()) {
 					@Override
 					public Symbol scan() throws Exception {
 						final var sym = super.scan();
