@@ -18,7 +18,7 @@ public class Print implements FunctionBridgeBase {
 	}
 
 	@Override
-	public Literal execute(final Context closure, final List<Literal> parameters, final Location location) throws Throwable {
+	public Literal execute(final Context closure, final List<Literal> parameters) throws Throwable {
 		for (final var param : parameters) {
 			writer.write(param.toString());
 		}

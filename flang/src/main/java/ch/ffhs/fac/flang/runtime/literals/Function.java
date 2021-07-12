@@ -3,6 +3,7 @@ package ch.ffhs.fac.flang.runtime.literals;
 import java.util.List;
 import java.util.Objects;
 
+import ch.ffhs.fac.flang.parser.Location;
 import ch.ffhs.fac.flang.parser.interfaces.Instruction;
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
@@ -33,7 +34,8 @@ public class Function extends LiteralBase {
 	public List<Instruction> getInstructions() {
 		return instructions;
 	}
-
+	
+	@Override
 	public Literal functionalCall(final Context closure, final List<Literal> arguments) throws Throwable {
 		Objects.requireNonNull(closureCreator);
 		final var body = new Context(closureCreator);

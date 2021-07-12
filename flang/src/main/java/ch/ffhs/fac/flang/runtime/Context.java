@@ -26,8 +26,8 @@ public class Context {
 		}
 		
 		@Override
-		public Literal functionalCall(final Context closure, final List<Literal> arguments, final Location location) throws Throwable {
-			return body.execute(closure, arguments, location);
+		public Literal functionalCall(final Context closure, final List<Literal> arguments) throws Throwable {
+			return body.execute(closure, arguments);
 		}
 
 		@Override

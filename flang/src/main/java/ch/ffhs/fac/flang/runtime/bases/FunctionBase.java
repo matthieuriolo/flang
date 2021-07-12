@@ -47,6 +47,6 @@ public abstract class FunctionBase implements LocatedInText {
 		for(final var arg : arguments) {
 			parameters.add(arg.compute(closure));
 		}
-		return literal.functionalCall(closure, parameters, location);
+		return literal.functionalCall(closure, parameters);
 	}
 }
