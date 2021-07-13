@@ -30,6 +30,10 @@ public class Decimal extends LiteralBase {
 		this(new BigDecimal(value));
 	}
 	
+	public Decimal(final double value) {
+		this(new BigDecimal(value));
+	}
+	
 	public BigDecimal getValue() {
 		return value;
 	}
