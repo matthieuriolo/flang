@@ -30,5 +30,5 @@ public interface Literal extends Expression {
 	public String getTypeName();
 	
 	@Override
-	public Literal compute(Context closure) throws Throwable;
+	public Literal compute(Context closure) throws Throwable;//TODO 
 }
