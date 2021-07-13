@@ -5,9 +5,21 @@ import java.util.List;
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.literals.Decimal;
+import ch.ffhs.fac.flang.runtime.literals.Boolean;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
 public abstract class LiteralBase extends LocatedInTextBase implements Literal {
+	@Override
+	public boolean equals(Object obj) {
+		if(super.equals(obj)) {
+			return true;
+		}else if(obj instanceof Literal) {
+			return this.computeEqual((Literal)obj) == Boolean.TRUE;
+		}
+	
+		return false;
+	}
+	
 	@Override
 	public Literal computeOr(final Literal right) {
 		return ch.ffhs.fac.flang.runtime.literals.Boolean.of(toBoolean() || right.toBoolean());
