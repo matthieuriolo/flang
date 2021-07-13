@@ -1,5 +1,8 @@
 package ch.ffhs.fac.flang.runtime.literals;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
@@ -28,7 +31,11 @@ public class String extends LiteralBase {
 	@Override
 	public Literal computeAsterisk(final Literal right) {
 		if (right instanceof Decimal) {
-			return new String(string.repeat(((Decimal) right).getValue().intValueExact()));
+			final var count = ((Decimal) right).getValue().setScale(0, RoundingMode.DOWN).intValueExact();
+			if(count < 0) {
+				return Undefined.UNDEFINED;
+			}
+			return new String(string.repeat(count));
 		}
 		
 		return super.computeAsterisk(right);
