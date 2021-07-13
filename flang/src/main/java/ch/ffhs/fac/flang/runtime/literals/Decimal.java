@@ -26,6 +26,10 @@ public class Decimal extends LiteralBase {
 		this(value ? BigDecimal.ONE : BigDecimal.ZERO);
 	}
 	
+	public Decimal(final int value) {
+		this(new BigDecimal(value));
+	}
+	
 	public BigDecimal getValue() {
 		return value;
 	}
