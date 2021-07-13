@@ -1,7 +1,5 @@
 package ch.ffhs.fac.flang.parser;
 
-import java_cup.runtime.Symbol;
-
 import ch.ffhs.fac.flang.parser.interfaces.*;
 import ch.ffhs.fac.flang.runtime.*;
 import ch.ffhs.fac.flang.runtime.expressions.*;
@@ -11,19 +9,6 @@ import java.util.*;
 import java.math.BigDecimal;
 
 parser code {:
-	private LiteralFactory lf;
-	
-	public Parser(java_cup.runtime.Scanner s, LiteralFactory factory) {
-		super(s);
-		lf = factory;
-	}
-	
-	@Override
-	public Symbol parse() throws java.lang.Exception {
-		Objects.requireNonNull(lf, "The LiteralFactory must be set!");
-		return super.parse();
-	}
-	
 	@SuppressWarnings("unchecked")
 	public List<Instruction> parseInstructions() throws java.lang.Exception {
 		final var symbol = parse();
