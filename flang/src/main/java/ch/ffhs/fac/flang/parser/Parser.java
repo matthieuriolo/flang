@@ -7,9 +7,12 @@ package ch.ffhs.fac.flang.parser;
 
 import java_cup.runtime.Symbol;
 import ch.ffhs.fac.flang.parser.interfaces.*;
+import ch.ffhs.fac.flang.parser.interfaces.LiteralFactory;
+import ch.ffhs.fac.flang.runtime.*;
 import ch.ffhs.fac.flang.runtime.expressions.*;
 import ch.ffhs.fac.flang.runtime.instructions.*;
 import java.util.*;
+import java.math.BigDecimal;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
@@ -447,16 +450,16 @@ public class Parser extends java_cup.runtime.lr_parser {
 
 
 
-	private LiteralFactory literalFactory;
+	private LiteralFactory lf;
 	
-	public Parser(java_cup.runtime.Scanner s, LiteralFactory literalFactory) {
+	public Parser(java_cup.runtime.Scanner s, LiteralFactory factory) {
 		super(s);
-		this.literalFactory = literalFactory;
+		lf = factory;
 	}
 	
 	@Override
 	public Symbol parse() throws java.lang.Exception {
-		Objects.requireNonNull(literalFactory, "The LiteralFactory must be set!");
+		Objects.requireNonNull(lf, "The LiteralFactory must be set!");
 		return super.parse();
 	}
 	
@@ -464,6 +467,10 @@ public class Parser extends java_cup.runtime.lr_parser {
 	public List<Instruction> parseInstructions() throws java.lang.Exception {
 		final var symbol = parse();
 		return (List<Instruction>) symbol.value;
+	}
+	
+	public Document parseDocument() throws java.lang.Exception {
+		return new Document(parseInstructions());
 	}
 	
 	private void setLoc(final LocatedInText o, final int line, final int col) {
@@ -723,7 +730,7 @@ class CUP$Parser$actions {
 		int sleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		List<Instruction> s = (List<Instruction>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT = new For(i, literalFactory.createDecimalZero(), t, literalFactory.createDecimalOne(), s); 
+		 RESULT = new For(i, BigDecimal.ZERO, t, BigDecimal.ONE, s); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("for",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -744,7 +751,7 @@ class CUP$Parser$actions {
 		int sleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		List<Instruction> s = (List<Instruction>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT = new For(i, literalFactory.createDecimalZero(), t, b, s); 
+		 RESULT = new For(i, BigDecimal.ZERO, t, b, s); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("for",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -765,7 +772,7 @@ class CUP$Parser$actions {
 		int sleft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int sright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		List<Instruction> s = (List<Instruction>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT = new For(i, f, t, literalFactory.createDecimalOne(), s); 
+		 RESULT = new For(i, f, t, BigDecimal.ONE, s); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("for",3, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-8)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1088,8 +1095,8 @@ class CUP$Parser$actions {
               Literal RESULT =null;
 		int ileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
-		String i = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = literalFactory.createDecimal(i); 
+		BigDecimal i = (BigDecimal)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
+		 RESULT = new ch.ffhs.fac.flang.runtime.literals.Decimal(i); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("literal",13, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1098,7 +1105,7 @@ class CUP$Parser$actions {
           case 42: // literal ::= TRUE 
             {
               Literal RESULT =null;
-		 RESULT = literalFactory.createBooleanTrue(); 
+		 RESULT = ch.ffhs.fac.flang.runtime.literals.Boolean.TRUE; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("literal",13, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1107,7 +1114,7 @@ class CUP$Parser$actions {
           case 43: // literal ::= FALSE 
             {
               Literal RESULT =null;
-		 RESULT = literalFactory.createBooleanFalse(); 
+		 RESULT = ch.ffhs.fac.flang.runtime.literals.Boolean.FALSE; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("literal",13, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1116,7 +1123,7 @@ class CUP$Parser$actions {
           case 44: // literal ::= UNDEFINED 
             {
               Literal RESULT =null;
-		 RESULT = literalFactory.createUndefined(); 
+		 RESULT = ch.ffhs.fac.flang.runtime.literals.Undefined.UNDEFINED; 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("literal",13, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1140,7 +1147,7 @@ class CUP$Parser$actions {
 		int ileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()).right;
 		String i = (String)((java_cup.runtime.Symbol) CUP$Parser$stack.peek()).value;
-		 RESULT = literalFactory.createString(i); 
+		 RESULT = new ch.ffhs.fac.flang.runtime.literals.String(i); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("literal",13, ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1164,7 +1171,7 @@ class CUP$Parser$actions {
 		int ileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		List<Instruction> i = (List<Instruction>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT = literalFactory.createFunction(i); 
+		 RESULT = new ch.ffhs.fac.flang.runtime.literals.Function(i); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("functionDeclaration",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-5)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;
@@ -1179,7 +1186,7 @@ class CUP$Parser$actions {
 		int ileft = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).left;
 		int iright = ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-1)).right;
 		List<Instruction> i = (List<Instruction>)((java_cup.runtime.Symbol) CUP$Parser$stack.elementAt(CUP$Parser$top-1)).value;
-		 RESULT = literalFactory.createFunction(a, i); 
+		 RESULT = new ch.ffhs.fac.flang.runtime.literals.Function(a, i); 
               CUP$Parser$result = parser.getSymbolFactory().newSymbol("functionDeclaration",9, ((java_cup.runtime.Symbol)CUP$Parser$stack.elementAt(CUP$Parser$top-6)), ((java_cup.runtime.Symbol)CUP$Parser$stack.peek()), RESULT);
             }
           return CUP$Parser$result;

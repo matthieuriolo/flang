@@ -9,6 +9,7 @@ package ch.ffhs.fac.flang.parser;
 */
 
 import java_cup.runtime.*;
+import java.math.BigDecimal;
 import ch.ffhs.fac.flang.parser.exceptions.*;
 
 /**
@@ -1082,7 +1083,7 @@ public final class Scanner implements java_cup.runtime.Scanner {
             // fall through
           case 54: break;
           case 12:
-            { return symbol(Symbols.DECIMAL, new String(yytext()).replace("_", ""));
+            { return symbol(Symbols.DECIMAL, new BigDecimal(new String(yytext()).replace("_", "")));
             }
             // fall through
           case 55: break;

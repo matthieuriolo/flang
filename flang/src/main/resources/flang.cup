@@ -3,24 +3,24 @@ package ch.ffhs.fac.flang.parser;
 import java_cup.runtime.Symbol;
 
 import ch.ffhs.fac.flang.parser.interfaces.*;
-
-
+import ch.ffhs.fac.flang.runtime.*;
 import ch.ffhs.fac.flang.runtime.expressions.*;
 import ch.ffhs.fac.flang.runtime.instructions.*;
 
 import java.util.*;
+import java.math.BigDecimal;
 
 parser code {:
-	private LiteralFactory literalFactory;
+	private LiteralFactory lf;
 	
-	public Parser(java_cup.runtime.Scanner s, LiteralFactory literalFactory) {
+	public Parser(java_cup.runtime.Scanner s, LiteralFactory factory) {
 		super(s);
-		this.literalFactory = literalFactory;
+		lf = factory;
 	}
 	
 	@Override
 	public Symbol parse() throws java.lang.Exception {
-		Objects.requireNonNull(literalFactory, "The LiteralFactory must be set!");
+		Objects.requireNonNull(lf, "The LiteralFactory must be set!");
 		return super.parse();
 	}
 	
@@ -28,6 +28,10 @@ parser code {:
 	public List<Instruction> parseInstructions() throws java.lang.Exception {
 		final var symbol = parse();
 		return (List<Instruction>) symbol.value;
+	}
+	
+	public Document parseDocument() throws java.lang.Exception {
+		return new Document(parseInstructions());
 	}
 	
 	private void setLoc(final LocatedInText o, final int line, final int col) {
@@ -59,7 +63,7 @@ terminal     UMINUS;
 // literals
 terminal     String IDENTIFIER;
 terminal     String STRING;
-terminal     String DECIMAL;
+terminal     BigDecimal DECIMAL;
 
 
 /** Non-Terminals */
@@ -111,8 +115,7 @@ instruction          ::= assignment:i                                           
 ;
 
 /* instructions */
-assignment           ::= identifier:i ASSIGN expression:e                                                                             {: RESULT = new Assignment(i, e); :}
-;
+assignment           ::= identifier:i ASSIGN expression:e                                                                             {: RESULT = new Assignment(i, e); :};
 functionProcedure    ::= identifier:i ROUND_OPEN expressions:e ROUND_CLOSED                                                           {: RESULT = new ProcedureCall(i, e); :}
                        | functionCall:c ROUND_OPEN expressions:e ROUND_CLOSED                                                         {: RESULT = new ProcedureCall(c, e); :}
 ;
@@ -121,11 +124,10 @@ functionProcedure    ::= identifier:i ROUND_OPEN expressions:e ROUND_CLOSED     
 if                   ::= IF expression:e CURLY_OPEN instructions:i CURLY_CLOSED                                                       {: RESULT = new If(e, i); :}
                        | IF expression:e CURLY_OPEN instructions:i CURLY_CLOSED ELSE CURLY_OPEN instructions:o CURLY_CLOSED           {: RESULT = new If(e, i, o); :}
 ;
-while                ::= WHILE expression:e CURLY_OPEN instructions:i CURLY_CLOSED                                                    {: RESULT = new While(e, i); :}
-;
-for                  ::= FOR identifier:i TO expression:t CURLY_OPEN instructions:s CURLY_CLOSED                                      {: RESULT = new For(i, literalFactory.createDecimalZero(), t, literalFactory.createDecimalOne(), s); :}
-                       | FOR identifier:i TO expression:t BY expression:b CURLY_OPEN instructions:s CURLY_CLOSED                      {: RESULT = new For(i, literalFactory.createDecimalZero(), t, b, s); :}
-                       | FOR identifier:i FROM expression:f TO expression:t CURLY_OPEN instructions:s CURLY_CLOSED                    {: RESULT = new For(i, f, t, literalFactory.createDecimalOne(), s); :}
+while                ::= WHILE expression:e CURLY_OPEN instructions:i CURLY_CLOSED                                                    {: RESULT = new While(e, i); :};
+for                  ::= FOR identifier:i TO expression:t CURLY_OPEN instructions:s CURLY_CLOSED                                      {: RESULT = new For(i, BigDecimal.ZERO, t, BigDecimal.ONE, s); :}
+                       | FOR identifier:i TO expression:t BY expression:b CURLY_OPEN instructions:s CURLY_CLOSED                      {: RESULT = new For(i, BigDecimal.ZERO, t, b, s); :}
+                       | FOR identifier:i FROM expression:f TO expression:t CURLY_OPEN instructions:s CURLY_CLOSED                    {: RESULT = new For(i, f, t, BigDecimal.ONE, s); :}
                        | FOR identifier:i FROM expression:f TO expression:t BY expression:b CURLY_OPEN instructions:s CURLY_CLOSED    {: RESULT = new For(i, f, t, b, s); :}
 ;
 
@@ -161,20 +163,18 @@ operation            ::= expression:l OR expression:r                           
 ;                       
 
 /* literals */
-literal              ::= DECIMAL:i                                                                                                    {: RESULT = literalFactory.createDecimal(i); :}
-                       | TRUE                                                                                                         {: RESULT = literalFactory.createBooleanTrue(); :}
-                       | FALSE                                                                                                        {: RESULT = literalFactory.createBooleanFalse(); :}
-                       | UNDEFINED                                                                                                    {: RESULT = literalFactory.createUndefined(); :}
+literal              ::= DECIMAL:i                                                                                                    {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Decimal(i); :}
+                       | TRUE                                                                                                         {: RESULT = ch.ffhs.fac.flang.runtime.literals.Boolean.TRUE; :}
+                       | FALSE                                                                                                        {: RESULT = ch.ffhs.fac.flang.runtime.literals.Boolean.FALSE; :}
+                       | UNDEFINED                                                                                                    {: RESULT = ch.ffhs.fac.flang.runtime.literals.Undefined.UNDEFINED; :}
                        | functionDeclaration:i                                                                                        {: RESULT = i; :}
-                       | STRING:i                                                                                                     {: RESULT = literalFactory.createString(i); :}
+                       | STRING:i                                                                                                     {: RESULT = new ch.ffhs.fac.flang.runtime.literals.String(i); :}
 ;
 
-identifier           ::= IDENTIFIER:i                                                                                                 {: RESULT = new Identifier(i); :}
-;
+identifier           ::= IDENTIFIER:i                                                                                                 {: RESULT = new Identifier(i); :};
 
-functionDeclaration  ::= COLON ROUND_OPEN ROUND_CLOSED CURLY_OPEN instructions:i CURLY_CLOSED                                         {: RESULT = literalFactory.createFunction(i); :}
-                       | COLON ROUND_OPEN functionArguments:a ROUND_CLOSED CURLY_OPEN instructions:i CURLY_CLOSED                     {: RESULT = literalFactory.createFunction(a, i); :}
-;
+functionDeclaration  ::= COLON ROUND_OPEN ROUND_CLOSED CURLY_OPEN instructions:i CURLY_CLOSED                                         {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Function(i); :}
+                       | COLON ROUND_OPEN functionArguments:a ROUND_CLOSED CURLY_OPEN instructions:i CURLY_CLOSED                     {: RESULT = new ch.ffhs.fac.flang.runtime.literals.Function(a, i); :};
 functionArguments    ::= functionArguments:l COMMA identifier:i                                                                       {: RESULT = l;  l.add(i); parser.setLoc(i, ileft, iright); :}
                        | identifier:i                                                                                                 {: RESULT = new LinkedList<Identifier>(); RESULT.add(i); parser.setLoc(i, ileft, iright); :}
 ;
