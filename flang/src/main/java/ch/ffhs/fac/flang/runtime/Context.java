@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import ch.ffhs.fac.flang.parser.Location;
 import ch.ffhs.fac.flang.parser.interfaces.Instruction;
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;

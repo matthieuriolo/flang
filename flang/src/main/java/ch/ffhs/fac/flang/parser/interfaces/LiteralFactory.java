@@ -1,7 +1,6 @@
 package ch.ffhs.fac.flang.parser.interfaces;
 
 import java.util.List;
-
 // TODO
 import ch.ffhs.fac.flang.runtime.expressions.Identifier;
 
