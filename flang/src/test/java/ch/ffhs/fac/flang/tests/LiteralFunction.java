@@ -74,4 +74,18 @@ public class LiteralFunction extends TestParserBase {
 		evaluateAssertUndefined("a = :(b,c){ return b+c}"
 				+ "return a(1)");
 	}
+	
+	@Test
+	public void testCompareEqual() throws Throwable {
+		evaluateAssertTrue("a = :(){}"
+				+ " "
+				+ "b=a"
+				+ " "
+				+ "return a==b");
+		
+		evaluateAssertFalse("a = :(){}"
+				+ " "
+				+ "b=:(){}"
+				+ "return a==b");
+	}
 }
