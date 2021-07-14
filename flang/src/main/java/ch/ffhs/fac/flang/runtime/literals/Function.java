@@ -36,6 +36,24 @@ public class Function extends LiteralBase {
 	}
 	
 	@Override
+	public Literal computeEqual(Literal right) {
+		if(right instanceof Function) {
+			return Boolean.of(this == right);
+		}
+		
+		return super.computeEqual(right);
+	}
+	
+	@Override
+	public Literal computeNotEqual(Literal right) {
+		if(right instanceof Function) {
+			return Boolean.of(this != right);
+		}
+		
+		return super.computeEqual(right);
+	}
+	
+	@Override
 	public Literal functionalCall(final Context closure, final List<Literal> arguments) throws Throwable {
 		Objects.requireNonNull(closureCreator);
 		final var body = new Context(closureCreator);
