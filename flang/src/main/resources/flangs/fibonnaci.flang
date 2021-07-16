@@ -1,0 +1,19 @@
+fib = :(steps) {
+	if steps < 0 {
+		return 0
+	}
+	if steps < 2 {
+		return steps
+	}
+	return fib(steps- 1) + fib(steps-2)
+}
+
+print(fib(0))
+print(fib(1))
+print(fib(2))
+print(fib(3))
+print(fib(4))
+print(fib(5))
+print(fib(6))
+print(fib(20))
+print(fib(30))

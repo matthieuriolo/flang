@@ -1,0 +1,19 @@
+# leibniz
+
+pi = :(steps) {
+	ret = 0
+	sign = 1
+	for i to steps {
+		ret = ret + sign * 1.0 / (1.0 + i * 2)
+		sign = sign * -1
+	}
+	return ret * 4
+}
+
+print(pi(4))
+print(pi(20))
+print(pi(100))
+print(pi(500))
+print(pi(1000))
+print(pi(100000))
+print(pi(1000000))
