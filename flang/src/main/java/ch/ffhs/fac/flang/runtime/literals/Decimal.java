@@ -33,6 +33,7 @@ public class Decimal extends LiteralBase {
 	public Decimal(final double value) {
 		this(new BigDecimal(value));
 	}
+	//TODO: create method with rounded int value returned
 	
 	public BigDecimal getValue() {
 		return value;

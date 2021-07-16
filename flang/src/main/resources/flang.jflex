@@ -80,6 +80,8 @@ DECIMAL                        = (([1-9][\d_]*\d)|\d)(\.(_*\d)+)?
 	")"               { return symbol(Symbols.ROUND_CLOSED); }
 	"{"               { return symbol(Symbols.CURLY_OPEN); }
 	"}"               { return symbol(Symbols.CURLY_CLOSED); }
+	"["               { return symbol(Symbols.SQUARE_OPEN); }
+	"]"               { return symbol(Symbols.SQUARE_CLOSED); }
 	
 	/* arithmetic */
 	"="               { return symbol(Symbols.ASSIGN); }

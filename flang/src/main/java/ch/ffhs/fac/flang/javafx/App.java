@@ -15,11 +15,8 @@ import ch.ffhs.fac.flang.parser.Parser;
 import ch.ffhs.fac.flang.parser.Scanner;
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.runtime.Document;
-import ch.ffhs.fac.flang.runtime.std.ArrayCreate;
 import ch.ffhs.fac.flang.runtime.std.ArrayFilter;
-import ch.ffhs.fac.flang.runtime.std.ArrayGet;
 import ch.ffhs.fac.flang.runtime.std.ArrayMap;
-import ch.ffhs.fac.flang.runtime.std.ArraySet;
 import ch.ffhs.fac.flang.runtime.std.CastDecimal;
 import ch.ffhs.fac.flang.runtime.std.CastString;
 import ch.ffhs.fac.flang.runtime.std.Print;
@@ -271,9 +268,6 @@ public class App extends Application {
 		// add some default functions
 		document.declareFunction(CastString.NAME, new CastString());
 		document.declareFunction(CastDecimal.NAME, new CastDecimal());
-		document.declareFunction(ArrayCreate.NAME, new ArrayCreate());
-		document.declareFunction(ArrayGet.NAME, new ArrayGet());
-		document.declareFunction(ArraySet.NAME, new ArraySet());
 		document.declareFunction(ArrayMap.NAME, new ArrayMap());
 		document.declareFunction(ArrayFilter.NAME, new ArrayFilter());
 		

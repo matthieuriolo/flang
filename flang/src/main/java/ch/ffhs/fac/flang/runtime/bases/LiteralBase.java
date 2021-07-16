@@ -104,4 +104,12 @@ public abstract class LiteralBase extends LocatedInTextBase implements Literal {
 	public Literal compute(Context closure) throws Throwable {
 		return this;
 	}
+	
+	@Override
+	public Literal getAccess(Literal idx) {
+		return Undefined.UNDEFINED;
+	}
+	
+	@Override
+	public void setAccess(Literal idx, Literal value) {}
 }

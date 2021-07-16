@@ -8,6 +8,8 @@ import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitable;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Document;
+import ch.ffhs.fac.flang.runtime.expressions.Access;
+import ch.ffhs.fac.flang.runtime.expressions.ArrayBuilder;
 import ch.ffhs.fac.flang.runtime.expressions.BinaryOperation;
 import ch.ffhs.fac.flang.runtime.expressions.FunctionCall;
 import ch.ffhs.fac.flang.runtime.expressions.Identifier;
@@ -15,6 +17,7 @@ import ch.ffhs.fac.flang.runtime.expressions.UnaryOperation;
 import ch.ffhs.fac.flang.runtime.instructions.Assignment;
 import ch.ffhs.fac.flang.runtime.instructions.For;
 import ch.ffhs.fac.flang.runtime.instructions.If;
+import ch.ffhs.fac.flang.runtime.instructions.IndexAssignment;
 import ch.ffhs.fac.flang.runtime.instructions.ProcedureCall;
 import ch.ffhs.fac.flang.runtime.instructions.Return;
 import ch.ffhs.fac.flang.runtime.instructions.While;
@@ -79,6 +82,13 @@ public abstract class VisitorBase implements Visitor {
 		visit(instr.getIdentifier());
 		visit(instr.getExpression());
 	}
+	
+	@Override
+	public void visitInstructionIndexAssignment(IndexAssignment instr) {
+		visit(instr.getIdentifier());
+		visit(instr.getIndexes());
+		visit(instr.getExpression());
+	}
 
 	@Override
 	public void visitInstructionFor(For instr) {
@@ -128,5 +138,16 @@ public abstract class VisitorBase implements Visitor {
 	@Override
 	public void visitExpressionUnaryOperand(UnaryOperation expr) {
 		visit(expr.getOperand());
+	}
+	
+	@Override
+	public void visitExpressionArrayBuilder(ArrayBuilder expr) {
+		visit(expr.getExpressions());
+	}
+	
+	@Override
+	public void visitExpressionAccess(Access expr) {
+		visit(expr.getIdentifier());
+		visit(expr.getExpressions());
 	}
 }

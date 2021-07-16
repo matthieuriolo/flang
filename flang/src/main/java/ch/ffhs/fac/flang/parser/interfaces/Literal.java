@@ -31,4 +31,6 @@ public interface Literal extends Expression {
 	
 	@Override
 	public Literal compute(Context closure) throws Throwable;//TODO 
+	public Literal getAccess(Literal idx);
+	public void setAccess(Literal idx, Literal value);
 }

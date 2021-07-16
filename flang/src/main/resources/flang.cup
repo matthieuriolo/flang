@@ -37,7 +37,7 @@ terminal     IF, ELSE;
 terminal     END, RETURN;
 	
 // brackets
-terminal     ROUND_OPEN, ROUND_CLOSED, CURLY_OPEN, CURLY_CLOSED;
+terminal     ROUND_OPEN, ROUND_CLOSED, CURLY_OPEN, CURLY_CLOSED, SQUARE_OPEN, SQUARE_CLOSED;
 
 // arithmetic
 terminal     ASSIGN, COLON, COMMA, PLUS, MINUS, ASTERISK, SLASH;
@@ -63,9 +63,12 @@ non terminal Expression functionCall;
 non terminal Instruction functionProcedure;
 non terminal LinkedList<Identifier> functionArguments;
 non terminal Literal functionDeclaration;
+non terminal LinkedList<Expression> indexes;
 non terminal LinkedList<Expression> expressions;
 non terminal Expression expression;
 non terminal Expression operation;
+non terminal Expression arrayBuilder;
+non terminal Expression access;
 
 non terminal Literal literal;
 non terminal Identifier identifier;
@@ -99,8 +102,18 @@ instruction          ::= assignment:i                                           
                        | functionProcedure:i                                                                                          {: RESULT = i; parser.setLoc(RESULT, ileft, iright); :}
 ;
 
+/* helper */
+
+indexes              ::= indexes:i SQUARE_OPEN expression:e SQUARE_CLOSED                                                             {: RESULT = i; i.add(e); :}
+                       | SQUARE_OPEN expression:e SQUARE_CLOSED                                                                       {: RESULT = new LinkedList<Expression>(); RESULT.add(e); :}
+;
+
+
 /* instructions */
-assignment           ::= identifier:i ASSIGN expression:e                                                                             {: RESULT = new Assignment(i, e); :};
+assignment           ::= identifier:i ASSIGN expression:e                                                                             {: RESULT = new Assignment(i, e); :}
+                       | identifier:s indexes:i ASSIGN expression:e                                                                   {: RESULT = new IndexAssignment(s, i, e); :}
+;
+
 functionProcedure    ::= identifier:i ROUND_OPEN expressions:e ROUND_CLOSED                                                           {: RESULT = new ProcedureCall(i, e); :}
                        | functionCall:c ROUND_OPEN expressions:e ROUND_CLOSED                                                         {: RESULT = new ProcedureCall(c, e); :}
 ;
@@ -129,7 +142,17 @@ expression           ::= operation:i                                            
                        | functionCall:i                                                                                               {: RESULT = i; parser.setLoc(RESULT, ileft, iright); :}
                        | literal:i                                                                                                    {: RESULT = i; parser.setLoc(RESULT, ileft, iright); :}
                        | identifier:i                                                                                                 {: RESULT = i; parser.setLoc(RESULT, ileft, iright); :}
-;                                                                                                                                     
+                       | arrayBuilder:i                                                                                               {: RESULT = i; parser.setLoc(RESULT, ileft, iright); :}
+                       | access:i                                                                                                     {: RESULT = i; parser.setLoc(RESULT, ileft, iright); :}
+;
+
+access               ::= identifier:s indexes:i                                                                                       {: RESULT = new Access(s, i); :}
+;
+
+
+arrayBuilder         ::= SQUARE_OPEN expressions:i SQUARE_CLOSED                                                                      {: RESULT = new ArrayBuilder(i); :}
+;
+
 
 /* operators */
 operation            ::= expression:l OR expression:r                                                                                 {: RESULT = new BinaryOperation(l, BinaryOperation.Type.OR, r); :}

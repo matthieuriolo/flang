@@ -2,6 +2,8 @@ package ch.ffhs.fac.flang.parser.interfaces;
 
 
 import ch.ffhs.fac.flang.runtime.Document;
+import ch.ffhs.fac.flang.runtime.expressions.Access;
+import ch.ffhs.fac.flang.runtime.expressions.ArrayBuilder;
 import ch.ffhs.fac.flang.runtime.expressions.BinaryOperation;
 import ch.ffhs.fac.flang.runtime.expressions.FunctionCall;
 import ch.ffhs.fac.flang.runtime.expressions.Identifier;
@@ -9,6 +11,7 @@ import ch.ffhs.fac.flang.runtime.expressions.UnaryOperation;
 import ch.ffhs.fac.flang.runtime.instructions.Assignment;
 import ch.ffhs.fac.flang.runtime.instructions.For;
 import ch.ffhs.fac.flang.runtime.instructions.If;
+import ch.ffhs.fac.flang.runtime.instructions.IndexAssignment;
 import ch.ffhs.fac.flang.runtime.instructions.ProcedureCall;
 import ch.ffhs.fac.flang.runtime.instructions.Return;
 import ch.ffhs.fac.flang.runtime.instructions.While;
@@ -78,6 +81,11 @@ public interface Visitor {
 	 */
 	public void visitInstructionAssignment(final Assignment instr);
 	/**
+	 * Visits an instruction from type {@link IndexAssignment}
+	 * @param instr {@link IndexAssignment}
+	 */
+	public void visitInstructionIndexAssignment(final IndexAssignment instr);
+	/**
 	 * Visits an instruction from type {@link For}
 	 * @param instr {@link For}
 	 */
@@ -123,4 +131,14 @@ public interface Visitor {
 	 * @param expr {@link UnaryOperation}
 	 */
 	public void visitExpressionUnaryOperand(final UnaryOperation expr);
+	/**
+	 * Visits an expression from type {@link ArrayExpression}
+	 * @param expr {@link ArrayExpression}
+	 */
+	public void visitExpressionArrayBuilder(final ArrayBuilder expr);
+	/**
+	 * Visits an expression from type {@link Access}
+	 * @param expr {@link Access}
+	 */
+	public void visitExpressionAccess(final Access expr);
 }

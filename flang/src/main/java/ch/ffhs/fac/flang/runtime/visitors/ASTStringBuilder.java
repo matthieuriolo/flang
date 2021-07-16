@@ -8,6 +8,8 @@ import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitable;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Document;
+import ch.ffhs.fac.flang.runtime.expressions.Access;
+import ch.ffhs.fac.flang.runtime.expressions.ArrayBuilder;
 import ch.ffhs.fac.flang.runtime.expressions.BinaryOperation;
 import ch.ffhs.fac.flang.runtime.expressions.FunctionCall;
 import ch.ffhs.fac.flang.runtime.expressions.Identifier;
@@ -15,6 +17,7 @@ import ch.ffhs.fac.flang.runtime.expressions.UnaryOperation;
 import ch.ffhs.fac.flang.runtime.instructions.Assignment;
 import ch.ffhs.fac.flang.runtime.instructions.For;
 import ch.ffhs.fac.flang.runtime.instructions.If;
+import ch.ffhs.fac.flang.runtime.instructions.IndexAssignment;
 import ch.ffhs.fac.flang.runtime.instructions.ProcedureCall;
 import ch.ffhs.fac.flang.runtime.instructions.Return;
 import ch.ffhs.fac.flang.runtime.instructions.While;
@@ -114,6 +117,19 @@ public class ASTStringBuilder implements Visitor {
 		increment();
 		append("- Identifier:");
 		append(instr.getIdentifier());
+		append("- Expression:");
+		append(instr.getExpression());
+		decrement();
+	}
+	
+	@Override
+	public void visitInstructionIndexAssignment(IndexAssignment instr) {
+		append("Index assignment");
+		increment();
+		append("- Identifier:");
+		append(instr.getIdentifier());
+		append("- Indexes:");
+		append(instr.getIndexes());
 		append("- Expression:");
 		append(instr.getExpression());
 		decrement();
@@ -231,5 +247,23 @@ public class ASTStringBuilder implements Visitor {
 	public void visitInstruction(final Instruction instr) {
 		append("Unknown instruction:", instr.getClass().getName());
 	}
+
+	@Override
+	public void visitExpressionArrayBuilder(final ArrayBuilder expr) {
+		append("Array Builder:");
+		increment();
+		append(expr.getExpressions());
+		decrement();
+	}
 	
+	@Override
+	public void visitExpressionAccess(final Access expr) {
+		append("Access:");
+		increment();
+		append("- Identifier:");
+		append(expr.getIdentifier());
+		append("- Expressions:");
+		append(expr.getExpressions());
+		decrement();
+	}
 }

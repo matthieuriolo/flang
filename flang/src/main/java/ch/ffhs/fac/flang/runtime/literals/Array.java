@@ -50,6 +50,24 @@ public class Array extends LiteralBase {
 		}
 		return new Array(list);
 	}
+	
+	@Override
+	public Literal getAccess(Literal idx) {
+		if (!(idx instanceof Decimal)) {
+			return Undefined.UNDEFINED;
+		}
+
+		return get(((Decimal) idx).getValue().intValueExact());
+	}
+	
+	@Override
+	public void setAccess(Literal idx, Literal value) {
+		if(!(idx instanceof Decimal)) {
+			return;
+		}
+		
+		set(((Decimal)idx).getValue().intValueExact(), value);
+	}
 
 	@Override
 	public java.lang.String toString() {
