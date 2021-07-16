@@ -1,6 +1,7 @@
 package ch.ffhs.fac.flang.runtime.literals;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
@@ -74,7 +75,7 @@ public class Decimal extends LiteralBase {
 				return Undefined.UNDEFINED;
 			}
 
-			return new Decimal(value.divide(val));
+			return new Decimal(value.divide(val, MathContext.DECIMAL128));
 		}
 
 		return super.computeSlash(right);
