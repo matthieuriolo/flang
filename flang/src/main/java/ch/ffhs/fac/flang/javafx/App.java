@@ -75,6 +75,9 @@ public class App extends Application {
 	
 	@FXML
 	private Button buttonCancel;
+	
+	private BufferedReader functionReadReader;
+	private PipedWriter functionReadWriter;
 
 	/**
 	 * Launches the JavaFX Application
@@ -114,8 +117,7 @@ public class App extends Application {
 				textareaCode.setText(Files.readString(file.toPath()));
 			}
 		} catch (IOException e) {
-			// TODO
-			e.printStackTrace();
+			addExceptionToOutput(e);
 		}
 	}
 
@@ -156,6 +158,8 @@ public class App extends Application {
 		if (documentTask != null && !documentTask.isDone()) {
 			documentTask.cancel(true);
 		}
+		
+		resetParserEnvironment();
 	}
 
 	/**
@@ -185,28 +189,18 @@ public class App extends Application {
 				try {
 					return document.execute();
 				}catch(Throwable e) {
-					// TODO
 					throw new Exception(e);
 				}
 			}
 		};
 
 		documentTask.setOnFailed((evt) -> {
-			buttonExecute.setDisable(false);
-			buttonCancel.setDisable(true);
-			buttonInput.setDisable(true);
-			
-			textareaOutput.appendText("There has been an error\n");
-			StringWriter traceWriter = new StringWriter();
-			documentTask.getException().printStackTrace(new PrintWriter(traceWriter));
-			textareaOutput.appendText(documentTask.getException().toString() + "\n" + traceWriter.toString());
+			resetParserEnvironment();
+			addExceptionToOutput(documentTask.getException());
 		});
 
 		documentTask.setOnSucceeded((evt) -> {
-			buttonExecute.setDisable(false);
-			buttonCancel.setDisable(true);
-			buttonInput.setDisable(true);
-			
+			resetParserEnvironment();
 			textareaOutput
 					.appendText("Programm finished with return value: " + documentTask.getValue().toString() + "\n");
 		});
@@ -214,6 +208,27 @@ public class App extends Application {
 		final var executor = Executors.newSingleThreadExecutor();
 		executor.execute(documentTask);
 		executor.shutdown();
+	}
+	
+	/**
+	 * Resets the GUI and the pipes for a new execution
+	 */
+	private void resetParserEnvironment() {
+		buttonExecute.setDisable(false);
+		buttonCancel.setDisable(true);
+		buttonInput.setDisable(true);
+		
+		try {
+			functionReadReader.close();
+		}catch(Throwable e) {
+			addExceptionToOutput(e);
+		}
+		
+		try {
+			functionReadWriter.close();
+		}catch(Throwable e) {
+			addExceptionToOutput(e);
+		}
 	}
 	
 	/**
@@ -244,7 +259,6 @@ public class App extends Application {
 			}
 		};
 //TODO: proper handling of exceptions in parser
-		//TODO: disable buttons
 		return parser.parseDocument();
 	}
 	
@@ -285,27 +299,37 @@ public class App extends Application {
 			}
 
 			@Override
-			public void close() throws IOException {
-			}
+			public void close() throws IOException {}
 		}));
 
 		// add function "read"
-		try (PipedReader userReader = new PipedReader();
-				PipedWriter userWriter = new PipedWriter(userReader)) {
-			buttonInput.setOnMouseClicked(new EventHandler<Event>() {
-				@Override
-				public void handle(Event event) {
-					try {
-						userWriter.write(textfieldInput.getText() + "\n");
-					} catch (IOException e) {
-						throw new RuntimeException(e);
-					}
+		final var userReader = new PipedReader();
+		functionReadWriter = new PipedWriter(userReader);
+		buttonInput.setOnMouseClicked(new EventHandler<Event>() {
+			@Override
+			public void handle(Event event) {
+				try {
+					functionReadWriter.write(textfieldInput.getText() + "\n");
+				} catch (IOException e) {
+					addExceptionToOutput(e);
 				}
-			});
-			document.declareFunction(Read.NAME, new Read(new BufferedReader(userReader)));
-		} catch (Throwable e) {
-			// TODO
-			throw new Exception(e);
+			}
+		});
+		functionReadReader = new BufferedReader(userReader);
+		document.declareFunction(Read.NAME, new Read(functionReadReader));
+	}
+	
+	/**
+	 * Adds an exception to the output text area
+	 * @param e
+	 */
+	private void addExceptionToOutput(final Throwable e) {
+		try(final var traceWriter = new StringWriter();
+				final var printWriter = new PrintWriter(traceWriter)) {
+			e.printStackTrace(printWriter);
+			Platform.runLater(() -> textareaOutput.appendText(e.toString() + "\n" + traceWriter.toString()));	
+		}catch(Throwable error) {
+			error.printStackTrace();
 		}
 	}
 }
