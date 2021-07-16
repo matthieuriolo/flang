@@ -4,6 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import ch.ffhs.fac.flang.base.TestParserBase;
 
+/**
+ * Unit tests for boolean algebra
+ * @author matthieuriolo
+ *
+ */
 public class BooleanAlgebra extends TestParserBase {
 	@Test
 	public void testAnd() throws Throwable {

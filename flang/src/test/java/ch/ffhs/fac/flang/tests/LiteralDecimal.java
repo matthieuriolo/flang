@@ -7,6 +7,11 @@ import org.junit.jupiter.api.Test;
 
 import ch.ffhs.fac.flang.base.TestParserBase;
 
+/**
+ * Unit tests for literal decimal
+ * @author matthieuriolo
+ *
+ */
 public class LiteralDecimal extends TestParserBase {
 	@Test
 	public void testAddition() throws Throwable {

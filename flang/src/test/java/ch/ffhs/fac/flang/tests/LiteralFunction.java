@@ -4,6 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import ch.ffhs.fac.flang.base.TestParserBase;
 
+/**
+ * Unit tests for literal function
+ * @author matthieuriolo
+ *
+ */
 public class LiteralFunction extends TestParserBase {
 	@Test
 	public void testEnd() throws Throwable {

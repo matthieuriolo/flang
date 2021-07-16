@@ -4,6 +4,12 @@ import org.junit.jupiter.api.Test;
 
 import ch.ffhs.fac.flang.base.TestParserBase;
 
+
+/**
+ * Unit tests for structural elements like IF, WHILE and FOR
+ * @author matthieuriolo
+ *
+ */
 public class Structure extends TestParserBase {
 	@Test
 	public void testWhile() throws Throwable {

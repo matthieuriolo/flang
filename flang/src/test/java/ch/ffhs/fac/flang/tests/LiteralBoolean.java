@@ -6,6 +6,12 @@ import org.junit.jupiter.api.Test;
 
 import ch.ffhs.fac.flang.base.TestParserBase;
 
+
+/**
+ * Unit tests for literal boolean
+ * @author matthieuriolo
+ *
+ */
 public class LiteralBoolean extends TestParserBase {
 	@Test
 	public void testAddition() throws Throwable {
