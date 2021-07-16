@@ -69,6 +69,12 @@ public class App extends Application {
 
 	@FXML
 	private Button buttonInput;
+	
+	@FXML
+	private Button buttonExecute;
+	
+	@FXML
+	private Button buttonCancel;
 
 	/**
 	 * Launches the JavaFX Application
@@ -140,19 +146,30 @@ public class App extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * Handler for the button "cancel". Prevents the thread from further executing the parsed code
+	 * @param event
+	 */
+	@FXML
+	private void clickCancel(ActionEvent event) {
+		if (documentTask != null && !documentTask.isDone()) {
+			documentTask.cancel(true);
+		}
+	}
 
 	/**
 	 * Handler for the button "execute". Parses the content from the editor and executes the code in a separate thread
 	 * @param event
 	 */
 	@FXML
-	private void clickCompile(ActionEvent event) {
-		if (documentTask != null && !documentTask.isDone()) {
-			documentTask.cancel(true);
-		}
+	private void clickExecute(ActionEvent event) {
 		textareaOutput.clear();
 		textareaToken.clear();
-
+		buttonExecute.setDisable(true);
+		buttonCancel.setDisable(false);
+		buttonInput.setDisable(false);
+		
 		documentTask = new Task<Literal>() {
 			@Override
 			protected Literal call() throws Exception {
@@ -175,6 +192,10 @@ public class App extends Application {
 		};
 
 		documentTask.setOnFailed((evt) -> {
+			buttonExecute.setDisable(false);
+			buttonCancel.setDisable(true);
+			buttonInput.setDisable(true);
+			
 			textareaOutput.appendText("There has been an error\n");
 			StringWriter traceWriter = new StringWriter();
 			documentTask.getException().printStackTrace(new PrintWriter(traceWriter));
@@ -182,6 +203,10 @@ public class App extends Application {
 		});
 
 		documentTask.setOnSucceeded((evt) -> {
+			buttonExecute.setDisable(false);
+			buttonCancel.setDisable(true);
+			buttonInput.setDisable(true);
+			
 			textareaOutput
 					.appendText("Programm finished with return value: " + documentTask.getValue().toString() + "\n");
 		});
