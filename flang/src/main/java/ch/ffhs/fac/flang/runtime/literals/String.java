@@ -1,6 +1,5 @@
 package ch.ffhs.fac.flang.runtime.literals;
 
-import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import ch.ffhs.fac.flang.parser.interfaces.Literal;

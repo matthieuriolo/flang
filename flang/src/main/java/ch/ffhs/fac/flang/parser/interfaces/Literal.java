@@ -2,7 +2,6 @@ package ch.ffhs.fac.flang.parser.interfaces;
 
 import java.util.List;
 
-import ch.ffhs.fac.flang.parser.Location;
 import ch.ffhs.fac.flang.runtime.Context;
 
 public interface Literal extends Expression {

@@ -132,8 +132,8 @@ public interface Visitor {
 	 */
 	public void visitExpressionUnaryOperand(final UnaryOperation expr);
 	/**
-	 * Visits an expression from type {@link ArrayExpression}
-	 * @param expr {@link ArrayExpression}
+	 * Visits an expression from type {@link ArrayBuilder}
+	 * @param expr {@link ArrayBuilder}
 	 */
 	public void visitExpressionArrayBuilder(final ArrayBuilder expr);
 	/**
