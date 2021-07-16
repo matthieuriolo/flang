@@ -14,6 +14,7 @@ import java.util.concurrent.Executors;
 import ch.ffhs.fac.flang.parser.Parser;
 import ch.ffhs.fac.flang.parser.Scanner;
 import ch.ffhs.fac.flang.parser.interfaces.Literal;
+import ch.ffhs.fac.flang.runtime.Document;
 import ch.ffhs.fac.flang.runtime.std.ArrayCreate;
 import ch.ffhs.fac.flang.runtime.std.ArrayFilter;
 import ch.ffhs.fac.flang.runtime.std.ArrayGet;
@@ -87,7 +88,6 @@ public class App extends Application {
 			mainWindow = loader.load();
 			mainWindow.show();
 		} catch (IOException e) {
-			// TODO
 			e.printStackTrace();
 		}
 	}
@@ -156,84 +156,18 @@ public class App extends Application {
 		documentTask = new Task<Literal>() {
 			@Override
 			protected Literal call() throws Exception {
-				final var sourceCode = textareaCode.getText();
-				final var reader = new StringReader(sourceCode);
-				final var lexer = new Scanner(reader);
-				@SuppressWarnings("deprecation")
-				final var parser = new Parser(lexer) {
-					@Override
-					public Symbol scan() throws Exception {
-						final var sym = super.scan();
-						Platform.runLater(() -> {
-							textareaToken.appendText("State:      " + lexer.yystate() + "\n");
-							textareaToken.appendText("Match:      " + lexer.yytext() + "\n");
-							textareaToken.appendText("Nummeric:   " + sym + "\n");
-							textareaToken.appendText("Value:      " + sym.value + "\n");
-							textareaToken.appendText("Line:       " + sym.left + "\n");
-							textareaToken.appendText("Column:     " + sym.right + "\n");
-							textareaToken.appendText("\n");
-						});
-						return sym;
-					}
-				};
-// TODO: proper handling of exceptions in parser
-				//TODO: disable buttons
-				final var document = parser.parseDocument();
-				document.declareFunction(CastString.NAME, new CastString());
-				document.declareFunction(CastDecimal.NAME, new CastDecimal());
-				document.declareFunction(ArrayCreate.NAME, new ArrayCreate());
-				document.declareFunction(ArrayGet.NAME, new ArrayGet());
-				document.declareFunction(ArraySet.NAME, new ArraySet());
-				document.declareFunction(ArrayMap.NAME, new ArrayMap());
-				document.declareFunction(ArrayFilter.NAME, new ArrayFilter());
-				document.declareFunction(Print.NAME, new Print(new Writer() {
-					private StringBuffer buffer = new StringBuffer();
-
-					@Override
-					public void write(char[] cbuf, int off, int len) throws IOException {
-						if (buffer.length() > 0) {
-							buffer.append(" ");
-						}
-
-						buffer.append(new String(cbuf, off, len));
-					}
-
-					@Override
-					public void flush() throws IOException {
-						buffer.append("\n");
-						final var str = buffer.toString();
-						buffer = new StringBuffer();
-						Platform.runLater(() -> textareaOutput.appendText(str));
-					}
-
-					@Override
-					public void close() throws IOException {
-					}
-				}));
-
-				try (PipedReader userReader = new PipedReader();
-						PipedWriter userWriter = new PipedWriter(userReader)) {
-					buttonInput.setOnMouseClicked(new EventHandler<Event>() {
-						@Override
-						public void handle(Event event) {
-							try {
-								userWriter.write(textfieldInput.getText() + "\n");
-							} catch (IOException e) {
-								throw new RuntimeException(e);
-							}
-						}
-					});
-					document.declareFunction(Read.NAME, new Read(new BufferedReader(userReader)));
-					
-					final var astStr = new ASTStringBuilder();
-					astStr.visitDocument(document);
-					textareaAST.setText(astStr.getString());
-					
-					final var validator = new Validator();
-					validator.visitDocument(document);
-					
+				final var document = parse();
+				initializeDocument(document);
+				
+				final var astStr = new ASTStringBuilder();
+				astStr.visitDocument(document);
+				textareaAST.setText(astStr.getString());
+				
+				final var validator = new Validator();
+				validator.visitDocument(document);
+				try {
 					return document.execute();
-				} catch (Throwable e) {
+				}catch(Throwable e) {
 					// TODO
 					throw new Exception(e);
 				}
@@ -255,5 +189,98 @@ public class App extends Application {
 		final var executor = Executors.newSingleThreadExecutor();
 		executor.execute(documentTask);
 		executor.shutdown();
+	}
+	
+	/**
+	 * Constructs an document from the textarea by using the parser
+	 * @return
+	 * @throws Exception
+	 */
+	private Document parse() throws Exception {
+		final var sourceCode = textareaCode.getText();
+		final var reader = new StringReader(sourceCode);
+		final var lexer = new Scanner(reader);
+		@SuppressWarnings("deprecation")
+		// implement lexer observer
+		final var parser = new Parser(lexer) {
+			@Override
+			public Symbol scan() throws Exception {
+				final var sym = super.scan();
+				Platform.runLater(() -> {
+					textareaToken.appendText("State:      " + lexer.yystate() + "\n");
+					textareaToken.appendText("Match:      " + lexer.yytext() + "\n");
+					textareaToken.appendText("Nummeric:   " + sym + "\n");
+					textareaToken.appendText("Value:      " + sym.value + "\n");
+					textareaToken.appendText("Line:       " + sym.left + "\n");
+					textareaToken.appendText("Column:     " + sym.right + "\n");
+					textareaToken.appendText("\n");
+				});
+				return sym;
+			}
+		};
+//TODO: proper handling of exceptions in parser
+		//TODO: disable buttons
+		return parser.parseDocument();
+	}
+	
+	/**
+	 * Adds some default functions to the document class
+	 * @param document
+	 * @throws Exception
+	 */
+	private void initializeDocument(final Document document) throws Exception {
+		// add some default functions
+		document.declareFunction(CastString.NAME, new CastString());
+		document.declareFunction(CastDecimal.NAME, new CastDecimal());
+		document.declareFunction(ArrayCreate.NAME, new ArrayCreate());
+		document.declareFunction(ArrayGet.NAME, new ArrayGet());
+		document.declareFunction(ArraySet.NAME, new ArraySet());
+		document.declareFunction(ArrayMap.NAME, new ArrayMap());
+		document.declareFunction(ArrayFilter.NAME, new ArrayFilter());
+		
+		// add function "print"
+		document.declareFunction(Print.NAME, new Print(new Writer() {
+			private StringBuffer buffer = new StringBuffer();
+
+			@Override
+			public void write(char[] cbuf, int off, int len) throws IOException {
+				if (buffer.length() > 0) {
+					buffer.append(" ");
+				}
+
+				buffer.append(new String(cbuf, off, len));
+			}
+
+			@Override
+			public void flush() throws IOException {
+				buffer.append("\n");
+				final var str = buffer.toString();
+				buffer = new StringBuffer();
+				Platform.runLater(() -> textareaOutput.appendText(str));
+			}
+
+			@Override
+			public void close() throws IOException {
+			}
+		}));
+
+		// add function "read"
+		try (PipedReader userReader = new PipedReader();
+				PipedWriter userWriter = new PipedWriter(userReader)) {
+			buttonInput.setOnMouseClicked(new EventHandler<Event>() {
+				@Override
+				public void handle(Event event) {
+					try {
+						userWriter.write(textfieldInput.getText() + "\n");
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+				}
+			});
+			document.declareFunction(Read.NAME, new Read(new BufferedReader(userReader)));
+		} catch (Throwable e) {
+			// TODO
+			throw new Exception(e);
+		}
 	}
 }
