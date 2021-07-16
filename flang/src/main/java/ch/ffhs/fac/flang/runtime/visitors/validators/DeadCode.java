@@ -9,6 +9,7 @@ import ch.ffhs.fac.flang.runtime.instructions.If;
 import ch.ffhs.fac.flang.runtime.instructions.ProcedureCall;
 import ch.ffhs.fac.flang.runtime.instructions.Return;
 import ch.ffhs.fac.flang.runtime.instructions.While;
+import ch.ffhs.fac.flang.runtime.literals.Function;
 
 public class DeadCode extends VisitorBase {
 	private boolean foundReturn = false;
@@ -57,6 +58,12 @@ public class DeadCode extends VisitorBase {
 	public void visitInstructionIf(If instr) {
 		validateDeadCode(instr);
 		super.visitInstructionIf(instr);
+		foundReturn = false;
+	}
+	
+	@Override
+	public void visitLiteralFunction(final Function obj) {
+		super.visitLiteralFunction(obj);
 		foundReturn = false;
 	}
 }
