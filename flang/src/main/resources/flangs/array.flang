@@ -1,0 +1,9 @@
+a = [1,2,3,4,5,6,7,8,9]
+a = array_filter(a, :(elem) {
+	return elem > 3 AND elem <7
+})
+a = array_map(a, :(elem) {
+	return elem * 3
+})
+
+print(a)

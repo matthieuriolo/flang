@@ -1,0 +1,13 @@
+vec = [3,4]
+matrix = [
+	[1, 2],
+	[3, 4]
+]
+
+multi = :(v, m) {
+	return [
+		m[0][0] * v[0] + m[1][0] * v[1],
+		m[0][1] * v[0] + m[1][1] * v[1]
+	]
+}
+print(multi(vec, matrix))
