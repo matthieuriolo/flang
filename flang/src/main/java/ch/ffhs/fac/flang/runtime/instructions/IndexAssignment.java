@@ -40,7 +40,7 @@ public class IndexAssignment extends LocatedInTextBase implements Instruction {
 
 	@Override
 	public Literal execute(Context closure) throws Throwable {
-		var lit = closure.getValue(identifier.getName());
+		var lit = closure.getValue(identifier);
 		final var iter = indexes.iterator();
 		while(iter.hasNext()) {
 			final var expr = iter.next();

@@ -24,7 +24,7 @@ public class Identifier extends LocatedInTextBase implements Expression {
 	
 	@Override
 	public Literal compute(Context closure) throws Throwable {
-		return closure.getValue(getName());
+		return closure.getValue(this);
 	}
 	
 	@Override

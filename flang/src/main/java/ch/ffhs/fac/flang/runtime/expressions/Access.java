@@ -32,7 +32,7 @@ public class Access extends LocatedInTextBase implements Expression {
 
 	@Override
 	public Literal compute(Context closure) throws Throwable {
-		var lit = closure.getValue(identifier.getName());
+		var lit = closure.getValue(identifier);
 		for(final var expr : expressions) {
 			lit = lit.getAccess(expr.compute(closure));
 		}
