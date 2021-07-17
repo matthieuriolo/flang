@@ -22,7 +22,6 @@ import ch.ffhs.fac.flang.runtime.std.CastString;
 import ch.ffhs.fac.flang.runtime.std.Print;
 import ch.ffhs.fac.flang.runtime.std.Read;
 import ch.ffhs.fac.flang.runtime.visitors.ASTStringBuilder;
-import ch.ffhs.fac.flang.runtime.visitors.Validator;
 import java_cup.runtime.Symbol;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -181,9 +180,8 @@ public class App extends Application {
 				astStr.visitDocument(document);
 				textareaAST.setText(astStr.getString());
 				
-				final var validator = new Validator();
-				validator.visitDocument(document);
 				try {
+					document.validate();
 					return document.execute();
 				}catch(Throwable e) {
 					throw new Exception(e);
