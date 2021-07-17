@@ -1,4 +1,7 @@
-package ch.ffhs.fac.flang.parser;
+package ch.ffhs.fac.flang.parser.exceptions;
+
+import ch.ffhs.fac.flang.parser.Location;
+
 /**
  * Exception thrown by the lexer when an invalid token has been encountered
  * @author matthieuriolo

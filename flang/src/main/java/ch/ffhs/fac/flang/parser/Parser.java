@@ -7,6 +7,7 @@ package ch.ffhs.fac.flang.parser;
 
 import java_cup.runtime.Symbol;
 import ch.ffhs.fac.flang.parser.interfaces.*;
+import ch.ffhs.fac.flang.parser.exceptions.*;
 import ch.ffhs.fac.flang.runtime.*;
 import ch.ffhs.fac.flang.runtime.expressions.*;
 import ch.ffhs.fac.flang.runtime.instructions.*;

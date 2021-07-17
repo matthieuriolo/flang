@@ -1,6 +1,8 @@
-package ch.ffhs.fac.flang.parser;
+package ch.ffhs.fac.flang.parser.exceptions;
 
 import java.util.List;
+
+import ch.ffhs.fac.flang.parser.Location;
 
 /**
  * Exception for grammar error inside the parser

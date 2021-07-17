@@ -4,6 +4,7 @@ package ch.ffhs.fac.flang.parser;
  FLang Scanner
 */
 
+import ch.ffhs.fac.flang.parser.exceptions.*;
 import java_cup.runtime.*;
 import java.math.BigDecimal;
 
