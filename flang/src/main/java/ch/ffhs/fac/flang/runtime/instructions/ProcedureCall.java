@@ -9,6 +9,11 @@ import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.FunctionBase;
 
+/**
+ * Instruction for a procedure call (aka ignoring the return statement of the function)
+ * @author matthieuriolo
+ *
+ */
 public class ProcedureCall extends FunctionBase implements Instruction {
 	public ProcedureCall(final Expression subject) {
 		super(subject, List.of());

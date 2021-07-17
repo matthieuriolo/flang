@@ -9,6 +9,11 @@ import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.LocatedInTextBase;
 
+/**
+ * Instruction for an if statement
+ * @author matthieuriolo
+ *
+ */
 public class If extends LocatedInTextBase implements Instruction {
 	private final Expression condition;
 	private final List<Instruction> instructions;
@@ -24,14 +29,26 @@ public class If extends LocatedInTextBase implements Instruction {
 		this.elseInstructions = elseInstructions;
 	}
 	
+	/**
+	 * Getter for the condition
+	 * @return an {@link Expression}
+	 */
 	public Expression getCondition() {
 		return condition;
 	}
 
+	/**
+	 * Getter for the containing instructions inside the if block
+	 * @return a list of {@link Instruction}
+	 */
 	public List<Instruction> getInstructions() {
 		return instructions;
 	}
 
+	/**
+	 * Getter for the containing instructions inside the else block
+	 * @return a list of {@link Instruction}
+	 */
 	public List<Instruction> getElseInstructions() {
 		return elseInstructions;
 	}

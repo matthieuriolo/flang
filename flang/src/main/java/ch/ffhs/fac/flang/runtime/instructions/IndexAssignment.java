@@ -9,7 +9,11 @@ import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.LocatedInTextBase;
 import ch.ffhs.fac.flang.runtime.expressions.Identifier;
-
+/**
+ * Instruction when assigning a value to an indexed identifier (array like)
+ * @author matthieuriolo
+ *
+ */
 public class IndexAssignment extends LocatedInTextBase implements Instruction {
 	private final Identifier identifier;
 	private final LinkedList<Expression> indexes;
@@ -21,14 +25,26 @@ public class IndexAssignment extends LocatedInTextBase implements Instruction {
 		this.expression = expression;
 	}
 	
+	/**
+	 * Getter of the identifier
+	 * @return a {@link Identifier}
+	 */
 	public Identifier getIdentifier() {
 		return identifier;
 	}
 	
+	/**
+	 * Getter of the indexes
+	 * @return a list of {@link Expression}
+	 */
 	public LinkedList<Expression> getIndexes() {
 		return indexes;
 	}
 	
+	/**
+	 * Getter of the expression
+	 * @return an {@link Expression}
+	 */
 	public Expression getExpression() {
 		return expression;
 	}

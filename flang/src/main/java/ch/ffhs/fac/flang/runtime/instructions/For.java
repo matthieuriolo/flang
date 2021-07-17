@@ -12,6 +12,11 @@ import ch.ffhs.fac.flang.runtime.bases.LocatedInTextBase;
 import ch.ffhs.fac.flang.runtime.expressions.Identifier;
 import ch.ffhs.fac.flang.runtime.literals.Decimal;
 
+/**
+ * Instruction for a for-loop
+ * @author matthieuriolo
+ *
+ */
 public class For extends LocatedInTextBase implements Instruction {
 	private final Identifier identifier;
 	private final Expression from;
@@ -59,22 +64,41 @@ public class For extends LocatedInTextBase implements Instruction {
 		this.instructions = instructions;
 	}
 	
+	/**
+	 * Getter of the identifier
+	 * @return a {@link Identifier}
+	 */
 	public Identifier getIdentifier() {
 		return identifier;
 	}
-
+	/**
+	 * Getter for the initial value
+	 * @return a {@link Expression}
+	 */
 	public Expression getFrom() {
 		return from;
 	}
 
+	/**
+	 * Getter for the terminal value
+	 * @return a {@link Expression}
+	 */
 	public Expression getTo() {
 		return to;
 	}
 
+	/**
+	 * Getter the step size
+	 * @return a {@link Expression}
+	 */
 	public Expression getBy() {
 		return by;
 	}
 
+	/**
+	 * Getter for the containing instructions inside the loop
+	 * @return a list of {@link Instruction}
+	 */
 	public List<Instruction> getInstructions() {
 		return instructions;
 	}

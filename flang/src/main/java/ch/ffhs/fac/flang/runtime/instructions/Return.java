@@ -8,6 +8,11 @@ import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.LocatedInTextBase;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
+/**
+ * Instruction for a return statement
+ * @author matthieuriolo
+ *
+ */
 public class Return extends LocatedInTextBase implements Instruction {
 	private final Expression expression;
 	
@@ -19,6 +24,10 @@ public class Return extends LocatedInTextBase implements Instruction {
 		this.expression = expression;
 	}
 	
+	/**
+	 * Getter of the expression
+	 * @return a {@link Expression}
+	 */
 	public Expression getExpression() {
 		return expression;
 	}

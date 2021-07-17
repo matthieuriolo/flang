@@ -9,6 +9,11 @@ import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.LocatedInTextBase;
 
+/**
+ * Instruction for a while-loop
+ * @author matthieuriolo
+ *
+ */
 public class While extends LocatedInTextBase implements Instruction {
 	private final Expression condition;
 	private final List<Instruction> instructions;
@@ -17,11 +22,18 @@ public class While extends LocatedInTextBase implements Instruction {
 		this.condition = condition;
 		this.instructions = instructions;
 	}
-	
+	/**
+	 * Getter for the condition
+	 * @return an {@link Expression}
+	 */
 	public Expression getCondition() {
 		return condition;
 	}
 
+	/**
+	 * Getter for the containing instructions inside the loop
+	 * @return a list of {@link Instruction}
+	 */
 	public List<Instruction> getInstructions() {
 		return instructions;
 	}
