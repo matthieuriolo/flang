@@ -9,6 +9,11 @@ import ch.ffhs.fac.flang.runtime.literals.Array;
 import ch.ffhs.fac.flang.runtime.literals.Function;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
+/**
+ * Function bridge for filtering the values in an {@link Array} 
+ * @author matthieuriolo
+ *
+ */
 public class ArrayFilter implements FunctionBridgeBase {
 	public static final String NAME = "array_filter";
 	private static final int ARGUMENT_COUNT = 2;

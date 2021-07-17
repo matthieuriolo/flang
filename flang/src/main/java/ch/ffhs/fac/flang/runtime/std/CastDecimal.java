@@ -7,6 +7,11 @@ import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.FunctionBridgeBase;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
+/**
+ * Function bridge for converting any literal type to a {@link Decimal}
+ * @author matthieuriolo
+ *
+ */
 public class CastDecimal implements FunctionBridgeBase {
 	public static final String NAME = "cast_decimal";
 	private static final int ARGUMENT_COUNT = 1;

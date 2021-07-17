@@ -8,6 +8,11 @@ import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.FunctionBridgeBase;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
+/**
+ * Function bridge for displaying literals to the user
+ * @author matthieuriolo
+ *
+ */
 public class Print implements FunctionBridgeBase {
 	public static final String NAME = "print";
 	private final Writer writer;

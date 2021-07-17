@@ -7,6 +7,11 @@ import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.FunctionBridgeBase;
 
+/**
+ * Function bridge for reading literals from an user input
+ * @author matthieuriolo
+ *
+ */
 public class Read implements FunctionBridgeBase {
 	public static final String NAME = "read";
 	private final BufferedReader reader;
