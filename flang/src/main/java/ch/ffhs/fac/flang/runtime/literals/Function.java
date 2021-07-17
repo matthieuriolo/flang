@@ -10,6 +10,11 @@ import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.LiteralBase;
 import ch.ffhs.fac.flang.runtime.expressions.Identifier;
 
+/**
+ * Literal for the type "Function"
+ * @author matthieuriolo
+ *
+ */
 public class Function extends LiteralBase {
 	public final static java.lang.String NAME = "Function";
 	public static final Identifier MAGIC_ARGUMENTS = new Identifier("__arguments__");
@@ -26,10 +31,18 @@ public class Function extends LiteralBase {
 		this.instructions = instructions;
 	}
 	
+	/**
+	 * Getter for the parameters of the function
+	 * @return a list of {@link Instruction}
+	 */
 	public List<Identifier> getParameters() {
 		return parameters;
 	}
 
+	/**
+	 * Getter for the containing instructions inside the function
+	 * @return a list of {@link Instruction}
+	 */
 	public List<Instruction> getInstructions() {
 		return instructions;
 	}

@@ -5,6 +5,11 @@ import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.LiteralBase;
 
+/**
+ * Literal for the type "Undefined"
+ * @author matthieuriolo
+ *
+ */
 public class Undefined extends LiteralBase {
 	public final static java.lang.String NAME = "Undefined";
 	public static final Undefined UNDEFINED = new Undefined();

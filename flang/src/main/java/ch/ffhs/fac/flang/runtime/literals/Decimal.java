@@ -8,6 +8,11 @@ import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.LiteralBase;
 
+/**
+ * Literal for the type "Decimal" (aka int and double)
+ * @author matthieuriolo
+ *
+ */
 public class Decimal extends LiteralBase {
 	public final static java.lang.String NAME = "Decimal";
 	public final static Decimal ZERO = new Decimal("0");
@@ -34,8 +39,11 @@ public class Decimal extends LiteralBase {
 	public Decimal(final double value) {
 		this(new BigDecimal(value));
 	}
-	//TODO: create method with rounded int value returned
 	
+	/**
+	 * Getter for the internal {@link BigDecimal} value
+	 * @return a {@link BigDecimal}
+	 */
 	public BigDecimal getValue() {
 		return value;
 	}

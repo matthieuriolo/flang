@@ -7,6 +7,11 @@ import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.LiteralBase;
 
+/**
+ * Literal for the type "String"
+ * @author matthieuriolo
+ *
+ */
 public class String extends LiteralBase {
 	public final static java.lang.String NAME = "String";
 	private final java.lang.String string;

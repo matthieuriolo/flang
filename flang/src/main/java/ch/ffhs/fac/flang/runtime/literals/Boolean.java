@@ -4,6 +4,11 @@ import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.bases.LiteralBase;
 
+/**
+ * Literal for the type "Boolean"
+ * @author matthieuriolo
+ *
+ */
 public class Boolean extends LiteralBase {
 	public final static java.lang.String NAME = "Boolean";
 	public static final Boolean TRUE = new Boolean("TRUE");

@@ -10,6 +10,11 @@ import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.LiteralBase;
 
+/**
+ * Literal for the type "Array"
+ * @author matthieuriolo
+ *
+ */
 public class Array extends LiteralBase {
 	public final static java.lang.String NAME = "Array";
 	private final List<Literal> values;
@@ -18,6 +23,11 @@ public class Array extends LiteralBase {
 		this.values = values;
 	}
 
+	/**
+	 * Retrieves the value as position index
+	 * @param index is the position inside the array
+	 * @return undefined if index is greater than the array size of the value at position index
+	 */
 	public Literal get(final int index) {
 		if(index >= values.size()) {
 			return Undefined.UNDEFINED;
@@ -25,6 +35,12 @@ public class Array extends LiteralBase {
 		return values.get(index);
 	}
 
+	/**
+	 * Sets the value as position index
+	 * @param index is the position inside the array
+	 * @param value is the new value which should be set
+	 * @return undefined if index is greater than the array size of the value at position index
+	 */
 	public Literal set(final int index, final Literal value) {
 		if(index >= values.size()) {
 			return Undefined.UNDEFINED;
@@ -32,18 +48,32 @@ public class Array extends LiteralBase {
 		return Objects.requireNonNullElse(values.set(index, value), Undefined.UNDEFINED);
 	}
 
-	public Array map(final Context closure, final Function func) throws Throwable {
+	/**
+	 * Applies a function to every element inside array and returns a new array
+	 * @param context is the scope in which the literal gets called from
+	 * @param func is a {@link Function} which should be applied to the elements
+	 * @return a new array with the converted values
+	 * @throws Throwable
+	 */
+	public Array map(final Context context, final Function func) throws Throwable {
 		final var list = new LinkedList<Literal>();
 		for (final var val : values) {
-			list.add(func.functionalCall(closure, List.of(val)));
+			list.add(func.functionalCall(context, List.of(val)));
 		}
 		return new Array(list);
 	}
 
-	public Array filter(final Context closure, final Function func) throws Throwable {
+	/**
+	 * Filters the elements based on a function which should return true (keep in array) or false
+	 * @param context is the scope in which the literal gets called from
+	 * @param func is a {@link Function} which should be applied to the elements
+	 * @return a new array with the filtered values
+	 * @throws Throwable
+	 */
+	public Array filter(final Context context, final Function func) throws Throwable {
 		final var list = new LinkedList<Literal>();
 		for (final var val : values) {
-			final var ret = func.functionalCall(closure, List.of(val));
+			final var ret = func.functionalCall(context, List.of(val));
 			if (ret.toBoolean()) {
 				list.add(val);
 			}
