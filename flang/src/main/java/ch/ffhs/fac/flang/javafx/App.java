@@ -212,17 +212,22 @@ public class App extends Application {
 		buttonExecute.setDisable(false);
 		buttonCancel.setDisable(true);
 		buttonInput.setDisable(true);
-		
-		try {
-			functionReadReader.close();
-		}catch(Throwable e) {
-			addExceptionToOutput(e);
+		if(functionReadReader != null) {
+			try {
+				functionReadReader.close();
+				functionReadReader = null;
+			}catch(Throwable e) {
+				addExceptionToOutput(e);
+			}
 		}
 		
-		try {
-			functionReadWriter.close();
-		}catch(Throwable e) {
-			addExceptionToOutput(e);
+		if(functionReadWriter != null) {
+			try {
+				functionReadWriter.close();
+				functionReadWriter = null;
+			}catch(Throwable e) {
+				addExceptionToOutput(e);
+			}
 		}
 	}
 	
