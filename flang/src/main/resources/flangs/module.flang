@@ -1,0 +1,22 @@
+
+# Funktionsdeklaration
+einfachModuloFunktion = :(dividend, divisor) {
+	# nur positive Zahlen, ansonsten wird UNDEFINED ausgegeben
+	if dividend < 0 or divisor <= 0 {
+		end
+	}
+	
+	rest = dividend
+	# Den Rest berechnen
+	while rest > divisor {
+		rest = rest - divisor
+	}
+	
+	# Rückgabe
+	return rest
+}
+
+# wird 2 ausgeben
+print(einfachModuloFunktion(27, 5))
+
+
