@@ -26,48 +26,83 @@ import ch.ffhs.fac.flang.runtime.literals.Decimal;
 import ch.ffhs.fac.flang.runtime.literals.Function;
 import ch.ffhs.fac.flang.runtime.literals.String;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
-
+/**
+ * ASTStringBuilder is a visitor which builds a textual representation of the AST
+ * @author matthieuriolo
+ *
+ */
 public class ASTStringBuilder implements Visitor {
 	final private StringBuilder bld = new StringBuilder();
 	private int indentationCount = 0;
 	
+	/**
+	 * Retrieves the textual representation of the AST
+	 * @return the AST as String
+	 */
 	public java.lang.String getString() {
 		return bld.toString();
 	}
 	
+	/**
+	 * Convenience method which joins an array of strings together and append it to the buffer
+	 * @param strs array of strings
+	 */
 	private void append(final java.lang.String... strs) {
 		append(java.lang.String.join(" ", strs));
 	}
 	
+	/**
+	 * Convenience method which appends a string to the buffer (inclusive indentation and new line)
+	 * @param str the string to be append
+	 */
 	private void append(final java.lang.String str) {
 		bld.append("  ".repeat(indentationCount));
 		bld.append(str);
 		bld.append("\n");
 	}
 	
+	/**
+	 * Appends the textual representation of a visitable object (inclusive indentation)
+	 * @param host which should be append to the buffer
+	 */
 	private void append(final Visitable host) {
 		increment();
 		host.acceptVisitor(this);
 		decrement();
 	}
 	
+	/**
+	 * Appends the textual representation of a list of visitable object (inclusive indentation)
+	 * @param hosts which should be append to the buffer
+	 */
 	private void append(final List<? extends Visitable> hosts) {
 		increment();
 		hosts.stream().forEach(host -> host.acceptVisitor(this));
 		decrement();
 	}
 	
+	/**
+	 * Appends a literal to the buffer
+	 * @param type is the name/type of the literal
+	 * @param value is the textual value of the literal
+	 */
 	private void appendLiteral(final java.lang.String type, final java.lang.String value) {
 		append(type + "(" + value + ")");
 	}
 	
+	/**
+	 * Increases internal indentation counter
+	 */
 	private void increment() {
 		indentationCount++;
 	}
 	
+	/**
+	 * Decreases internal indentation counter
+	 */
 	private void decrement() {
 		indentationCount--;
-		assert indentationCount > 0;
+		assert indentationCount >= 0;
 	}
 	
 	@Override
