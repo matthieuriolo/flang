@@ -27,11 +27,24 @@ import ch.ffhs.fac.flang.runtime.literals.Function;
 import ch.ffhs.fac.flang.runtime.literals.String;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
+/**
+ * Base class for visitors. This implementation will travel through every structure element (Deep first search)
+ * @author matthieuriolo
+ *
+ */
 public abstract class VisitorBase implements Visitor {
+	/**
+	 * Convenience method for visiting a {@link Visitable}
+	 * @param host is a {@link Visitable} which should be visited
+	 */
 	private void visit(final Visitable host) {
 		host.acceptVisitor(this);
 	}
 	
+	/**
+	 * Convenience method for visiting a list of {@link Visitable}
+	 * @param hosts is a list of {@link Visitable} which should be visited
+	 */
 	private void visit(final List<? extends Visitable> hosts) {
 		hosts.stream().forEach(host -> host.acceptVisitor(this));
 	}

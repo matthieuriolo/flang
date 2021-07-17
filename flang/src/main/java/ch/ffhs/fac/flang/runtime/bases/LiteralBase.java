@@ -8,6 +8,11 @@ import ch.ffhs.fac.flang.runtime.literals.Boolean;
 import ch.ffhs.fac.flang.runtime.literals.Decimal;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
+/**
+ * Base class for all literals which provides a default implementation of most methods
+ * @author matthieuriolo
+ *
+ */
 public abstract class LiteralBase extends LocatedInTextBase implements Literal {
 	@Override
 	public boolean equals(Object obj) {
