@@ -11,10 +11,20 @@ import ch.ffhs.fac.flang.runtime.instructions.Return;
 import ch.ffhs.fac.flang.runtime.instructions.While;
 import ch.ffhs.fac.flang.runtime.literals.Function;
 
+/**
+ * Validator class which tests if there is code which cannot be reached
+ * @author matthieuriolo
+ *
+ */
 public class DeadCode extends VisitorBase {
 	private boolean foundReturn = false;
 	
-	private void validateDeadCode(final LocatedInText located) {
+	/**
+	 * Tests if a return statement was earlier found 
+	 * @throws DeadCodeException
+	 * @param located is the location of the current instruction
+	 */
+	private void validateDeadCode(final LocatedInText located) throws DeadCodeException {
 		if(foundReturn) {
 			throw new DeadCodeException(located.getLocation());
 		}
