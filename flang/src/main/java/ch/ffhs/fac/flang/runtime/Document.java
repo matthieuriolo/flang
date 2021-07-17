@@ -30,6 +30,10 @@ public class Document extends Context implements Visitable {
 		this.instructions = instructions;
 	}
 	
+	/**
+	 * Getter for instructions
+	 * @return list of instructions
+	 */
 	public List<Instruction> getInstructions() {
 		return instructions;
 	}
