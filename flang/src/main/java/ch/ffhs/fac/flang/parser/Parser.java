@@ -5,28 +5,14 @@
 
 package ch.ffhs.fac.flang.parser;
 
+import java_cup.runtime.Symbol;
+import ch.ffhs.fac.flang.parser.interfaces.*;
+import ch.ffhs.fac.flang.runtime.*;
+import ch.ffhs.fac.flang.runtime.expressions.*;
+import ch.ffhs.fac.flang.runtime.instructions.*;
+import java.util.*;
 import java.math.BigDecimal;
-import java.util.LinkedList;
-import java.util.List;
-
-import ch.ffhs.fac.flang.parser.interfaces.Expression;
-import ch.ffhs.fac.flang.parser.interfaces.Instruction;
-import ch.ffhs.fac.flang.parser.interfaces.Literal;
-import ch.ffhs.fac.flang.parser.interfaces.LocatedInText;
-import ch.ffhs.fac.flang.runtime.Document;
-import ch.ffhs.fac.flang.runtime.expressions.Access;
-import ch.ffhs.fac.flang.runtime.expressions.ArrayBuilder;
-import ch.ffhs.fac.flang.runtime.expressions.BinaryOperation;
-import ch.ffhs.fac.flang.runtime.expressions.FunctionCall;
-import ch.ffhs.fac.flang.runtime.expressions.Identifier;
-import ch.ffhs.fac.flang.runtime.expressions.UnaryOperation;
-import ch.ffhs.fac.flang.runtime.instructions.Assignment;
-import ch.ffhs.fac.flang.runtime.instructions.For;
-import ch.ffhs.fac.flang.runtime.instructions.If;
-import ch.ffhs.fac.flang.runtime.instructions.IndexAssignment;
-import ch.ffhs.fac.flang.runtime.instructions.ProcedureCall;
-import ch.ffhs.fac.flang.runtime.instructions.Return;
-import ch.ffhs.fac.flang.runtime.instructions.While;
+import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 (GIT 4ac7450) generated parser.
   */
@@ -549,6 +535,18 @@ public class Parser extends java_cup.runtime.lr_parser {
 	
 	private void setLoc(final LocatedInText o, final int line, final int col) {
 		o.setLocation(new Location(line + 1, col));
+	}
+	
+	@Override
+	public void syntax_error(Symbol cur_token)
+	{
+		List<Integer> ids = expected_token_ids();
+		LinkedList<String> list = new LinkedList<String>();
+		for (Integer expected : ids){
+			list.add(symbl_name_from_id(expected));
+		}
+		
+		throw new ParserException(list, new Location(cur_token.left + 1, cur_token.right));
 	}
 
 

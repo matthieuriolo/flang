@@ -1,5 +1,7 @@
 package ch.ffhs.fac.flang.parser;
 
+import java_cup.runtime.Symbol;
+
 import ch.ffhs.fac.flang.parser.interfaces.*;
 import ch.ffhs.fac.flang.runtime.*;
 import ch.ffhs.fac.flang.runtime.expressions.*;
@@ -21,6 +23,18 @@ parser code {:
 	
 	private void setLoc(final LocatedInText o, final int line, final int col) {
 		o.setLocation(new Location(line + 1, col));
+	}
+	
+	@Override
+	public void syntax_error(Symbol cur_token)
+	{
+		List<Integer> ids = expected_token_ids();
+		LinkedList<String> list = new LinkedList<String>();
+		for (Integer expected : ids){
+			list.add(symbl_name_from_id(expected));
+		}
+		
+		throw new ParserException(list, new Location(cur_token.left + 1, cur_token.right));
 	}
 :};
 

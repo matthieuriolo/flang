@@ -258,7 +258,7 @@ public class App extends Application {
 				return sym;
 			}
 		};
-//TODO: proper handling of exceptions in parser
+		
 		return parser.parseDocument();
 	}
 	
