@@ -7,11 +7,21 @@ import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.LocatedInTextBase;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
+/**
+ * Expression for binary operation (as example 1+1)
+ * @author matthieuriolo
+ *
+ */
 public class BinaryOperation extends LocatedInTextBase implements Expression {
 	private final Expression left;
 	private final Expression right;
 	private final Type type;
-
+	
+	/**
+	 * Enum containing the supported operators
+	 * @author matthieuriolo
+	 *
+	 */
 	public enum Type {
 		OR("OR"),
 		AND("AND"),
@@ -33,6 +43,10 @@ public class BinaryOperation extends LocatedInTextBase implements Expression {
 			this.name = name;
 		}
 		
+		/**
+		 * Getter for the name of the type
+		 * @return the name of the type
+		 */
 		public java.lang.String getName() {
 			return name;
 		}
@@ -44,14 +58,26 @@ public class BinaryOperation extends LocatedInTextBase implements Expression {
 		this.right = right;
 	}
 
+	/**
+	 * Getter for the left handed operand
+	 * @return an {@link Expression}
+	 */
 	public Expression getLeft() {
 		return left;
 	}
 
+	/**
+	 * Getter for the right handed operand
+	 * @return an {@link Expression}
+	 */
 	public Expression getRight() {
 		return right;
 	}
 
+	/**
+	 * Getter for the operator
+	 * @return a {@link Type}
+	 */
 	public Type getType() {
 		return type;
 	}

@@ -11,6 +11,11 @@ import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.FunctionBase;
 import ch.ffhs.fac.flang.runtime.literals.Undefined;
 
+/**
+ * Expression when a literal gets called like a function
+ * @author matthieuriolo
+ *
+ */
 public class FunctionCall extends FunctionBase implements Expression, Visitable {
 	public FunctionCall(final Expression subject) {
 		super(subject);

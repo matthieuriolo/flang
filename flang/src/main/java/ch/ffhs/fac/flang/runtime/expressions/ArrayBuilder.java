@@ -9,6 +9,11 @@ import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.LocatedInTextBase;
 import ch.ffhs.fac.flang.runtime.literals.Array;
 
+/**
+ * Expression for creating an array
+ * @author matthieuriolo
+ *
+ */
 public class ArrayBuilder extends LocatedInTextBase implements Expression {
 	private final LinkedList<Expression> expressions;
 	
@@ -16,7 +21,10 @@ public class ArrayBuilder extends LocatedInTextBase implements Expression {
 	public ArrayBuilder(final LinkedList<Expression> expressions) {
 		this.expressions = expressions;
 	}
-	
+	/**
+	 * Getter for the expressions (values)
+	 * @return a list of {@link Expression}
+	 */
 	public LinkedList<Expression> getExpressions() {
 		return expressions;
 	}

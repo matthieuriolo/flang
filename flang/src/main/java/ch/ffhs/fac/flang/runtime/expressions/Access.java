@@ -7,7 +7,11 @@ import ch.ffhs.fac.flang.parser.interfaces.Literal;
 import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.LocatedInTextBase;
-
+/**
+ * Expression when an identifier gets accessed like an array
+ * @author matthieuriolo
+ *
+ */
 public class Access extends LocatedInTextBase implements Expression {
 	private final Identifier identifier;
 	private final LinkedList<Expression> expressions;
@@ -17,10 +21,18 @@ public class Access extends LocatedInTextBase implements Expression {
 		this.expressions = expressions;
 	}
 	
+	/**
+	 * Getter for the identifier
+	 * @return an {@link Identifier}
+	 */
 	public Identifier getIdentifier() {
 		return identifier;
 	}
 	
+	/**
+	 * Getter for the expressions (indexes)
+	 * @return a list of {@link Expression}
+	 */
 	public LinkedList<Expression> getExpressions() {
 		return expressions;
 	}

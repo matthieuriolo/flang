@@ -6,6 +6,12 @@ import ch.ffhs.fac.flang.parser.interfaces.Visitor;
 import ch.ffhs.fac.flang.runtime.Context;
 import ch.ffhs.fac.flang.runtime.bases.LocatedInTextBase;
 
+/**
+ * Expression for variables (identifier)
+ * 
+ * @author matthieuriolo
+ *
+ */
 public class Identifier extends LocatedInTextBase implements Expression {
 	private final java.lang.String name;
 	
@@ -13,6 +19,10 @@ public class Identifier extends LocatedInTextBase implements Expression {
 		this.name = name;
 	}
 	
+	/**
+	 * Getter for the name of the variable
+	 * @return the name of the variable
+	 */
 	public java.lang.String getName() {
 		return name;
 	}
