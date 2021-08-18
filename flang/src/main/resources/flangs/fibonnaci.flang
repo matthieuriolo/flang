@@ -5,7 +5,7 @@ fib = :(steps) {
 	if steps < 2 {
 		return steps
 	}
-	return fib(steps- 1) + fib(steps-2)
+	return fib(steps - 1) + fib(steps - 2)
 }
 
 print(fib(0))
