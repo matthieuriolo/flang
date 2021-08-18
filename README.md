@@ -10,7 +10,7 @@ https://git.ffhs.ch/matthieu.riolo/flang
 
 # Screenshots
 
-![Example of the lexer](flang-lexer.PNG)
+![preview of the flang application](preview.png)
 
 # Example codes
 
